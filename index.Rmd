@@ -74,7 +74,7 @@ We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network An
 
 
 
-![](images/image.jpg)
+![](images/frontpage.jpg)
 
 
 :::
