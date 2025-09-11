@@ -2,18 +2,12 @@
 title: "Lab journal BK"
 author: "by: Bram Koeweiden"
 bibliography: references.bib
-
- 
 ---
 
-
-
-
-
 ```{r, install remotely, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
-install.packages("remotes")
-remotes::install_github("rlesur/klippy")
-``` 
+#install.packages("remotes")
+#remotes::install_github("rlesur/klippy")
+```
 
 ```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
 library(knitr)
@@ -29,78 +23,62 @@ colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", co
 
 ```
 
-```{r klippy, echo=FALSE, eval= FALSE, include=TRUE}
-klippy::klippy(position = c('top', 'right'))
+```{r klippy, echo=FALSE, eval= TRUE, include=TRUE}
+klippy::klippy(position = c( 'right'))
 klippy::klippy(color = 'darkred')
 klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
 
+------------------------------------------------------------------------
 
-
-----
-
+```{=html}
 <!--- This is the best way to write a comment. 
-It also demonstrate, you can add html directly in your rmarkdown file. See: https://www.w3schools.com/html/html_comments.asp ---> 
+It also demonstrate, you can add html directly in your rmarkdown file. See: https://www.w3schools.com/html/html_comments.asp --->
+```
 
-
+```{=html}
 <!--- to use a multi column page we use Pandoc's fenced Div. 
 see here: https://bookdown.org/yihui/rmarkdown-cookbook/multi-column.html 
-But please note, we are not here to make a beautiful website, our intention is just to have a quick lab journal up and running ---> 
-
-:::: {.columns}
-::: {.column width="50%"}
+But please note, we are not here to make a beautiful website, our intention is just to have a quick lab journal up and running --->
+```
 
 # My Lab Journal
-Last compiled on `r format(Sys.time(), '%B, %Y')`  
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 *Describe lab journal here.*
 
 <br>
 
-----
+------------------------------------------------------------------------
 
-## Open Science  
+## Open Science
 
-Everyone can fork this repository. Use this example to journal your lab work and assignments. 
+Everyone can fork this repository. Use this example to journal your lab work and assignments.
 
 We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network Analysis For Social Scientists course [@SNASS]. <!--- this is a reference, stored in references.bib. It will be automatically added at the bottom of the page --->
 
-
-:::
-
-::: {.column width="50%"}
-
-
-
+```{r test, fig.width = 6, fig.height = 3, eval=FALSE}
+knitr::include_graphics("./images/frontpage.jpg")
+```
 
 ![](images/frontpage.jpg)
 
-
-:::
-::::
-
-
 ## How to use
 
-1. Fork the repository for this website and follow instructions on `README` to get started [here](https://github.com/JochemTolsma/labjournal).  
+1.  Fork the repository for this website and follow instructions on `README` to get started [here](https://github.com/JochemTolsma/labjournal).
 
-2. Journal your work, by editing the .Rmd-files
+2.  Journal your work, by editing the .Rmd-files
 
-3. ...
+3.  ...
 
-4. Change everything to make it your own!
-
+4.  Change everything to make it your own!
 
 <br>
 
 Use the top menu to navigate through the journal.
 
-
-----
+------------------------------------------------------------------------
 
 # References
-
-
-
-
