@@ -29,7 +29,6 @@ klippy::klippy(color = 'darkred')
 klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
 ```
 
-
 ------------------------------------------------------------------------
 
 ```{=html}
@@ -82,3 +81,9 @@ Use the top menu to navigate through the journal.
 ------------------------------------------------------------------------
 
 # References
+
+Fronczak, A., Mrowinski, M. J., & Fronczak, P. (2022). Scientific success from the perspective of the strength of weak ties. Scientific Reports, 12(1). <https://doi.org/10.1038/s41598-022-09118-8>
+
+Granovetter, M. S. (1973). The strength of weak ties. American Journal of Sociology, 78(6), 1360–1380. <https://doi.org/10.1086/225469>
+
+Hui, A. (2016). The Boundaries of Interdisciplinary Fields: Temporalities Shaping the Past and Future of Dialogue between Migration and Mobilities Research. Mobilities, 11(1), 66–82. <https://doi.org/10.1080/17450101.2015.1097033>

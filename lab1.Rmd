@@ -34,18 +34,23 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
   
 week 1: research questions
 
+Granovetter (1973) posited long ago that social network structures are crucial in conecting micro and macro level phenomena. His theory is centered around the idea that ties between dense social networks, weak ties, are crucial in transmitting information as 'strong ties' in dense networks often transmit a lot of redundant information. This insight is shown to be particularly relevant for scientific collaboration networks as scientists with more weak ties are shown to have markedly higher H-indexes than scientists with fewer weak ties (Fronczak, Mrowinski, & Fronczak, 2022). 
 
+The trouble with the strength of weak ties finding in scientific collaboration networks is that it is hard to untangle whether this is caused by the quality of the research or the popularity of the researchers. To shed some light on this issue the present study will take the type of weak tie into account. If the increased H-index due to weak ties is purely caused by popularity, the type of weak ties should not matter. However, the mechanism leading to increased quality is based on weak ties providing novel insights leading to creative research. As scientific disciplines are defined by their disciplinary norms and boundaries (Hui, 2016), creating interdisciplinary weak ties might be more beneficial than regular weak ties. Thus comparing the strength of weak ties within and between disciplines might aid understanding of the true societal benefit of weak ties in scientific collaboration.
 
-This is just an example page of your `r colorize("lab journal", "red")`.
-You can journal the assignments of the first day here.
-  
+Research questions:
+
+1: To what extent do researchers with more weak ties have higher H-indexes than scientists with fewer weak ties in the fields of sociology and political science in the Netherlands?
+
+2: To what degree does the proportion of interdisciplinary weak ties increase or decrease the relationship between amount of weak ties and H-index?
 
 ----
 
+References:
 
-```{r}
-print("Hello Lab Journal")
-```
+Fronczak, A., Mrowinski, M. J., & Fronczak, P. (2022). Scientific success from the perspective of the strength of weak ties. Scientific Reports, 12(1). https://doi.org/10.1038/s41598-022-09118-8 
 
+Granovetter, M. S. (1973). The strength of weak ties. American Journal of Sociology, 78(6), 1360–1380. https://doi.org/10.1086/225469 
 
+Hui, A. (2016). The Boundaries of Interdisciplinary Fields: Temporalities Shaping the Past and Future of Dialogue between Migration and Mobilities Research. Mobilities, 11(1), 66–82. https://doi.org/10.1080/17450101.2015.1097033
 

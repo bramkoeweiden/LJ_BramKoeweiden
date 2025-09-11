@@ -37,7 +37,7 @@ week 2: TBA
 
 
 This is just an example page of your `r colorize("lab journal", "blue")`.
-You can journal the assignments of the first day here.
+You can journal the assignments of the second day here.
   
 
 ----
