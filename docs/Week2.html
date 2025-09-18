@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Bram" />
+
+<meta name="date" content="2025-09-05" />
+
+<title>R tutorial</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="lab1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introduction</a>
+    </li>
+    <li>
+      <a href="theory.html">Theory</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/bramkoeweiden/LJ_BramKoeweiden">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">R tutorial</h1>
+<h4 class="author">Bram</h4>
+<h4 class="date">2025-09-05</h4>
+
+</div>
+
+
+<div id="homework-week-2" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Homework week 2</h1>
+<p>On this page The work we did in class is displayed first. After which
+I have described the data from one of the papers I will use for my
+project and in the final section there is a description of the variables
+I expect to need for my project.</p>
+<hr />
+</div>
+<div id="in-class-work" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> in-class work</h1>
+<pre class="r"><code>set.seed(42)
+snm &lt;- matrix(sample(x= 0:1, size=100*100, replace = T), nrow = 100, ncol = 100)
+
+diag(snm) &lt;- 0
+
+snm2 &lt;- t(snm)
+
+snm[upper.tri(snm)] &lt;- snm2[upper.tri(snm2)]
+
+snmsums &lt;- rowSums (x=snm)
+mean(snmsums)</code></pre>
+<pre><code>## [1] 48.46</code></pre>
+<pre class="r"><code>#descriptives: mean nominations, stddev, outdegree, indegree
+sum (snmsums)</code></pre>
+<pre><code>## [1] 4846</code></pre>
+<pre class="r"><code>density &lt;- (sum(snmsums)/9900)
+#density (total ties/possible ties)
+
+density</code></pre>
+<pre><code>## [1] 0.4894949</code></pre>
+<pre class="r"><code>rm(snmd)</code></pre>
+<pre><code>## Warning in rm(snmd): object &#39;snmd&#39; not found</code></pre>
+<pre class="r"><code>snmd &lt;- matrix(sample(x= 0:1, size=10000, replace = T), nrow = 100, ncol = 100)
+
+diag(snmd) &lt;- 0
+
+snmd2 &lt;- (t(snmd[upper.tri(snmd)])+snmd[lower.tri(snmd)])
+
+
+set.seed(40)
+
+snt &lt;- matrix(sample(x= 0:1, size=4*4, replace = T), nrow = 4, ncol = 4)
+
+diag(snt) &lt;- 0
+
+snt2 &lt;- t(snt)
+
+
+
+snt[upper.tri(snt)] &lt;- snt2[upper.tri(snt2)]
+snt[lower.tri(snt)]</code></pre>
+<pre><code>## [1] 0 1 1 0 1 1</code></pre>
+<pre class="r"><code># Print connections 1 (3 and 4)
+# Test if 3 connects to 4
+#</code></pre>
+<p>Making high density network in class</p>
+<pre class="r"><code>install.packages(&quot;igraph&quot;)</code></pre>
+<pre><code>## 
+## The downloaded binary packages are in
+##  /var/folders/bq/bp7qm1nj40146k2d8nfv1j3c0000gn/T//Rtmp6MDV1q/downloaded_packages</code></pre>
+<pre class="r"><code>library(igraph)</code></pre>
+<pre><code>## 
+## Attaching package: &#39;igraph&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     decompose, spectrum</code></pre>
+<pre><code>## The following object is masked from &#39;package:base&#39;:
+## 
+##     union</code></pre>
+<pre class="r"><code>set.seed(123643)
+snt &lt;- matrix(sample(x= 0:1, size=16, replace = T), nrow = 4, ncol = 4)
+
+
+snt_un &lt;- snt + t(snt)
+snt_un[snt_un == 2] &lt;- 1
+diag(snt_un) &lt;-0
+snt_un</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4]
+## [1,]    0    1    1    1
+## [2,]    1    0    1    0
+## [3,]    1    1    0    1
+## [4,]    1    0    1    0</code></pre>
+<pre class="r"><code>netG &lt;-graph_from_adjacency_matrix(snt_un)
+class(netG)</code></pre>
+<pre><code>## [1] &quot;igraph&quot;</code></pre>
+<pre class="r"><code>plot(netG)</code></pre>
+<p><img src="Week2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r"><code>igraph::transitivity(netG, type=&quot;undirected&quot;)</code></pre>
+<pre><code>## [1] 0.75</code></pre>
+<pre class="r"><code>?igraph</code></pre>
+<p>Visually print the social network</p>
+<pre class="r"><code>set.seed(123643)
+snt &lt;- matrix(sample(x= 0:1, size=16, replace = T), nrow = 4, ncol = 4)
+
+diag(snt) &lt;-0
+
+netG2 &lt;-graph_from_adjacency_matrix(snt)
+plot(netG2)</code></pre>
+<p><img src="Week2_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<pre class="r"><code>igraph::dyad_census(netG2)</code></pre>
+<pre><code>## $mut
+## [1] 3
+## 
+## $asym
+## [1] 2
+## 
+## $null
+## [1] 1</code></pre>
+<hr />
+</div>
+<div id="notes-data-and-methods-fronczak2022." class="section level1"
+number="3">
+<h1><span class="header-section-number">3</span> Notes data and methods
+<span class="citation">(Fronczak, Mrowinski, and Fronczak
+2022)</span>.</h1>
+<p><strong>First hypothesis</strong></p>
+<p>This study employs similar methods to what I want to do. To test
+whether academics who have strong ties (many collaborations) also tend
+to have more network overlap, this study plotted tie strength against
+network overlap. However, due to established scientists with many ties
+cooperating with scientists with much fewer publications the measure of
+network overlap had to be amended to be unidirectional to account for
+this. (symmetrical measure is strongly biased towards the scientists
+with the most ties. this means that the more common scientists who in
+reality has a large relative network overlap with the established
+scientists appears to have a much weaker overlap which reverses the
+results.</p>
+<p><img src="images/clipboard-1697859697.png" /></p>
+<p>Formula asymetric overlap (Nij=common nabours, Ki=degrees)</p>
+<p><img src="images/clipboard-672219640.png" width="162" /></p>
+<p>Tie strength is also measured asymmetrically (Wij = tie strength in
+number of common publications, Pi = number of total publications)</p>
+<p><img src="images/clipboard-4282385513.png" width="162" /></p>
+<p>The rational behind this is that for scientists with many
+publication, each new tie carries less weight and reflects less strongly
+on importance of the collaboration for the scientists.</p>
+<p>This measure I am a bit more skeptical of. While changing the weight
+of tie strength according to amount of publications, a linear relation
+seems problematic. For someone who has published 60 papers in total 20
+of which are published with the same coauthor, would have a tie strength
+of: 20/60=0.33. At the same time a young scientists who has just
+published their first two papers with two different co-authors would
+have a tie strength of 0.5 with both of them.</p>
+<p>Based on this example you would think the young scientists has
+stronger ties. Theoretically however, it seems hard to argue that his
+bond with both authors is stronger than the bond of the scientists who
+has published 20 papers with the same colleague.</p>
+<p><strong>2nd hypothesis</strong></p>
+<p>The second hypothesis is tested by plotting the average number of
+citations against the relative tie strength of scientists. The authors
+have also normalized this metric against total number of publications to
+account for established scientists getting more citations.</p>
+<hr />
+</div>
+<div id="required-data" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> required data</h1>
+<p>I want to study how to what degree the measurement of tie strength
+has unfairly strengthened the relationship between overlap and tie
+strength in the paper by <span class="citation">Fronczak, Mrowinski, and
+Fronczak (2022)</span>. To do this I need three measures at the ego
+level:</p>
+<p>average relative tie strength</p>
+<p>average absolute tie strength</p>
+<p>average asymmetrical overlap</p>
+<p>Furthermore, I want to study whether the positive effect on citations
+of having on average weaker ties is stronger if these scientists are
+involved with more interdisciplinary work. For this I need</p>
+<p>H index on ego level</p>
+<p>Number of disciplines a scientists has published in.</p>
+<hr />
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">references</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+<div id="ref-fronczak2022" class="csl-entry">
+Fronczak, Agata, Maciej J. Mrowinski, and Piotr Fronczak. 2022.
+<span>“Scientific Success from the Perspective of the Strength of Weak
+Ties.”</span> <em>Scientific Reports</em> 12 (1). <a
+href="https://doi.org/10.1038/s41598-022-09118-8">https://doi.org/10.1038/s41598-022-09118-8</a>.
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiUiB0dXRvcmlhbCIKYXV0aG9yOiAiQnJhbSIKZGF0ZTogIjIwMjUtMDktMDUiCm91dHB1dDogaHRtbF9kb2N1bWVudApiaWJsaW9ncmFwaHk6IHJlZmVyZW5jZXMuYmliCi0tLQoKYGBge3Igc2V0dXAsIGluY2x1ZGU9RkFMU0V9CmtuaXRyOjpvcHRzX2NodW5rJHNldChlY2hvID0gVFJVRSkKYGBgCgojIEhvbWV3b3JrIHdlZWsgMgoKT24gdGhpcyBwYWdlIFRoZSB3b3JrIHdlIGRpZCBpbiBjbGFzcyBpcyBkaXNwbGF5ZWQgZmlyc3QuIEFmdGVyIHdoaWNoIEkgaGF2ZSBkZXNjcmliZWQgdGhlIGRhdGEgZnJvbSBvbmUgb2YgdGhlIHBhcGVycyBJIHdpbGwgdXNlIGZvciBteSBwcm9qZWN0IGFuZCBpbiB0aGUgZmluYWwgc2VjdGlvbiB0aGVyZSBpcyBhIGRlc2NyaXB0aW9uIG9mIHRoZSB2YXJpYWJsZXMgSSBleHBlY3QgdG8gbmVlZCBmb3IgbXkgcHJvamVjdC4KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBpbi1jbGFzcyB3b3JrCgpgYGB7cn0Kc2V0LnNlZWQoNDIpCnNubSA8LSBtYXRyaXgoc2FtcGxlKHg9IDA6MSwgc2l6ZT0xMDAqMTAwLCByZXBsYWNlID0gVCksIG5yb3cgPSAxMDAsIG5jb2wgPSAxMDApCgpkaWFnKHNubSkgPC0gMAoKc25tMiA8LSB0KHNubSkKCnNubVt1cHBlci50cmkoc25tKV0gPC0gc25tMlt1cHBlci50cmkoc25tMildCgpzbm1zdW1zIDwtIHJvd1N1bXMgKHg9c25tKQptZWFuKHNubXN1bXMpCgojZGVzY3JpcHRpdmVzOiBtZWFuIG5vbWluYXRpb25zLCBzdGRkZXYsIG91dGRlZ3JlZSwgaW5kZWdyZWUKc3VtIChzbm1zdW1zKQoKZGVuc2l0eSA8LSAoc3VtKHNubXN1bXMpLzk5MDApCiNkZW5zaXR5ICh0b3RhbCB0aWVzL3Bvc3NpYmxlIHRpZXMpCgpkZW5zaXR5CgpybShzbm1kKQoKc25tZCA8LSBtYXRyaXgoc2FtcGxlKHg9IDA6MSwgc2l6ZT0xMDAwMCwgcmVwbGFjZSA9IFQpLCBucm93ID0gMTAwLCBuY29sID0gMTAwKQoKZGlhZyhzbm1kKSA8LSAwCgpzbm1kMiA8LSAodChzbm1kW3VwcGVyLnRyaShzbm1kKV0pK3NubWRbbG93ZXIudHJpKHNubWQpXSkKCgpzZXQuc2VlZCg0MCkKCnNudCA8LSBtYXRyaXgoc2FtcGxlKHg9IDA6MSwgc2l6ZT00KjQsIHJlcGxhY2UgPSBUKSwgbnJvdyA9IDQsIG5jb2wgPSA0KQoKZGlhZyhzbnQpIDwtIDAKCnNudDIgPC0gdChzbnQpCgoKCnNudFt1cHBlci50cmkoc250KV0gPC0gc250Mlt1cHBlci50cmkoc250MildCnNudFtsb3dlci50cmkoc250KV0KCiMgUHJpbnQgY29ubmVjdGlvbnMgMSAoMyBhbmQgNCkKIyBUZXN0IGlmIDMgY29ubmVjdHMgdG8gNAojCmBgYAoKTWFraW5nIGhpZ2ggZGVuc2l0eSBuZXR3b3JrIGluIGNsYXNzCgpgYGB7cn0KaW5zdGFsbC5wYWNrYWdlcygiaWdyYXBoIikKbGlicmFyeShpZ3JhcGgpCgpzZXQuc2VlZCgxMjM2NDMpCnNudCA8LSBtYXRyaXgoc2FtcGxlKHg9IDA6MSwgc2l6ZT0xNiwgcmVwbGFjZSA9IFQpLCBucm93ID0gNCwgbmNvbCA9IDQpCgoKc250X3VuIDwtIHNudCArIHQoc250KQpzbnRfdW5bc250X3VuID09IDJdIDwtIDEKZGlhZyhzbnRfdW4pIDwtMApzbnRfdW4KbmV0RyA8LWdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeChzbnRfdW4pCmNsYXNzKG5ldEcpCnBsb3QobmV0RykKaWdyYXBoOjp0cmFuc2l0aXZpdHkobmV0RywgdHlwZT0idW5kaXJlY3RlZCIpCgo/aWdyYXBoCmBgYAoKVmlzdWFsbHkgcHJpbnQgdGhlIHNvY2lhbCBuZXR3b3JrCgpgYGB7cn0Kc2V0LnNlZWQoMTIzNjQzKQpzbnQgPC0gbWF0cml4KHNhbXBsZSh4PSAwOjEsIHNpemU9MTYsIHJlcGxhY2UgPSBUKSwgbnJvdyA9IDQsIG5jb2wgPSA0KQoKZGlhZyhzbnQpIDwtMAoKbmV0RzIgPC1ncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgoc250KQpwbG90KG5ldEcyKQppZ3JhcGg6OmR5YWRfY2Vuc3VzKG5ldEcyKQoKYGBgCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMgTm90ZXMgZGF0YSBhbmQgbWV0aG9kcyBbQGZyb25jemFrMjAyMl0uCgoqKkZpcnN0IGh5cG90aGVzaXMqKgoKVGhpcyBzdHVkeSBlbXBsb3lzIHNpbWlsYXIgbWV0aG9kcyB0byB3aGF0IEkgd2FudCB0byBkby4gVG8gdGVzdCB3aGV0aGVyIGFjYWRlbWljcyB3aG8gaGF2ZSBzdHJvbmcgdGllcyAobWFueSBjb2xsYWJvcmF0aW9ucykgYWxzbyB0ZW5kIHRvIGhhdmUgbW9yZSBuZXR3b3JrIG92ZXJsYXAsIHRoaXMgc3R1ZHkgcGxvdHRlZCB0aWUgc3RyZW5ndGggYWdhaW5zdCBuZXR3b3JrIG92ZXJsYXAuIEhvd2V2ZXIsIGR1ZSB0byBlc3RhYmxpc2hlZCBzY2llbnRpc3RzIHdpdGggbWFueSB0aWVzIGNvb3BlcmF0aW5nIHdpdGggc2NpZW50aXN0cyB3aXRoIG11Y2ggZmV3ZXIgcHVibGljYXRpb25zIHRoZSBtZWFzdXJlIG9mIG5ldHdvcmsgb3ZlcmxhcCBoYWQgdG8gYmUgYW1lbmRlZCB0byBiZSB1bmlkaXJlY3Rpb25hbCB0byBhY2NvdW50IGZvciB0aGlzLiAoc3ltbWV0cmljYWwgbWVhc3VyZSBpcyBzdHJvbmdseSBiaWFzZWQgdG93YXJkcyB0aGUgc2NpZW50aXN0cyB3aXRoIHRoZSBtb3N0IHRpZXMuIHRoaXMgbWVhbnMgdGhhdCB0aGUgbW9yZSBjb21tb24gc2NpZW50aXN0cyB3aG8gaW4gcmVhbGl0eSBoYXMgYSBsYXJnZSByZWxhdGl2ZSBuZXR3b3JrIG92ZXJsYXAgd2l0aCB0aGUgZXN0YWJsaXNoZWQgc2NpZW50aXN0cyBhcHBlYXJzIHRvIGhhdmUgYSBtdWNoIHdlYWtlciBvdmVybGFwIHdoaWNoIHJldmVyc2VzIHRoZSByZXN1bHRzLgoKIVtdKGltYWdlcy9jbGlwYm9hcmQtMTY5Nzg1OTY5Ny5wbmcpCgpGb3JtdWxhIGFzeW1ldHJpYyBvdmVybGFwIChOaWo9Y29tbW9uIG5hYm91cnMsIEtpPWRlZ3JlZXMpCgohW10oaW1hZ2VzL2NsaXBib2FyZC02NzIyMTk2NDAucG5nKXt3aWR0aD0iMTYyIn0KClRpZSBzdHJlbmd0aCBpcyBhbHNvIG1lYXN1cmVkIGFzeW1tZXRyaWNhbGx5IChXaWogPSB0aWUgc3RyZW5ndGggaW4gbnVtYmVyIG9mIGNvbW1vbiBwdWJsaWNhdGlvbnMsIFBpID0gbnVtYmVyIG9mIHRvdGFsIHB1YmxpY2F0aW9ucykKCiFbXShpbWFnZXMvY2xpcGJvYXJkLTQyODIzODU1MTMucG5nKXt3aWR0aD0iMTYyIn0KClRoZSByYXRpb25hbCBiZWhpbmQgdGhpcyBpcyB0aGF0IGZvciBzY2llbnRpc3RzIHdpdGggbWFueSBwdWJsaWNhdGlvbiwgZWFjaCBuZXcgdGllIGNhcnJpZXMgbGVzcyB3ZWlnaHQgYW5kIHJlZmxlY3RzIGxlc3Mgc3Ryb25nbHkgb24gaW1wb3J0YW5jZSBvZiB0aGUgY29sbGFib3JhdGlvbiBmb3IgdGhlIHNjaWVudGlzdHMuCgpUaGlzIG1lYXN1cmUgSSBhbSBhIGJpdCBtb3JlIHNrZXB0aWNhbCBvZi4gV2hpbGUgY2hhbmdpbmcgdGhlIHdlaWdodCBvZiB0aWUgc3RyZW5ndGggYWNjb3JkaW5nIHRvIGFtb3VudCBvZiBwdWJsaWNhdGlvbnMsIGEgbGluZWFyIHJlbGF0aW9uIHNlZW1zIHByb2JsZW1hdGljLiBGb3Igc29tZW9uZSB3aG8gaGFzIHB1Ymxpc2hlZCA2MCBwYXBlcnMgaW4gdG90YWwgMjAgb2Ygd2hpY2ggYXJlIHB1Ymxpc2hlZCB3aXRoIHRoZSBzYW1lIGNvYXV0aG9yLCB3b3VsZCBoYXZlIGEgdGllIHN0cmVuZ3RoIG9mOiAyMC82MD0wLjMzLiBBdCB0aGUgc2FtZSB0aW1lIGEgeW91bmcgc2NpZW50aXN0cyB3aG8gaGFzIGp1c3QgcHVibGlzaGVkIHRoZWlyIGZpcnN0IHR3byBwYXBlcnMgd2l0aCB0d28gZGlmZmVyZW50IGNvLWF1dGhvcnMgd291bGQgaGF2ZSBhIHRpZSBzdHJlbmd0aCBvZiAwLjUgd2l0aCBib3RoIG9mIHRoZW0uCgpCYXNlZCBvbiB0aGlzIGV4YW1wbGUgeW91IHdvdWxkIHRoaW5rIHRoZSB5b3VuZyBzY2llbnRpc3RzIGhhcyBzdHJvbmdlciB0aWVzLiBUaGVvcmV0aWNhbGx5IGhvd2V2ZXIsIGl0IHNlZW1zIGhhcmQgdG8gYXJndWUgdGhhdCBoaXMgYm9uZCB3aXRoIGJvdGggYXV0aG9ycyBpcyBzdHJvbmdlciB0aGFuIHRoZSBib25kIG9mIHRoZSBzY2llbnRpc3RzIHdobyBoYXMgcHVibGlzaGVkIDIwIHBhcGVycyB3aXRoIHRoZSBzYW1lIGNvbGxlYWd1ZS4KCioqMm5kIGh5cG90aGVzaXMqKgoKVGhlIHNlY29uZCBoeXBvdGhlc2lzIGlzIHRlc3RlZCBieSBwbG90dGluZyB0aGUgYXZlcmFnZSBudW1iZXIgb2YgY2l0YXRpb25zIGFnYWluc3QgdGhlIHJlbGF0aXZlIHRpZSBzdHJlbmd0aCBvZiBzY2llbnRpc3RzLiBUaGUgYXV0aG9ycyBoYXZlIGFsc28gbm9ybWFsaXplZCB0aGlzIG1ldHJpYyBhZ2FpbnN0IHRvdGFsIG51bWJlciBvZiBwdWJsaWNhdGlvbnMgdG8gYWNjb3VudCBmb3IgZXN0YWJsaXNoZWQgc2NpZW50aXN0cyBnZXR0aW5nIG1vcmUgY2l0YXRpb25zLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIHJlcXVpcmVkIGRhdGEKCkkgd2FudCB0byBzdHVkeSBob3cgdG8gd2hhdCBkZWdyZWUgdGhlIG1lYXN1cmVtZW50IG9mIHRpZSBzdHJlbmd0aCBoYXMgdW5mYWlybHkgc3RyZW5ndGhlbmVkIHRoZSByZWxhdGlvbnNoaXAgYmV0d2VlbiBvdmVybGFwIGFuZCB0aWUgc3RyZW5ndGggaW4gdGhlIHBhcGVyIGJ5IEBmcm9uY3phazIwMjIuIFRvIGRvIHRoaXMgSSBuZWVkIHRocmVlIG1lYXN1cmVzIGF0IHRoZSBlZ28gbGV2ZWw6CgphdmVyYWdlIHJlbGF0aXZlIHRpZSBzdHJlbmd0aAoKYXZlcmFnZSBhYnNvbHV0ZSB0aWUgc3RyZW5ndGgKCmF2ZXJhZ2UgYXN5bW1ldHJpY2FsIG92ZXJsYXAKCkZ1cnRoZXJtb3JlLCBJIHdhbnQgdG8gc3R1ZHkgd2hldGhlciB0aGUgcG9zaXRpdmUgZWZmZWN0IG9uIGNpdGF0aW9ucyBvZiBoYXZpbmcgb24gYXZlcmFnZSB3ZWFrZXIgdGllcyBpcyBzdHJvbmdlciBpZiB0aGVzZSBzY2llbnRpc3RzIGFyZSBpbnZvbHZlZCB3aXRoIG1vcmUgaW50ZXJkaXNjaXBsaW5hcnkgd29yay4gRm9yIHRoaXMgSSBuZWVkCgpIIGluZGV4IG9uIGVnbyBsZXZlbAoKTnVtYmVyIG9mIGRpc2NpcGxpbmVzIGEgc2NpZW50aXN0cyBoYXMgcHVibGlzaGVkIGluLgoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIHJlZmVyZW5jZXMK</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Week2.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

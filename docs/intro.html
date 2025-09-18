@@ -70,6 +70,29 @@ if (window.hljs) {
 }
 </style>
 
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="tweaks.css" type="text/css" />
 
@@ -349,7 +372,7 @@ div.tocify {
       <a href="lab1.html">Week 1</a>
     </li>
     <li>
-      <a href="lab2.html">Week 2</a>
+      <a href="Week2.html">Week 2</a>
     </li>
   </ul>
 </li>
@@ -404,15 +427,95 @@ div.tocify {
 <p>Last compiled on September, 2025</p>
 <p><br></p>
 <hr />
-<p>Introduction</p>
-<p>This is just an example page of your <span style="color: yellow;">lab
-journal</span>. You can journal introduction section of your paper
-here.</p>
+<div id="introduction" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Introduction</h1>
+<p>Citation based indicators have long been used as indicators of
+scientific quality and have consequently shaped measures like the
+H-index to measure a scientists prestige <span class="citation">(Ding
+and Cronin 2011)</span>. However, as scientists collaborate and their
+network plays a role in the articles they come across, questions can be
+raised about whether the H-index is actually measures the quality of
+their work or the popularity they have gained <span
+class="citation">(Ding and Cronin 2011; Fronczak, Mrowinski, and
+Fronczak 2022)</span>. <span class="citation">Ding and Cronin
+(2011)</span> have shown how the prestige and popularity of a
+researchers are not always correlated. However, they acknowledge that
+their analysis is limited because citations and popularity are in part
+determined by relationships and co-authorship networks, thus requiring a
+social network approach to fully understand.</p>
+<p><span class="citation">Fronczak, Mrowinski, and Fronczak
+(2022)</span> prove the utility of a social network approach by showing
+how scientists tend to achieve higher H-indexes when they cooperate with
+more different scientists rather than cooperating with the same
+scientists for many different papers. They propose that this is a result
+the strength of weak ties theory by <span class="citation">Granovetter
+(1973)</span>, which poses that weaker ties tend to have less overlap
+with your social network. As a result, they offer less redundant
+information leading to new insights. However, having a more spread out
+cooperation network might also predict the popularity of a researcher
+rather than the quality of their work. This would be a result of these
+researchers simply being known by more colleagues who know to look for
+their research when they need specific information. In both cases the
+assumption of weaker ties actually having less overlap with the rest of
+ones network has to be tested. I will use both relative tie strength in
+accordance with <span class="citation">Fronczak, Mrowinski, and Fronczak
+(2022)</span> and absolute tie strength to more closely resemble the
+theoretical concept proposed by <span class="citation">Granovetter
+(1973)</span>.</p>
+<p><em>RQ1: Do researchers who have relatively weaker ties on average,
+also have on average less relative overlap in their contacts?</em></p>
+<p><em>RQ2: Do researchers who have weaker ties on average, also have on
+average less relative overlap in their contacts?</em></p>
+<p>Furthermore I will test whether having a higher proportion of weak
+ties actually influences a scientists H-index</p>
+<p><em>RQ3: To what degree is the average strength of the collaboration
+ties a scientist has related to their H-index?</em></p>
+<p>To add to the literature, the present study will attempt to improve
+understanding of the popularity versus quality question by introducing
+interdisciplinarrity as a measure about the nature of collaboration
+networks. I expect this to be a relevant measure as <span
+class="citation">Granovetter (1973)</span> posits that the benefits of
+weak ties is getting new information not present in your environment. As
+the insights scientific disciplines can generate are bounded by the
+norms and worldview which shape the discipline <span
+class="citation">(Hui 2016)</span>, interdisciplinary cooperation might
+improve the chances of weak ties improving research quality.</p>
+<p><em>RQ4: To what degree does the effect of having on average weaker
+ties differ for scientists as their collaboration networks are more or
+less interdisciplinary?</em></p>
 <hr />
-<pre class="r test"><code>print(&quot;Hello Lab Journal&quot;)</code></pre>
-<pre class="test2"><code>#&gt; [1] &quot;Hello Lab Journal&quot;</code></pre>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1 class="unnumbered">References</h1>
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+<div id="ref-ding2011" class="csl-entry">
+Ding, Ying, and Blaise Cronin. 2011. <span>“Popular and/or Prestigious?
+Measures of Scholarly Esteem.”</span> <em>Information Processing &amp;
+Management</em> 47 (1): 80–96. <a
+href="https://doi.org/10.1016/j.ipm.2010.01.002">https://doi.org/10.1016/j.ipm.2010.01.002</a>.
+</div>
+<div id="ref-fronczak2022" class="csl-entry">
+Fronczak, Agata, Maciej J. Mrowinski, and Piotr Fronczak. 2022.
+<span>“Scientific Success from the Perspective of the Strength of Weak
+Ties.”</span> <em>Scientific Reports</em> 12 (1). <a
+href="https://doi.org/10.1038/s41598-022-09118-8">https://doi.org/10.1038/s41598-022-09118-8</a>.
+</div>
+<div id="ref-granovetter1973" class="csl-entry">
+Granovetter, Mark S. 1973. <span>“The Strength of Weak Ties.”</span>
+<em>American Journal of Sociology</em> 78 (6): 1360–80. <a
+href="https://doi.org/10.1086/225469">https://doi.org/10.1086/225469</a>.
+</div>
+<div id="ref-hui2016" class="csl-entry">
+Hui, Allison. 2016. <span>“The Boundaries of Interdisciplinary Fields:
+Temporalities Shaping the Past and Future of Dialogue Between Migration
+and Mobilities Research.”</span> <em>Mobilities</em> 11 (1): 66–82. <a
+href="https://doi.org/10.1080/17450101.2015.1097033">https://doi.org/10.1080/17450101.2015.1097033</a>.
+</div>
+</div>
+</div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW50cm9kdWN0aW9uIgojYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJCcmFtIEtvZXdlaWRlbiIKLS0tCgoKCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQojcmdsOjpzZXR1cEtuaXRyKCkKCgoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KCmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBldmFsPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCmtsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQprbGlwcHk6OmtsaXBweSh0b29sdGlwX21lc3NhZ2UgPSAnQ2xpY2sgdG8gY29weScsIHRvb2x0aXBfc3VjY2VzcyA9ICdEb25lJykKYGBgCgpMYXN0IGNvbXBpbGVkIG9uIGByIGZvcm1hdChTeXMudGltZSgpLCAnJUIsICVZJylgCgo8YnI+CgotLS0tCiAgCkludHJvZHVjdGlvbgoKCgpUaGlzIGlzIGp1c3QgYW4gZXhhbXBsZSBwYWdlIG9mIHlvdXIgYHIgY29sb3JpemUoImxhYiBqb3VybmFsIiwgInllbGxvdyIpYC4KWW91IGNhbiBqb3VybmFsIGludHJvZHVjdGlvbiBzZWN0aW9uIG9mIHlvdXIgcGFwZXIgaGVyZS4KICAKCi0tLS0KCgpgYGB7cn0KcHJpbnQoIkhlbGxvIExhYiBKb3VybmFsIikKYGBgCgoKCg==</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiSW50cm9kdWN0aW9uIgojYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJCcmFtIEtvZXdlaWRlbiIKYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgotLS0KCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQojcmdsOjpzZXR1cEtuaXRyKCkKCgoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KCmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBldmFsPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCmtsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQprbGlwcHk6OmtsaXBweSh0b29sdGlwX21lc3NhZ2UgPSAnQ2xpY2sgdG8gY29weScsIHRvb2x0aXBfc3VjY2VzcyA9ICdEb25lJykKYGBgCgpMYXN0IGNvbXBpbGVkIG9uIGByIGZvcm1hdChTeXMudGltZSgpLCAnJUIsICVZJylgCgo8YnI+CgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMgSW50cm9kdWN0aW9uCgpDaXRhdGlvbiBiYXNlZCBpbmRpY2F0b3JzIGhhdmUgbG9uZyBiZWVuIHVzZWQgYXMgaW5kaWNhdG9ycyBvZiBzY2llbnRpZmljIHF1YWxpdHkgYW5kIGhhdmUgY29uc2VxdWVudGx5IHNoYXBlZCBtZWFzdXJlcyBsaWtlIHRoZSBILWluZGV4IHRvIG1lYXN1cmUgYSBzY2llbnRpc3RzIHByZXN0aWdlIFtAZGluZzIwMTFdLiBIb3dldmVyLCBhcyBzY2llbnRpc3RzIGNvbGxhYm9yYXRlIGFuZCB0aGVpciBuZXR3b3JrIHBsYXlzIGEgcm9sZSBpbiB0aGUgYXJ0aWNsZXMgdGhleSBjb21lIGFjcm9zcywgcXVlc3Rpb25zIGNhbiBiZSByYWlzZWQgYWJvdXQgd2hldGhlciB0aGUgSC1pbmRleCBpcyBhY3R1YWxseSBtZWFzdXJlcyB0aGUgcXVhbGl0eSBvZiB0aGVpciB3b3JrIG9yIHRoZSBwb3B1bGFyaXR5IHRoZXkgaGF2ZSBnYWluZWQgW0BkaW5nMjAxMTsgQGZyb25jemFrMjAyMl0uIEBkaW5nMjAxMSBoYXZlIHNob3duIGhvdyB0aGUgcHJlc3RpZ2UgYW5kIHBvcHVsYXJpdHkgb2YgYSByZXNlYXJjaGVycyBhcmUgbm90IGFsd2F5cyBjb3JyZWxhdGVkLiBIb3dldmVyLCB0aGV5IGFja25vd2xlZGdlIHRoYXQgdGhlaXIgYW5hbHlzaXMgaXMgbGltaXRlZCBiZWNhdXNlIGNpdGF0aW9ucyBhbmQgcG9wdWxhcml0eSBhcmUgaW4gcGFydCBkZXRlcm1pbmVkIGJ5IHJlbGF0aW9uc2hpcHMgYW5kIGNvLWF1dGhvcnNoaXAgbmV0d29ya3MsIHRodXMgcmVxdWlyaW5nIGEgc29jaWFsIG5ldHdvcmsgYXBwcm9hY2ggdG8gZnVsbHkgdW5kZXJzdGFuZC4KCkBmcm9uY3phazIwMjIgcHJvdmUgdGhlIHV0aWxpdHkgb2YgYSBzb2NpYWwgbmV0d29yayBhcHByb2FjaCBieSBzaG93aW5nIGhvdyBzY2llbnRpc3RzIHRlbmQgdG8gYWNoaWV2ZSBoaWdoZXIgSC1pbmRleGVzIHdoZW4gdGhleSBjb29wZXJhdGUgd2l0aCBtb3JlIGRpZmZlcmVudCBzY2llbnRpc3RzIHJhdGhlciB0aGFuIGNvb3BlcmF0aW5nIHdpdGggdGhlIHNhbWUgc2NpZW50aXN0cyBmb3IgbWFueSBkaWZmZXJlbnQgcGFwZXJzLiBUaGV5IHByb3Bvc2UgdGhhdCB0aGlzIGlzIGEgcmVzdWx0IHRoZSBzdHJlbmd0aCBvZiB3ZWFrIHRpZXMgdGhlb3J5IGJ5IEBncmFub3ZldHRlcjE5NzMsIHdoaWNoIHBvc2VzIHRoYXQgd2Vha2VyIHRpZXMgdGVuZCB0byBoYXZlIGxlc3Mgb3ZlcmxhcCB3aXRoIHlvdXIgc29jaWFsIG5ldHdvcmsuIEFzIGEgcmVzdWx0LCB0aGV5IG9mZmVyIGxlc3MgcmVkdW5kYW50IGluZm9ybWF0aW9uIGxlYWRpbmcgdG8gbmV3IGluc2lnaHRzLiBIb3dldmVyLCBoYXZpbmcgYSBtb3JlIHNwcmVhZCBvdXQgY29vcGVyYXRpb24gbmV0d29yayBtaWdodCBhbHNvIHByZWRpY3QgdGhlIHBvcHVsYXJpdHkgb2YgYSByZXNlYXJjaGVyIHJhdGhlciB0aGFuIHRoZSBxdWFsaXR5IG9mIHRoZWlyIHdvcmsuIFRoaXMgd291bGQgYmUgYSByZXN1bHQgb2YgdGhlc2UgcmVzZWFyY2hlcnMgc2ltcGx5IGJlaW5nIGtub3duIGJ5IG1vcmUgY29sbGVhZ3VlcyB3aG8ga25vdyB0byBsb29rIGZvciB0aGVpciByZXNlYXJjaCB3aGVuIHRoZXkgbmVlZCBzcGVjaWZpYyBpbmZvcm1hdGlvbi4gSW4gYm90aCBjYXNlcyB0aGUgYXNzdW1wdGlvbiBvZiB3ZWFrZXIgdGllcyBhY3R1YWxseSBoYXZpbmcgbGVzcyBvdmVybGFwIHdpdGggdGhlIHJlc3Qgb2Ygb25lcyBuZXR3b3JrIGhhcyB0byBiZSB0ZXN0ZWQuIEkgd2lsbCB1c2UgYm90aCByZWxhdGl2ZSB0aWUgc3RyZW5ndGggaW4gYWNjb3JkYW5jZSB3aXRoIEBmcm9uY3phazIwMjIgYW5kIGFic29sdXRlIHRpZSBzdHJlbmd0aCB0byBtb3JlIGNsb3NlbHkgcmVzZW1ibGUgdGhlIHRoZW9yZXRpY2FsIGNvbmNlcHQgcHJvcG9zZWQgYnkgQGdyYW5vdmV0dGVyMTk3My4KCipSUTE6IERvIHJlc2VhcmNoZXJzIHdobyBoYXZlIHJlbGF0aXZlbHkgd2Vha2VyIHRpZXMgb24gYXZlcmFnZSwgYWxzbyBoYXZlIG9uIGF2ZXJhZ2UgbGVzcyByZWxhdGl2ZSBvdmVybGFwIGluIHRoZWlyIGNvbnRhY3RzPyoKCipSUTI6IERvIHJlc2VhcmNoZXJzIHdobyBoYXZlIHdlYWtlciB0aWVzIG9uIGF2ZXJhZ2UsIGFsc28gaGF2ZSBvbiBhdmVyYWdlIGxlc3MgcmVsYXRpdmUgb3ZlcmxhcCBpbiB0aGVpciBjb250YWN0cz8qCgpGdXJ0aGVybW9yZSBJIHdpbGwgdGVzdCB3aGV0aGVyIGhhdmluZyBhIGhpZ2hlciBwcm9wb3J0aW9uIG9mIHdlYWsgdGllcyBhY3R1YWxseSBpbmZsdWVuY2VzIGEgc2NpZW50aXN0cyBILWluZGV4CgoqUlEzOiBUbyB3aGF0IGRlZ3JlZSBpcyB0aGUgYXZlcmFnZSBzdHJlbmd0aCBvZiB0aGUgY29sbGFib3JhdGlvbiB0aWVzIGEgc2NpZW50aXN0IGhhcyByZWxhdGVkIHRvIHRoZWlyIEgtaW5kZXg/KgoKVG8gYWRkIHRvIHRoZSBsaXRlcmF0dXJlLCB0aGUgcHJlc2VudCBzdHVkeSB3aWxsIGF0dGVtcHQgdG8gaW1wcm92ZSB1bmRlcnN0YW5kaW5nIG9mIHRoZSBwb3B1bGFyaXR5IHZlcnN1cyBxdWFsaXR5IHF1ZXN0aW9uIGJ5IGludHJvZHVjaW5nIGludGVyZGlzY2lwbGluYXJyaXR5IGFzIGEgbWVhc3VyZSBhYm91dCB0aGUgbmF0dXJlIG9mIGNvbGxhYm9yYXRpb24gbmV0d29ya3MuIEkgZXhwZWN0IHRoaXMgdG8gYmUgYSByZWxldmFudCBtZWFzdXJlIGFzIEBncmFub3ZldHRlcjE5NzMgcG9zaXRzIHRoYXQgdGhlIGJlbmVmaXRzIG9mIHdlYWsgdGllcyBpcyBnZXR0aW5nIG5ldyBpbmZvcm1hdGlvbiBub3QgcHJlc2VudCBpbiB5b3VyIGVudmlyb25tZW50LiBBcyB0aGUgaW5zaWdodHMgc2NpZW50aWZpYyBkaXNjaXBsaW5lcyBjYW4gZ2VuZXJhdGUgYXJlIGJvdW5kZWQgYnkgdGhlIG5vcm1zIGFuZCB3b3JsZHZpZXcgd2hpY2ggc2hhcGUgdGhlIGRpc2NpcGxpbmUgW0BodWkyMDE2XSwgaW50ZXJkaXNjaXBsaW5hcnkgY29vcGVyYXRpb24gbWlnaHQgaW1wcm92ZSB0aGUgY2hhbmNlcyBvZiB3ZWFrIHRpZXMgaW1wcm92aW5nIHJlc2VhcmNoIHF1YWxpdHkuCgoqUlE0OiBUbyB3aGF0IGRlZ3JlZSBkb2VzIHRoZSBlZmZlY3Qgb2YgaGF2aW5nIG9uIGF2ZXJhZ2Ugd2Vha2VyIHRpZXMgZGlmZmVyIGZvciBzY2llbnRpc3RzIGFzIHRoZWlyIGNvbGxhYm9yYXRpb24gbmV0d29ya3MgYXJlIG1vcmUgb3IgbGVzcyBpbnRlcmRpc2NpcGxpbmFyeT8qCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMgUmVmZXJlbmNlcwo=</div>
 
 
 </div>

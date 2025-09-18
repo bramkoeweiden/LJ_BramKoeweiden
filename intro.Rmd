@@ -2,9 +2,8 @@
 title: "Introduction"
 #bibliography: references.bib
 author: "Bram Koeweiden"
+bibliography: references.bib
 ---
-
-
 
 ```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
 library(knitr)
@@ -30,22 +29,26 @@ Last compiled on `r format(Sys.time(), '%B, %Y')`
 
 <br>
 
-----
-  
-Introduction
+------------------------------------------------------------------------
 
+# Introduction
 
+Citation based indicators have long been used as indicators of scientific quality and have consequently shaped measures like the H-index to measure a scientists prestige [@ding2011]. However, as scientists collaborate and their network plays a role in the articles they come across, questions can be raised about whether the H-index is actually measures the quality of their work or the popularity they have gained [@ding2011; @fronczak2022]. @ding2011 have shown how the prestige and popularity of a researchers are not always correlated. However, they acknowledge that their analysis is limited because citations and popularity are in part determined by relationships and co-authorship networks, thus requiring a social network approach to fully understand.
 
-This is just an example page of your `r colorize("lab journal", "yellow")`.
-You can journal introduction section of your paper here.
-  
+@fronczak2022 prove the utility of a social network approach by showing how scientists tend to achieve higher H-indexes when they cooperate with more different scientists rather than cooperating with the same scientists for many different papers. They propose that this is a result the strength of weak ties theory by @granovetter1973, which poses that weaker ties tend to have less overlap with your social network. As a result, they offer less redundant information leading to new insights. However, having a more spread out cooperation network might also predict the popularity of a researcher rather than the quality of their work. This would be a result of these researchers simply being known by more colleagues who know to look for their research when they need specific information. In both cases the assumption of weaker ties actually having less overlap with the rest of ones network has to be tested. I will use both relative tie strength in accordance with @fronczak2022 and absolute tie strength to more closely resemble the theoretical concept proposed by @granovetter1973.
 
-----
+*RQ1: Do researchers who have relatively weaker ties on average, also have on average less relative overlap in their contacts?*
 
+*RQ2: Do researchers who have weaker ties on average, also have on average less relative overlap in their contacts?*
 
-```{r}
-print("Hello Lab Journal")
-```
+Furthermore I will test whether having a higher proportion of weak ties actually influences a scientists H-index
 
+*RQ3: To what degree is the average strength of the collaboration ties a scientist has related to their H-index?*
 
+To add to the literature, the present study will attempt to improve understanding of the popularity versus quality question by introducing interdisciplinarrity as a measure about the nature of collaboration networks. I expect this to be a relevant measure as @granovetter1973 posits that the benefits of weak ties is getting new information not present in your environment. As the insights scientific disciplines can generate are bounded by the norms and worldview which shape the discipline [@hui2016], interdisciplinary cooperation might improve the chances of weak ties improving research quality.
 
+*RQ4: To what degree does the effect of having on average weaker ties differ for scientists as their collaboration networks are more or less interdisciplinary?*
+
+------------------------------------------------------------------------
+
+# References
