@@ -138,9 +138,17 @@ I want to study how to what degree the measurement of tie strength has unfairly 
 
 average relative tie strength
 
+-   amount of duplicate collaborations
+
+-   amount of total publications
+
 average absolute tie strength
 
 average asymmetrical overlap
+
+-   Different collaborators
+
+-   
 
 Furthermore, I want to study whether the positive effect on citations of having on average weaker ties is stronger if these scientists are involved with more interdisciplinary work. For this I need
 

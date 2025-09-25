@@ -1,0 +1,337 @@
+---
+title: "Week 3"
+#bibliography: references.bib
+author: "Bram Koeweiden"
+---
+
+---
+title: "Webscraping"
+author: "Bram"
+date: "2025-09-19"
+output: html_document
+---
+
+------------------------------------------------------------------------
+
+# Loading packages and custom functions
+
+```{r}
+rm(list = ls())
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+
+#install.packages("tidyverse")
+#install.packages("scholar") 
+#install.packages("openalexR")
+#install.packages("rvest") 
+#install.packages("jsonlite")
+#install.packages("kableExtra")
+#install.packages ("httr")
+#install.packages ("xml2") 
+#install.packages ("rvest") 
+#install.packages ("reshape2") 
+
+library(tidyverse)
+library(scholar) 
+library(openalexR)
+library(rvest) 
+library(jsonlite)
+library(kableExtra)
+library (httr) 
+library (xml2) 
+library (rvest) 
+library (reshape2) 
+library(scholar)
+library (ids)
+library (stringr)
+library (stringi)
+
+
+
+```
+
+------------------------------------------------------------------------
+
+# In class work
+
+```{r}
+options(openalexR.mailto = "bram.koeweiden@ru.nl")  #please Please replace with your own emailadress
+
+url <- "https://api.openalex.org/authors?search=Jochem Tolsma"
+
+# based on what you have learned so far, you would probably first try:
+jt <- read_html("https://api.openalex.org/authors?search=Jochem+Tolsma") %>%
+    html_text2()
+
+substr(jt, 1, 100)
+
+# Going directly to JSON (most information)
+
+jt_json <- fromJSON("https://api.openalex.org/authors?search=Jochem+Tolsma", simplifyVector = FALSE)
+glimpse(jt_json, max.level = 1)
+
+#Finding affiliations
+
+jt_json[["results"]][[1]][["display_name"]]
+jt_json[["results"]][[1]][["affiliations"]]
+jt_json[["results"]][[1]][["summary_stats"]][["h_index"]]
+
+
+#str object, max.level
+
+str(jt_json$results, 2)
+
+
+
+
+df_jt <- jt_json %>%
+    .$results %>%
+    .[[1]] %>%
+    discard(is_empty)
+
+# Using openalexR (less information)
+
+df <- oa_fetch(entity = "author", search = "Jochem Tolsma")
+fshowdf(df)
+
+df_papers <- oa_fetch(entity = "works", author.id = df$id)
+```
+
+----
+
+# Creating mock variables
+
+```{r}
+#Calculation H-index
+
+?desc
+h_index <- df_papers %>%
+  arrange(desc(cited_by_count)) %>%         # sort papers by citations
+  mutate(rank = row_number()) %>%      # rank = paper position
+  summarise(h = max(rank[cited_by_count >= rank])) %>%
+  pull(h)
+
+h_index
+
+#Figuring out average tie strength
+
+str (df_papers$authorships[[1]][["display_name"]])
+
+?unnest_wider
+
+df_papers2 <- df_papers %>%
+  unnest_longer (authorships) %>%
+  unnest_wider (authorships, names_sep="_")
+
+str (df_papers2$authorships_display_name)
+
+co_authors <- df_papers2 %>%
+count(authorships_display_name)
+
+#calculation average tie strength not sure how to implement it in our final dataset.
+
+jt_avgtiestr <- (sum(co_authors$n)-co_authors$n[co_authors$authorships_display_name == 'Jochem Tolsma'])/(nrow(co_authors)-1)
+
+# assymetric tie strength as in article
+
+jt_avgtiestr_a <- jt_avgtiestr/(nrow(df_papers)-1)
+
+
+
+df <- fload('/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda')
+
+?openalexR
+
+#Wrapper: "openalexR" This
+```
+
+------------------------------------------------------------------------
+
+# Webscraping tutorial names
+
+```{r}
+soc <- read.csv("./data/names_soc.csv", sep = ";", encoding = "UTF-8")  # encoding to maintain diacritics
+pol <- read.csv("./data/names_pol.csv", sep = ";", encoding = "UTF-8")
+
+# removing the 'specialisatie' column from the political science data frame because it is poorly
+# filled and does not exist in sociology
+
+pol <- subset(pol, select = -Specialisatie)
+
+
+# making the column names easier to call
+colnames(pol) <- c("name", "uni", "email", "position")
+colnames(soc) <- c("name", "uni", "email", "position")
+
+
+# removing empty rows
+soc <- soc[soc$name != "", ]
+pol <- pol[pol$name != "", ]
+
+
+
+# combining the two dataframes in one, but first adding a discipline identifier for both
+soc$discipline <- rep("sociology", nrow(soc))
+pol$discipline <- rep("political science", nrow(pol))
+
+df <- rbind.data.frame(soc, pol)
+
+
+# removing double spaces
+df$name <- gsub("\\s+", " ", df$name)  #  '\\s' indicates a whitespace, so '\\s+' refers to 2 or more whitespaces
+df$name <- trimws(df$name)
+
+
+# adding a year variable - in case multiple years are used, you should keep track of this.
+df$year <- rep(2022, nrow(df))
+
+
+# some people have double affiliations. These are stored as 'uni1/uni2' in the 'uni' column. We now
+# want to create two separate variables for each affiliation.
+df$affil1 <- df$uni  # first we create a new variable for the 1st affiliation, which is a copy of the original 'uni' variable
+df$affil1 <- str_remove(df$affil1, "\\/.*$")  # remove the 2nd affiliation from the column of the first affiliation
+
+df$affil2 <- str_remove(df$uni, "^.*\\/")  # extract everything after '/' to get the 2nd affiliation
+df$affil2 <- str_remove(df$affil2, df$affil1)
+
+
+# translating the positions to English - since the position string is free form, we have to extract
+# the relevant info from there.  we start by the most senior positions, because some people list
+# multiple and we only want to extract the most senior research position they occupy
+df$position <- tolower(df$position)
+df$position <- ifelse(as.numeric(str_detect(df$position, "hoogleraar")) == 1, "full_prof", df$position)
+df$position <- ifelse(as.numeric(str_detect(df$position, "hoofddocent")) == 1, "associate_prof", df$position)
+df$position <- ifelse(as.numeric(str_detect(df$position, "universitair docent")) == 1, "assistant_prof",
+    df$position)
+df$position <- ifelse(as.numeric(str_detect(df$position, "postdoc")) == 1, "postdoc", df$position)
+df$position <- ifelse(as.numeric(str_detect(df$position, "(phd)|(doctoral)|(promovendus)")) == 1, "phd",
+    df$position)
+
+# all other positions are set to other - we do this because the position form on the website is a
+# free text form, so the entries here are not standardized.  non-research positions are not really
+# relevant for this analysis, because these people do not likely have very many co-authors.
+df$position <- ifelse(!df$position %in% c("full_prof", "associate_prof", "assistant_prof", "postdoc",
+    "phd"), "other", df$position)
+
+fshowdf(df)
+
+#giving unique identifier to all scholars
+set.seed(2806)
+
+df$id <- ids::random_id(n = nrow(df), bytes = 3, use_openssl = FALSE)
+
+head(df$id)
+
+?stringi
+
+# list of nonbiliary particles
+c("van den", "van der", "van de", "vanden", "vande", "van 't", "op de", "de la", "den", "van", "de",
+    "ten", "ter", "el", "la", "di")
+
+# Some names have nobiliary particles (e.g. 'Da Costa' or 'Du Bois'). Especially in Dutch names,
+# they are very common. We extract these in a separate object
+np <- c("(V|v)an (D|d)er", "(V|v)an (D|d)en", "(V|v)an (D|d)e", "(V|v)ande(n)?", "(V|v)an '(T|t)", "(V|v)an'(T|t)",
+    "(V|v)an (H|h)et", "(V|v)on (D|d)er", "(O|o)p (D|d)en?", "(O|o)p 't", "(O|o)f ten", "(A|a)an de(n)?",
+    "(D|d)e (L|l)a", "(I|i)n (H|h)et", "(I|i)n '(T|t)", "(I|i)n'(T|t)", "(I|i)n (T|t)", "(I|i)n (D|d)er",
+    "(B|b)ij (D|d)e")
+
+np2 <- c("\\s(L|l)a\\s", "\\s(O|o)p\\s", "\\s(V|v)an\\s", "\\s(V|v)on\\s", "\\s(D|d)en\\s", "\\s(D|d)er\\s",
+    "\\s(D|d)el\\s", "\\s(D|d)(e|a|u|i)\\s", "\\s(D|d)os?\\s", "\\s(T|t)er\\s", "\\s(T|t)en\\s", "\\s(T|t)e\\s",
+    "\\s'(T|t)\\s", "\\s(L|l)e\\s", "\\s(E|A)l-", "\\s[(A|a)(E|e)](L|l)'?\\s", "\\s(D|d)'", "\\szu\\s",
+    "\\s(Z|z)ur\\s", "\\s(Y|y)\\s", "\\s(E|e)\\s")
+
+
+# First we extract the nobiliary particles consisting of multiple words
+df$np <- str_extract(df$name, paste0(np, collapse = "|"))
+df$np <- ifelse(is.na(df$np), str_extract(df$name, paste0(np2, collapse = "|")), df$np)  #only extract the single-word NP if it is not filled yet
+
+# lastname: everything after nobiliary particle
+df$lastname <- ifelse(!is.na(df$np), str_remove(df$name, paste0("^.*", df$np)), word(df$name, -1))
+
+
+# some cleaning: make the string lowercase and remove extra whitespaces
+df$np <- tolower(trimws(df$np, which = "both"))
+df$np <- ifelse(is.na(df$np), "", df$np)
+
+df$lastname <- tolower(trimws(df$lastname, which = "both"))
+df$lastname <- stri_trans_general(df$lastname, id = "latin-ascii")  #remove diacritics
+
+df$lastname <- str_extract(df$lastname, "[:lower:]+")  # if multiple last names after the nobiliary particle, we take the first one
+
+df$firstname <- str_remove(df$name, "\\s.*$") # remove everything from the name object after the first whitespace
+
+
+# I first detect the initials by using a general pattern - some regular expression magic if you will. 
+# you can update this to match what you find in your own data
+initialpattern <- paste(c("^([:upper:]\\.)+[:upper:]$",       # Last initial does not have a full stop at the end (e.g. A.A.A)
+                          "([:upper:]\\.+)+",                 # All initials have full stops at the end (e.g. A.A.A.)
+                          "^\\s?[:upper:]+$"),                # Entire string consists of capital letters
+                        collapse = "|")
+
+df$ini <- str_extract(df$firstname, paste0(initialpattern)) # we extract the initials from format we defined, and save them in a different object
+df$firstname <- ifelse(!is.na(df$ini), str_remove(df$firstname, df$ini), df$firstname) # extract initials from first name object when present, so that the first name object really only contains first names 
+df$ini <- ifelse(is.na(df$ini), "", df$ini) # set initials object to empty if there are no initials
+
+
+# some cleaning: make the first name lowercase
+df$firstname <- tolower(df$firstname)
+df$firstname <- stri_trans_general(df$firstname, id="latin-ascii") #remove diacritics
+
+df_names <- df
+fsave(df_names)
+
+```
+
+------------------------------------------------------------------------
+
+# Webscraping publications
+
+
+
+```{r}
+
+
+#playing around with openalex and creating a dataset with data about all research from sociology and political science in the netherlands.
+
+?openalexR::oa_query
+
+openalexR::oa_query(filter='Country=Netherlands', 'Subfield=Sociology and Political Science' )
+
+socpol_json <- fromJSON("https://api.openalex.org/works?filter=authorships.countries:countries/nl,primary_topic.subfield.id:subfields/3312&page=1", simplifyVector = FALSE)
+glimpse(socpol_json, max.level = 1)
+
+
+
+```
+
+------------------------------------------------------------------------
+
