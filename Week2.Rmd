@@ -112,7 +112,7 @@ This study employs similar methods to what I want to do. To test whether academi
 
 ![](images/clipboard-1697859697.png)
 
-Formula asymetric overlap (Nij=common nabours, Ki=degrees)
+Formula asymetric overlap (Nij=common neighbours, Ki=degrees)
 
 ![](images/clipboard-672219640.png){width="162"}
 

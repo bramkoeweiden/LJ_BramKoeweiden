@@ -21,6 +21,7 @@ options(width = 100)
 
 colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
 
+
 ```
 
 ```{r klippy, echo=FALSE, eval= TRUE, include=TRUE}

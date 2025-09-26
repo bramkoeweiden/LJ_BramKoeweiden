@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Bram Koeweiden" />
+
+
+<title>Week 1</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Week1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="Week3.html">Week 3</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introduction</a>
+    </li>
+    <li>
+      <a href="theory.html">Theory</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/bramkoeweiden/LJ_BramKoeweiden">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week 1</h1>
+<h4 class="author">Bram Koeweiden</h4>
+
+</div>
+
+
+<p>Last compiled on October, 2025</p>
+<hr />
+<pre class="r test"><code>fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}
+
+colorize &lt;- function(x, color) {
+    sprintf(&quot;&lt;span style=&#39;color: %s;&#39;&gt;%s&lt;/span&gt;&quot;, color, x)
+}
+
+packages = c(&quot;RSiena&quot;, &quot;devtools&quot;, &quot;igraph&quot;)
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code># devtools::install_github(&#39;JochemTolsma/RsienaTwoStep&#39;, build_vignettes=TRUE)
+packages = c(&quot;RsienaTwoStep&quot;)
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code>ts_net1</code></pre>
+<pre class="test2"><code>#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0</code></pre>
+<pre class="r test"><code>net1g &lt;- graph_from_adjacency_matrix(ts_net1, mode = &quot;directed&quot;)
+coords &lt;- layout_(net1g, nicely())  #let us keep the layout
+par(mar = c(0.1, 0.1, 0.1, 0.1))
+{
+    plot.igraph(net1g, layout = coords)
+    graphics::box()
+}</code></pre>
+<p><img src="Week5_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<pre class="r test"><code>set.seed(24553253)
+ego &lt;- ts_select(net = ts_net1)
+ego</code></pre>
+<pre class="test2"><code>#&gt; [1] 4</code></pre>
+<pre class="r test"><code>options &lt;- ts_alternatives_ministep(net = ts_net1, ego = ego)
+options</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    1    0    0    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[2]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    1    0    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[3]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    1    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[4]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[5]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    1    0    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[6]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    1    0    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[7]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    1    0    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[8]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    1    1     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[9]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0
+#&gt; 
+#&gt; [[10]]
+#&gt;       [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+#&gt;  [1,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [2,]    0    0    1    0    0    0    0    0    0     0
+#&gt;  [3,]    1    0    0    0    0    1    0    0    0     0
+#&gt;  [4,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [5,]    0    0    0    0    0    0    0    0    0     0
+#&gt;  [6,]    0    0    0    0    0    0    0    0    1     1
+#&gt;  [7,]    1    0    0    0    0    0    0    0    0     0
+#&gt;  [8,]    0    0    0    0    0    0    0    0    0     1
+#&gt;  [9,]    0    0    0    1    0    0    0    1    0     0
+#&gt; [10,]    0    0    0    0    0    0    0    1    1     0</code></pre>
+<pre class="r test"><code>plots &lt;- lapply(options, graph_from_adjacency_matrix, mode = &quot;directed&quot;)
+par(mar = c(0, 0, 0, 0) + 0.1)
+par(mfrow = c(2, 2))
+
+fplot &lt;- function(x) {
+    plot.igraph(x, layout = coords, margin = 0)
+    graphics::box()
+}
+
+lapply(plots, fplot)</code></pre>
+<p><img src="Week5_files/figure-html/unnamed-chunk-3-1.png" width="672" /><img src="Week5_files/figure-html/unnamed-chunk-3-2.png" width="672" /></p>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL
+#&gt; 
+#&gt; [[4]]
+#&gt; NULL
+#&gt; 
+#&gt; [[5]]
+#&gt; NULL
+#&gt; 
+#&gt; [[6]]
+#&gt; NULL
+#&gt; 
+#&gt; [[7]]
+#&gt; NULL
+#&gt; 
+#&gt; [[8]]
+#&gt; NULL
+#&gt; 
+#&gt; [[9]]
+#&gt; NULL
+#&gt; 
+#&gt; [[10]]
+#&gt; NULL</code></pre>
+<p><img src="Week5_files/figure-html/unnamed-chunk-3-3.png" width="672" /></p>
+<pre class="r test"><code># Step 1: define data
+
+## dependent variable
+
+s501</code></pre>
+<pre class="test2"><code>#&gt;    V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21 V22 V23 V24 V25 V26
+#&gt; 1   0  0  0  0  0  0  0  0  0   0   1   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 2   0  0  0  0  0  0  1  0  0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 3   0  0  0  1  0  0  0  0  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 4   0  0  1  0  0  0  0  0  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 5   0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 6   0  0  0  0  0  0  0  1  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 7   0  1  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 8   0  0  0  0  0  1  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 9   0  0  1  1  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 10  0  0  0  0  0  0  0  0  0   0   1   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 11  0  1  0  0  0  0  0  0  0   0   0   0   0   0   1   1   0   0   0   0   0   0   0   0   0   0
+#&gt; 12  0  0  0  0  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 13  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 14  1  0  0  0  0  0  0  0  0   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 15  0  0  0  0  0  0  0  0  0   1   1   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0
+#&gt; 16  0  0  0  0  0  0  0  0  0   0   1   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 17  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   1   1   0   1   1   0   1   0   0
+#&gt; 18  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 19  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1
+#&gt; 20  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 21  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0
+#&gt; 22  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   1   0   0   0   1   0   0   0   0   0
+#&gt; 23  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0
+#&gt; 24  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   1   0   1   0   1   1   1   0   0   0
+#&gt; 25  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0
+#&gt; 26  0  0  0  0  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 27  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 28  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 29  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+#&gt; 30  0  0  0  0  0  0  0  0  0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+#&gt; 31  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   1   0
+#&gt; 32  0  0  0  0  1  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0
+#&gt; 33  0  0  0  0  0  0  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 34  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 35  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0
+#&gt; 36  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 37  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 38  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 39  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 40  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 41  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 42  0  0  0  0  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 43  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0
+#&gt; 44  0  0  0  0  0  0  1  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 45  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 46  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 47  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 48  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 49  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 50  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt;    V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38 V39 V40 V41 V42 V43 V44 V45 V46 V47 V48 V49 V50
+#&gt; 1    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 2    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 3    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 4    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 5    0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 6    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 7    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0   0   0   0   0
+#&gt; 8    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 9    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 10   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 11   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 12   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0   0   0   0   0
+#&gt; 13   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 14   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 15   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 16   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 17   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 18   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 19   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 20   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 21   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 22   0   0   0   0   1   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 23   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 24   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 25   0   0   0   0   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 26   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0
+#&gt; 27   0   1   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 28   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 29   0   0   0   1   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 30   0   0   1   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 31   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 32   0   0   0   0   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 33   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 34   0   0   0   0   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 35   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 36   0   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 37   0   0   0   0   1   1   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 38   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 39   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 40   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   0   0   0
+#&gt; 41   0   0   0   0   0   0   0   0   0   1   0   1   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 42   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0
+#&gt; 43   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 44   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0
+#&gt; 45   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   1   1   0   0   0
+#&gt; 46   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1   0   0   0   1   0
+#&gt; 47   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 48   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0
+#&gt; 49   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0
+#&gt; 50   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0</code></pre>
+<pre class="r test"><code>s502</code></pre>
+<pre class="test2"><code>#&gt;    V1 V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14 V15 V16 V17 V18 V19 V20 V21 V22 V23 V24 V25 V26
+#&gt; 1   0  0  0  0  0  0  0  0  0   1   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 2   0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1
+#&gt; 3   0  0  0  1  0  0  0  0  1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 4   0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 5   0  0  0  1  0  0  0  0  0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 6   0  0  0  0  0  0  0  1  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 7   0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 8   0  0  0  0  0  1  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 9   0  0  1  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 10  1  0  0  0  0  0  0  0  0   0   1   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 11  1  0  0  0  0  0  0  0  0   1   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   1
+#&gt; 12  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   1
+#&gt; 13  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 14  1  0  0  0  0  0  0  0  0   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 15  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 16  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   1
+#&gt; 17  0  0  0  1  1  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0
+#&gt; 18  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 19  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 20  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 21  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 22  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 23  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 24  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   1   0   0   0   0   1   0   0   0   0
+#&gt; 25  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0
+#&gt; 26  0  0  0  0  0  0  1  0  0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0
+#&gt; 27  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 28  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0
+#&gt; 29  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 30  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 31  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 32  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 33  0  0  0  0  0  0  0  0  0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 34  0  0  0  1  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 35  0  0  0  0  0  1  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 36  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 37  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0
+#&gt; 38  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 39  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 40  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 41  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 42  0  0  0  0  0  0  0  0  0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   1
+#&gt; 43  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 44  0  0  0  0  0  0  1  0  0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0
+#&gt; 45  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 46  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 47  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 48  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 49  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 50  0  0  0  0  0  0  0  0  0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0
+#&gt;    V27 V28 V29 V30 V31 V32 V33 V34 V35 V36 V37 V38 V39 V40 V41 V42 V43 V44 V45 V46 V47 V48 V49 V50
+#&gt; 1    0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 2    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 3    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 4    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 5    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 6    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 7    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 8    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 9    0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 10   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 11   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 12   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0   0   0   0   0
+#&gt; 13   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 14   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 15   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 16   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0
+#&gt; 17   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 18   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 19   0   0   0   1   0   0   0   0   0   1   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 20   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 21   0   0   0   0   1   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0
+#&gt; 22   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 23   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 24   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 25   1   1   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 26   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0
+#&gt; 27   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 28   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 29   0   0   0   1   0   0   1   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0
+#&gt; 30   0   0   1   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 31   0   0   0   0   0   1   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 32   0   0   0   0   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 33   0   0   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 34   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 35   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 36   0   0   0   1   0   0   0   0   0   0   0   1   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 37   0   0   0   0   1   1   0   1   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 38   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0
+#&gt; 39   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0
+#&gt; 40   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   1   1   0   0   0
+#&gt; 41   0   0   0   1   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 42   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 43   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 44   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0
+#&gt; 45   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   0   1   1   0   0   0
+#&gt; 46   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1   0   1   0   1   0
+#&gt; 47   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   0   0   1   1   0   0   0   0
+#&gt; 48   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   0   1   0
+#&gt; 49   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   1   0   1   0   0
+#&gt; 50   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0</code></pre>
+<pre class="r test"><code># put the nets in an array
+net_soc_array &lt;- array(data = c(s501, s502), dim = c(dim(s501), 2))
+
+# dependebnt
+net &lt;- sienaDependent(net_soc_array)</code></pre>
+<p>##independent variable</p>
+<pre class="r test"><code>alcohol &lt;- s50a[, 1]
+alcohol</code></pre>
+<pre class="test2"><code>#&gt;  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 
+#&gt;  3  2  2  2  3  4  4  4  2  4  5  5  3  3  4  4  2  4  3  2  1  3  4  3  3  4  2  2  3  1  4  4  3 
+#&gt; 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 
+#&gt;  2  3  4  2  3  2  1  4  4  2  5  2  2  2  2  1  1</code></pre>
+<pre class="r test"><code>alcohol &lt;- coCovar(alcohol)</code></pre>
+<pre class="r test"><code>mydata &lt;- sienaDataCreate(net, alcohol)</code></pre>
+<div id="step-2-effects" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Step 2: effects</h1>
+<pre class="r test"><code>myeff &lt;- getEffects(mydata)
+myeff</code></pre>
+<pre class="test2"><code>#&gt;   effectName               include fix   test  initialValue parm
+#&gt; 1 basic rate parameter net TRUE    FALSE FALSE    4.69604   0   
+#&gt; 2 outdegree (density)      TRUE    FALSE FALSE   -1.48852   0   
+#&gt; 3 reciprocity              TRUE    FALSE FALSE    0.00000   0</code></pre>
+<p>interpretation: average fraction where result occurs =
+exp(b)/(exp(b)+1)</p>
+<pre class="r test"><code>exp(4.696)</code></pre>
+<pre class="test2"><code>#&gt; [1] 109.5083</code></pre>
+<pre class="r test"><code>exp(4.696)/(exp(4.696) + 1)</code></pre>
+<pre class="test2"><code>#&gt; [1] 0.9909509</code></pre>
+<p>#notes, types of effects:</p>
+<p>rate: eval: mechanisms to make or break ties are similar endow:
+creation:</p>
+</div>
+<div id="step-3-look-at-initial-data" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> Step 3: look at initial
+data</h1>
+<pre class="r test"><code>print01Report(mydata, modelname = &quot;./results/soc_init&quot;)</code></pre>
+<pre class="r test"><code>rm(list = ls())
+
+
+
+fpackage.check &lt;- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave &lt;- function(x, file = NULL, location = &quot;./data/processed/&quot;) {
+    ifelse(!dir.exists(&quot;data&quot;), dir.create(&quot;data&quot;), FALSE)
+    ifelse(!dir.exists(&quot;data/processed&quot;), dir.create(&quot;data/processed&quot;), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename &lt;- substr(gsub(&quot;[:-]&quot;, &quot;&quot;, Sys.time()), 1, 8)
+    totalname &lt;- paste(location, datename, file, &quot;.rda&quot;, sep = &quot;&quot;)
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload &lt;- function(filename) {
+    load(filename)
+    get(ls()[ls() != &quot;filename&quot;])
+}
+
+fshowdf &lt;- function(x, ...) {
+    knitr::kable(x, digits = 2, &quot;html&quot;, ...) %&gt;%
+        kableExtra::kable_styling(bootstrap_options = c(&quot;striped&quot;, &quot;hover&quot;)) %&gt;%
+        kableExtra::scroll_box(width = &quot;100%&quot;, height = &quot;300px&quot;)
+}
+
+colorize &lt;- function(x, color) {
+    sprintf(&quot;&lt;span style=&#39;color: %s;&#39;&gt;%s&lt;/span&gt;&quot;, color, x)
+}
+
+packages = c(&quot;RSiena&quot;, &quot;devtools&quot;, &quot;igraph&quot;)
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL
+#&gt; 
+#&gt; [[2]]
+#&gt; NULL
+#&gt; 
+#&gt; [[3]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code># devtools::install_github(&#39;JochemTolsma/RsienaTwoStep&#39;, build_vignettes=TRUE)
+packages = c(&quot;RsienaTwoStep&quot;)
+fpackage.check(packages)</code></pre>
+<pre class="test2"><code>#&gt; [[1]]
+#&gt; NULL</code></pre>
+<pre class="r test"><code>library(tidyverse)</code></pre>
+<pre class="r test"><code>scholars &lt;- fload(&quot;./data/processed/scholars_20240924.rda&quot;)</code></pre>
+<pre class="r test"><code>fcolnet &lt;- function(data = scholars, university = c(&quot;RU&quot;, &quot;EUR&quot;, &quot;WUR&quot;, &quot;UvA&quot;, &quot;Leiden&quot;, &quot;VU&quot;, &quot;UU&quot;,
+    &quot;UvT&quot;), discipline = c(&quot;sociology&quot;, &quot;political science&quot;), waves = list(c(2015, 2018), c(2019, 2023)),
+    type = c(&quot;first&quot;)) {
+
+    # step 1
+    demographics &lt;- do.call(rbind.data.frame, data$demographics)
+    demographics &lt;- demographics %&gt;%
+        mutate(Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), &quot;&quot;), Universiteit2.22 = replace(Universiteit2.22,
+            is.na(Universiteit2.22), &quot;&quot;), Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24),
+            &quot;&quot;), Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), &quot;&quot;), discipline.22 = replace(discipline.22,
+            is.na(discipline.22), &quot;&quot;), discipline.24 = replace(discipline.24, is.na(discipline.24), &quot;&quot;))
+
+    sample &lt;- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in%
+        university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in%
+        university) &amp; (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+    demographics_soc &lt;- demographics[sample, ]
+    scholars_sel &lt;- lapply(scholars, &quot;[&quot;, sample)
+
+    # step 2
+    ids &lt;- demographics_soc$au_id
+    nwaves &lt;- length(waves)
+    nets &lt;- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works &lt;- tibble(works_id = unlist(lapply(scholars_sel$work, function(l) l$id)), works_author = unlist(lapply(scholars_sel$work,
+        function(l) l$author), recursive = FALSE), works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year),
+        recursive = FALSE))
+
+    df_works &lt;- df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == &quot;first&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- df_works_w$works_author[i][[1]]$au_id[1]
+                alters &lt;- df_works_w$works_author[i][[1]]$au_id[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;last&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+                alters &lt;- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+                if (sum(ids %in% ego) &gt; 0 &amp; sum(ids %in% alters) &gt; 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] &lt;- 1
+                }
+            }
+        }
+    }
+
+    if (type == &quot;all&quot;) {
+        for (j in 1:nwaves) {
+            df_works_w &lt;- df_works[df_works$works_year &gt;= waves[[j]][1] &amp; df_works$works_year &lt;= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos &lt;- df_works_w$works_author[i][[1]]$au_id
+                if (sum(ids %in% egos) &gt; 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] &lt;- 1
+                }
+            }
+        }
+    }
+    output &lt;- list()
+    output$data &lt;- scholars_sel
+    output$nets &lt;- nets
+    return(output)
+}</code></pre>
+<pre class="r test"><code>#save the output of your function
+test &lt;- fcolnet(data = scholars, 
+                university = c(&quot;RU&quot;, &quot;EUR&quot;, &quot;WUR&quot;, &quot;UvA&quot;, &quot;Leiden&quot;, &quot;VU&quot;, &quot;UU&quot;, &quot;UvT&quot;), 
+                discipline = c(&quot;sociology&quot;, &quot;political science&quot;), 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c(&quot;first&quot;))
+
+
+
+
+
+
+test_w1 &lt;- igraph::graph_from_adjacency_matrix(
+  test$nets[1,,], #for this example I take the first wave of data. (thus I select the array of networks and take the first matrix)
+  mode = c(&quot;directed&quot;),
+  diag = FALSE,
+  add.colnames = NULL,
+  add.rownames = NULL
+)
+
+plot(test_w1,
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)</code></pre>
+<p><img src="Week5_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<pre class="r test"><code>test &lt;- fcolnet(data = scholars, 
+                university = c(&quot;RU&quot;, &quot;EUR&quot;, &quot;WUR&quot;, &quot;UvA&quot;, &quot;Leiden&quot;, &quot;VU&quot;, &quot;UU&quot;, &quot;UvT&quot;), 
+                discipline = c(&quot;sociology&quot;, &quot;political science&quot;), 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c(&quot;all&quot;))
+
+test_w2 &lt;- igraph::graph_from_adjacency_matrix(
+  test$nets[2,,], #now, I take the second wave
+  mode = c(&quot;directed&quot;),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL
+)
+
+#Let us find ego characteristics. 
+#first fish out the data
+df &lt;- test$data
+
+#same complicated structure as &#39;scholars&#39; thus first make a dataframe from the list in which all info was saved. 
+df_ego &lt;- do.call(rbind.data.frame, df$demographics)
+
+#DO NOT MESS UP THE ORDER! THUS IF YOU JOIN THIS DATA WITH YOUR OWN DATA CHECK THAT ORDER REMAINED THE SAME!! 
+
+#Adding gender
+
+df_gender &lt;- fload(&quot;./data/processed/df_gender.rda&quot;)
+
+
+gender &lt;- df_gender[, c(&quot;name&quot;, &quot;gender&quot;)]
+
+gender &lt;- gender %&gt;%
+rename(Naam = name)
+
+
+df_ego &lt;- left_join(df_ego, gender, by=&quot;Naam&quot;)
+
+plot(test_w2,
+  vertex.color = ifelse(df_ego$gender == &quot;female&quot;, &quot;red&quot;, &quot;blue&quot;), #now, I can use actor attributes for plotting. 
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)</code></pre>
+<p><img src="Week5_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<pre class="r test"><code>wave1 &lt;- test$nets[1, , ]
+wave2 &lt;- test$nets[2, , ]
+
+sum(is.na(wave2))</code></pre>
+<pre class="test2"><code>#&gt; [1] 0</code></pre>
+<pre class="r test"><code>sum(diag(wave2) == 0)</code></pre>
+<pre class="test2"><code>#&gt; [1] 25</code></pre>
+<pre class="r test"><code>diag(wave2) &lt;- 0
+diag(wave1) &lt;- 0
+
+sum(diag(wave2) == 0)</code></pre>
+<pre class="test2"><code>#&gt; [1] 605</code></pre>
+<pre class="r test"><code>sum(diag(wave1) == 0)</code></pre>
+<pre class="test2"><code>#&gt; [1] 605</code></pre>
+<pre class="r test"><code>sum(wave2 &gt; 1)</code></pre>
+<pre class="test2"><code>#&gt; [1] 0</code></pre>
+<pre class="r test"><code>sum(wave2 &gt; 0)</code></pre>
+<pre class="test2"><code>#&gt; [1] 1166</code></pre>
+<pre class="r test"><code># put the nets in an array
+net_soc_array &lt;- array(data = c(wave1, wave2), dim = c(dim(wave1), 2))
+
+# dependebnt
+net &lt;- sienaDependent(net_soc_array)
+
+df &lt;- test$data
+
+df_ego &lt;- do.call(rbind.data.frame, df$demographics)
+
+unique(c(df_ego$functie.22, df_ego$Functie.24))</code></pre>
+<pre class="test2"><code>#&gt;  [1] &quot;PhD Student&quot;                                                                                  
+#&gt;  [2] &quot;Bijzonder hoogleraar&quot;                                                                         
+#&gt;  [3] &quot;Onderzoeker&quot;                                                                                  
+#&gt;  [4] &quot;Hoogleraar&quot;                                                                                   
+#&gt;  [5] &quot;Docent&quot;                                                                                       
+#&gt;  [6] &quot;Universitair hoofddocent&quot;                                                                     
+#&gt;  [7] &quot;Universitair docent&quot;                                                                          
+#&gt;  [8] &quot;Promovendus&quot;                                                                                  
+#&gt;  [9] &quot;Hoogleraar + Universitair hoofddocent&quot;                                                        
+#&gt; [10] &quot;Emeritus hoogleraar&quot;                                                                          
+#&gt; [11] NA                                                                                             
+#&gt; [12] &quot;Associate researcher&quot;                                                                         
+#&gt; [13] &quot;Postdoc&quot;                                                                                      
+#&gt; [14] &quot;Senior Researcher&quot;                                                                            
+#&gt; [15] &quot;External Phd&quot;                                                                                 
+#&gt; [16] &quot;Guest Researcher&quot;                                                                             
+#&gt; [17] &quot;Other researcher&quot;                                                                             
+#&gt; [18] &quot;Senior researcher&quot;                                                                            
+#&gt; [19] &quot;Hoofdonderzoeker&quot;                                                                             
+#&gt; [20] &quot;Lecturer&quot;                                                                                     
+#&gt; [21] &quot;Docent?&quot;                                                                                      
+#&gt; [22] &quot;Onderzoeker/Lecturer&quot;                                                                         
+#&gt; [23] &quot;Gepensioneerd docent sociologie&quot;                                                              
+#&gt; [24] &quot;Lecturer and Researcher&quot;                                                                      
+#&gt; [25] &quot;Lecturer/researcher&quot;                                                                          
+#&gt; [26] &quot;Phd &amp; postdoc&quot;                                                                                
+#&gt; [27] &quot;Bijzonder Hoogleraar&quot;                                                                         
+#&gt; [28] &quot;Senior lecturer&quot;                                                                              
+#&gt; [29] &quot;Unversitair docent GPM&quot;                                                                       
+#&gt; [30] &quot;PhD Student anthropologie&quot;                                                                    
+#&gt; [31] &quot;Docent, phd&quot;                                                                                  
+#&gt; [32] &quot;Directeur SoG&quot;                                                                                
+#&gt; [33] &quot;Scholarship student&quot;                                                                          
+#&gt; [34] &quot;Honorary professor&quot;                                                                           
+#&gt; [35] &quot;Medewerker&quot;                                                                                   
+#&gt; [36] &quot;PhD student&quot;                                                                                  
+#&gt; [37] &quot;Junior onderzoeker&quot;                                                                           
+#&gt; [38] &quot;Gastonderzoeker&quot;                                                                              
+#&gt; [39] &quot;Fellow&quot;                                                                                       
+#&gt; [40] &quot;Hoogleraar/Afdelingsvoorzitter&quot;                                                               
+#&gt; [41] &quot;Universitair hoofddocent/Onderwijsdirecteur&quot;                                                  
+#&gt; [42] &quot;Docent/PhD student&quot;                                                                           
+#&gt; [43] &quot;PhD student/Gast&quot;                                                                             
+#&gt; [44] &quot;Gast/Emeritus universitair hoofddocent&quot;                                                       
+#&gt; [45] &quot;Emeritus hoogleraar (gast?)&quot;                                                                  
+#&gt; [46] &quot;Hoogleraar (gast)&quot;                                                                            
+#&gt; [47] &quot;Docent (gepensioneerd)&quot;                                                                       
+#&gt; [48] &quot;Doctoral student&quot;                                                                             
+#&gt; [49] &quot;Does project at UvA, has worked as professor, lecturer, and research fellow at different unis&quot;
+#&gt; [50] &quot;Senior Research Fellow&quot;                                                                       
+#&gt; [51] &quot;Gepensioneerd UHD&quot;                                                                            
+#&gt; [52] &quot;?&quot;                                                                                            
+#&gt; [53] &quot;Senior researcher part-time&quot;                                                                  
+#&gt; [54] &quot;part-time doctoral researcher&quot;                                                                
+#&gt; [55] &quot;PhD studentt&quot;                                                                                 
+#&gt; [56] &quot;Doctoral Researcher&quot;                                                                          
+#&gt; [57] &quot;Onderzoeksfellow&quot;                                                                             
+#&gt; [58] &quot;Onderzoeksmedewerker&quot;                                                                         
+#&gt; [59] &quot;Junior docent&quot;                                                                                
+#&gt; [60] &quot;PhD student, Junior Docent&quot;                                                                   
+#&gt; [61] &quot;Hoogleraar (visiting)&quot;                                                                        
+#&gt; [62] &quot;External PhD&quot;                                                                                 
+#&gt; [63] &quot;Universitair Docent&quot;                                                                          
+#&gt; [64] &quot;Onderwijsontwikkelaar&quot;                                                                        
+#&gt; [65] &quot;Phd Student&quot;                                                                                  
+#&gt; [66] &quot;Wetenschappelijk directeur&quot;                                                                   
+#&gt; [67] &quot;Gast/ Onderzoeker&quot;                                                                            
+#&gt; [68] &quot;Research fellow&quot;</code></pre>
+<pre class="r test"><code>df_ego$Functie.22[is.na(df_ego$Functie.22)] &lt;- &quot;&quot;
+df_ego$Functie.24[is.na(df_ego$Functie.24)] &lt;- &quot;&quot;
+
+
+df_ego$functie &lt;- ifelse(df_ego$Functie.22 == &quot;Hoogleraar&quot;, 1, 0)
+df_ego$functie &lt;- ifelse(df_ego$Functie.24 == &quot;Hoogleraar&quot;, 1, 0)
+df_ego$functie &lt;- ifelse(df_ego$Functie.22 == &quot;Bijzonder hoogleraar&quot;, 1, df_ego$functie)
+df_ego$functie &lt;- ifelse(df_ego$Functie.24 == &quot;Bijzonder hoogleraar&quot;, 1, df_ego$functie)
+
+
+# gender
+table(df_ego$functie, useNA = &quot;always&quot;)</code></pre>
+<pre class="test2"><code>#&gt; 
+#&gt;    0    1 &lt;NA&gt; 
+#&gt;  516   89    0</code></pre>
+<pre class="r test"><code>functie &lt;- coCovar(df_ego$functie)
+
+mydata &lt;- sienaDataCreate(net, functie)</code></pre>
+</div>
+<div id="step-2-effects-1" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> Step 2: effects</h1>
+<pre class="r test"><code>myeff &lt;- getEffects(mydata)
+
+myeff</code></pre>
+<pre class="test2"><code>#&gt;   effectName               include fix   test  initialValue parm
+#&gt; 1 basic rate parameter net TRUE    FALSE FALSE    4.41786   0   
+#&gt; 2 degree (density)         TRUE    FALSE FALSE   -1.70742   0</code></pre>
+</div>
+<div id="step-3" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Step 3:</h1>
+<pre class="r test"><code>if (!dir.exists(&quot;results&quot;)) dir.create(&quot;results&quot;)
+
+print01Report(mydata, modelname = &quot;./results/soc_init&quot;)</code></pre>
+</div>
+<div id="step-4" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Step 4</h1>
+<pre class="r test"><code>set.seed(42)
+
+`?`(sienaAlgorithm)
+myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;soc_init&quot;)
+ansM1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+# if necessary estimate again!  ansM1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff,
+# prevAns = ansM1, returnDeps=TRUE)
+ansM1
+
+myeff &lt;- getEffects(mydata)
+
+# myeff &lt;- includeEffects(myeff, isolateNet, inPop, outAct) #we know that quite a lot of staff has
+# not published with someone else
+myeff &lt;- includeEffects(myeff, myeff, inPop, outAct, balance, antiIso, egoX)
+
+myeff &lt;- setEffect(myeff, egoX, interaction1 = &quot;functie&quot;)
+
+
+myAlgorithm &lt;- sienaAlgorithmCreate(projname = &quot;soc_init&quot;)
+ansM1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+# if necessary estimate again!  ansM1 &lt;- siena07(myAlgorithm, data = mydata, effects = myeff,
+# prevAns = ansM1, returnDeps=TRUE)
+ansM1</code></pre>
+<hr />
+</div>
+<div id="homework" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> homework</h1>
+<p>- pick a statistic from Rsiena manual</p>
+<p>- Make sure de data is ready</p>
+<p>- Present statistic</p>
+<div id="balance" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> balance</h2>
+<p><img src="images/clipboard-1461796692.png" /></p>
+<p>key variables xih and xjh depict ties of i and j to alters excluding
+each other. For each alter which they do not share |xih - xjh| increases
+by 1 thereby showing to what degree their networks overlap. b0 is added
+as a constant.</p>
+</div>
+<div id="anti-isolates-effect" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> anti isolates
+effect</h2>
+<p><img src="images/clipboard-2631505653.png" /></p>
+<p>shows preference for isolates</p>
+<p>x+j = alter indegree</p>
+<p>xj+ = alter outdegree</p>
+<p>this means that when tie to j is severed which causes j to be
+isolated (x+j is 0) the condition is not met reducing the score. If an
+alter is isolated and a connection is made: x+j =1 and xj+=0. this
+increases the score as well.</p>
+<p>References</p>
+<p>Ronald Burt</p>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAxIgojYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJCcmFtIEtvZXdlaWRlbiIKYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgplZGl0b3Jfb3B0aW9uczogCiAgbWFya2Rvd246IAogICAgd3JhcDogNzIKLS0tCgpgYGB7ciwgZ2xvYmFsc2V0dGluZ3MsIGVjaG89RkFMU0UsIHdhcm5pbmc9RkFMU0UsIHJlc3VsdHM9J2hpZGUnfQpsaWJyYXJ5KGtuaXRyKQoKa25pdHI6Om9wdHNfY2h1bmskc2V0KGVjaG8gPSBUUlVFKQpvcHRzX2NodW5rJHNldCh0aWR5Lm9wdHM9bGlzdCh3aWR0aC5jdXRvZmY9MTAwKSx0aWR5PVRSVUUsIHdhcm5pbmcgPSBGQUxTRSwgbWVzc2FnZSA9IEZBTFNFLGNvbW1lbnQgPSAiIz4iLCBjYWNoZT1UUlVFLCBjbGFzcy5zb3VyY2U9YygidGVzdCIpLCBjbGFzcy5vdXRwdXQ9YygidGVzdDIiKSkKb3B0aW9ucyh3aWR0aCA9IDEwMCkKI3JnbDo6c2V0dXBLbml0cigpCgoKCmNvbG9yaXplIDwtIGZ1bmN0aW9uKHgsIGNvbG9yKSB7c3ByaW50ZigiPHNwYW4gc3R5bGU9J2NvbG9yOiAlczsnPiVzPC9zcGFuPiIsIGNvbG9yLCB4KSB9CgpgYGAKCmBgYHtyIGtsaXBweSwgZWNobz1GQUxTRSwgZXZhbD1GQUxTRSwgaW5jbHVkZT1UUlVFfQprbGlwcHk6OmtsaXBweShwb3NpdGlvbiA9IGMoJ3RvcCcsICdyaWdodCcpKQprbGlwcHk6OmtsaXBweShjb2xvciA9ICdkYXJrcmVkJykKa2xpcHB5OjprbGlwcHkodG9vbHRpcF9tZXNzYWdlID0gJ0NsaWNrIHRvIGNvcHknLCB0b29sdGlwX3N1Y2Nlc3MgPSAnRG9uZScpCmBgYAoKTGFzdCBjb21waWxlZCBvbiBgciBmb3JtYXQoU3lzLnRpbWUoKSwgJyVCLCAlWScpYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgpgYGB7cn0KZnBhY2thZ2UuY2hlY2sgPC0gZnVuY3Rpb24ocGFja2FnZXMpIHsKICAgIGxhcHBseShwYWNrYWdlcywgRlVOID0gZnVuY3Rpb24oeCkgewogICAgICAgIGlmICghcmVxdWlyZSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpKSB7CiAgICAgICAgICAgIGluc3RhbGwucGFja2FnZXMoeCwgZGVwZW5kZW5jaWVzID0gVFJVRSkKICAgICAgICAgICAgbGlicmFyeSh4LCBjaGFyYWN0ZXIub25seSA9IFRSVUUpCiAgICAgICAgfQogICAgfSkKfQoKZnNhdmUgPC0gZnVuY3Rpb24oeCwgZmlsZSA9IE5VTEwsIGxvY2F0aW9uID0gIi4vZGF0YS9wcm9jZXNzZWQvIikgewogICAgaWZlbHNlKCFkaXIuZXhpc3RzKCJkYXRhIiksIGRpci5jcmVhdGUoImRhdGEiKSwgRkFMU0UpCiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEvcHJvY2Vzc2VkIiksIGRpci5jcmVhdGUoImRhdGEvcHJvY2Vzc2VkIiksIEZBTFNFKQogICAgaWYgKGlzLm51bGwoZmlsZSkpCiAgICAgICAgZmlsZSA9IGRlcGFyc2Uoc3Vic3RpdHV0ZSh4KSkKICAgIGRhdGVuYW1lIDwtIHN1YnN0cihnc3ViKCJbOi1dIiwgIiIsIFN5cy50aW1lKCkpLCAxLCA4KQogICAgdG90YWxuYW1lIDwtIHBhc3RlKGxvY2F0aW9uLCBkYXRlbmFtZSwgZmlsZSwgIi5yZGEiLCBzZXAgPSAiIikKICAgIHNhdmUoeCwgZmlsZSA9IHRvdGFsbmFtZSkgICNuZWVkIHRvIGZpeCBpZiBmaWxlIGlzIHJlbG9hZGVkIGFzIGlucHV0IG5hbWUsIG5vdCBhcyB4LiAKfQoKZmxvYWQgPC0gZnVuY3Rpb24oZmlsZW5hbWUpIHsKICAgIGxvYWQoZmlsZW5hbWUpCiAgICBnZXQobHMoKVtscygpICE9ICJmaWxlbmFtZSJdKQp9Cgpmc2hvd2RmIDwtIGZ1bmN0aW9uKHgsIC4uLikgewogICAga25pdHI6OmthYmxlKHgsIGRpZ2l0cyA9IDIsICJodG1sIiwgLi4uKSAlPiUKICAgICAgICBrYWJsZUV4dHJhOjprYWJsZV9zdHlsaW5nKGJvb3RzdHJhcF9vcHRpb25zID0gYygic3RyaXBlZCIsICJob3ZlciIpKSAlPiUKICAgICAgICBrYWJsZUV4dHJhOjpzY3JvbGxfYm94KHdpZHRoID0gIjEwMCUiLCBoZWlnaHQgPSAiMzAwcHgiKQp9Cgpjb2xvcml6ZSA8LSBmdW5jdGlvbih4LCBjb2xvcikgewogICAgc3ByaW50ZigiPHNwYW4gc3R5bGU9J2NvbG9yOiAlczsnPiVzPC9zcGFuPiIsIGNvbG9yLCB4KQp9CgpwYWNrYWdlcyA9IGMoIlJTaWVuYSIsICJkZXZ0b29scyIsICJpZ3JhcGgiKQpmcGFja2FnZS5jaGVjayhwYWNrYWdlcykKI2RldnRvb2xzOjppbnN0YWxsX2dpdGh1YignSm9jaGVtVG9sc21hL1JzaWVuYVR3b1N0ZXAnLCBidWlsZF92aWduZXR0ZXM9VFJVRSkKcGFja2FnZXMgPSBjKCJSc2llbmFUd29TdGVwIikKZnBhY2thZ2UuY2hlY2socGFja2FnZXMpCmBgYAoKYGBge3J9CnRzX25ldDEKCm5ldDFnIDwtIGdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCh0c19uZXQxLCBtb2RlID0gImRpcmVjdGVkIikKY29vcmRzIDwtIGxheW91dF8obmV0MWcsIG5pY2VseSgpKSAgI2xldCB1cyBrZWVwIHRoZSBsYXlvdXQKcGFyKG1hciA9IGMoMC4xLCAwLjEsIDAuMSwgMC4xKSkKewogICAgcGxvdC5pZ3JhcGgobmV0MWcsIGxheW91dCA9IGNvb3JkcykKICAgIGdyYXBoaWNzOjpib3goKQp9CmBgYAoKYGBge3J9CnNldC5zZWVkKDI0NTUzMjUzKQplZ28gPC0gdHNfc2VsZWN0KG5ldCA9IHRzX25ldDEpCmVnbwoKb3B0aW9ucyA8LSB0c19hbHRlcm5hdGl2ZXNfbWluaXN0ZXAobmV0ID0gdHNfbmV0MSwgZWdvID0gZWdvKQpvcHRpb25zCnBsb3RzIDwtIGxhcHBseShvcHRpb25zLCBncmFwaF9mcm9tX2FkamFjZW5jeV9tYXRyaXgsIG1vZGUgPSAiZGlyZWN0ZWQiKQpwYXIobWFyID0gYygwLCAwLCAwLCAwKSArIDAuMSkKcGFyKG1mcm93ID0gYygyLCAyKSkKCmZwbG90IDwtIGZ1bmN0aW9uKHgpIHsKICAgIHBsb3QuaWdyYXBoKHgsIGxheW91dCA9IGNvb3JkcywgbWFyZ2luID0gMCkKICAgIGdyYXBoaWNzOjpib3goKQp9CgpsYXBwbHkocGxvdHMsIGZwbG90KQpgYGAKCmBgYHtyfQojIFN0ZXAgMTogZGVmaW5lIGRhdGEKCiMjIGRlcGVuZGVudCB2YXJpYWJsZSAKCnM1MDEKczUwMgoKIyBwdXQgdGhlIG5ldHMgaW4gYW4gYXJyYXkKbmV0X3NvY19hcnJheSA8LSBhcnJheShkYXRhID0gYyhzNTAxLCBzNTAyKSwgZGltID0gYyhkaW0oczUwMSksIDIpKQoKIyBkZXBlbmRlYm50Cm5ldCA8LSBzaWVuYURlcGVuZGVudChuZXRfc29jX2FycmF5KQoKYGBgCgojI2luZGVwZW5kZW50IHZhcmlhYmxlCgpgYGB7cn0KYWxjb2hvbCA8LSBzNTBhWywxXQphbGNvaG9sCgphbGNvaG9sIDwtIGNvQ292YXIoYWxjb2hvbCkKCmBgYAoKYGBge3J9Cm15ZGF0YSA8LSBzaWVuYURhdGFDcmVhdGUobmV0LCBhbGNvaG9sKQpgYGAKCiMgU3RlcCAyOiBlZmZlY3RzCgpgYGB7cn0KbXllZmYgPC1nZXRFZmZlY3RzKG15ZGF0YSkKbXllZmYKYGBgCgppbnRlcnByZXRhdGlvbjogYXZlcmFnZSBmcmFjdGlvbiB3aGVyZSByZXN1bHQgb2NjdXJzID0gZXhwKGIpLyhleHAoYikrMSkKCmBgYHtyfQpleHAoNC42OTYpCmV4cCg0LjY5NikvKGV4cCg0LjY5NikrMSkKYGBgCgojbm90ZXMsIHR5cGVzIG9mIGVmZmVjdHM6CgpyYXRlOiBldmFsOiBtZWNoYW5pc21zIHRvIG1ha2Ugb3IgYnJlYWsgdGllcyBhcmUgc2ltaWxhciBlbmRvdzoKY3JlYXRpb246CgojIFN0ZXAgMzogbG9vayBhdCBpbml0aWFsIGRhdGEKCmBgYHtyfQpwcmludDAxUmVwb3J0KG15ZGF0YSwgbW9kZWxuYW1lID0gIi4vcmVzdWx0cy9zb2NfaW5pdCIpCmBgYAoKYGBge3J9CnJtKGxpc3QgPSBscygpKQoKCgpmcGFja2FnZS5jaGVjayA8LSBmdW5jdGlvbihwYWNrYWdlcykgewogICAgbGFwcGx5KHBhY2thZ2VzLCBGVU4gPSBmdW5jdGlvbih4KSB7CiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsKICAgICAgICAgICAgaW5zdGFsbC5wYWNrYWdlcyh4LCBkZXBlbmRlbmNpZXMgPSBUUlVFKQogICAgICAgICAgICBsaWJyYXJ5KHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkKICAgICAgICB9CiAgICB9KQp9Cgpmc2F2ZSA8LSBmdW5jdGlvbih4LCBmaWxlID0gTlVMTCwgbG9jYXRpb24gPSAiLi9kYXRhL3Byb2Nlc3NlZC8iKSB7CiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEiKSwgZGlyLmNyZWF0ZSgiZGF0YSIpLCBGQUxTRSkKICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpCiAgICBpZiAoaXMubnVsbChmaWxlKSkKICAgICAgICBmaWxlID0gZGVwYXJzZShzdWJzdGl0dXRlKHgpKQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpCiAgICB0b3RhbG5hbWUgPC0gcGFzdGUobG9jYXRpb24sIGRhdGVuYW1lLCBmaWxlLCAiLnJkYSIsIHNlcCA9ICIiKQogICAgc2F2ZSh4LCBmaWxlID0gdG90YWxuYW1lKSAgI25lZWQgdG8gZml4IGlmIGZpbGUgaXMgcmVsb2FkZWQgYXMgaW5wdXQgbmFtZSwgbm90IGFzIHguIAp9CgpmbG9hZCA8LSBmdW5jdGlvbihmaWxlbmFtZSkgewogICAgbG9hZChmaWxlbmFtZSkKICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pCn0KCmZzaG93ZGYgPC0gZnVuY3Rpb24oeCwgLi4uKSB7CiAgICBrbml0cjo6a2FibGUoeCwgZGlnaXRzID0gMiwgImh0bWwiLCAuLi4pICU+JQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQogICAgICAgIGthYmxlRXh0cmE6OnNjcm9sbF9ib3god2lkdGggPSAiMTAwJSIsIGhlaWdodCA9ICIzMDBweCIpCn0KCmNvbG9yaXplIDwtIGZ1bmN0aW9uKHgsIGNvbG9yKSB7CiAgICBzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpCn0KCnBhY2thZ2VzID0gYygiUlNpZW5hIiwgImRldnRvb2xzIiwgImlncmFwaCIpCmZwYWNrYWdlLmNoZWNrKHBhY2thZ2VzKQojZGV2dG9vbHM6Omluc3RhbGxfZ2l0aHViKCdKb2NoZW1Ub2xzbWEvUnNpZW5hVHdvU3RlcCcsIGJ1aWxkX3ZpZ25ldHRlcz1UUlVFKQpwYWNrYWdlcyA9IGMoIlJzaWVuYVR3b1N0ZXAiKQpmcGFja2FnZS5jaGVjayhwYWNrYWdlcykKCmxpYnJhcnkodGlkeXZlcnNlKQpgYGAKCmBgYHtyfQpzY2hvbGFycyA8LSBmbG9hZCgiLi9kYXRhL3Byb2Nlc3NlZC9zY2hvbGFyc18yMDI0MDkyNC5yZGEiKQpgYGAKCmBgYHtyfQpmY29sbmV0IDwtIGZ1bmN0aW9uKGRhdGEgPSBzY2hvbGFycywgdW5pdmVyc2l0eSA9IGMoIlJVIiwgIkVVUiIsICJXVVIiLCAiVXZBIiwgIkxlaWRlbiIsICJWVSIsICJVVSIsICJVdlQiKSwgZGlzY2lwbGluZSA9IGMoInNvY2lvbG9neSIsICJwb2xpdGljYWwgc2NpZW5jZSIpLCB3YXZlcyA9IGxpc3QoYygyMDE1LCAyMDE4KSwgYygyMDE5LCAyMDIzKSksIHR5cGUgPSBjKCJmaXJzdCIpKSB7CiAgCiAgCiAgIyBzdGVwIDEKICBkZW1vZ3JhcGhpY3MgPC0gZG8uY2FsbChyYmluZC5kYXRhLmZyYW1lLCBkYXRhJGRlbW9ncmFwaGljcykKICBkZW1vZ3JhcGhpY3MgPC0gZGVtb2dyYXBoaWNzICU+JSBtdXRhdGUoCiAgICBVbml2ZXJzaXRlaXQxLjIyID0gcmVwbGFjZShVbml2ZXJzaXRlaXQxLjIyLCBpcy5uYShVbml2ZXJzaXRlaXQxLjIyKSwgIiIpLAogICAgVW5pdmVyc2l0ZWl0Mi4yMiA9IHJlcGxhY2UoVW5pdmVyc2l0ZWl0Mi4yMiwgaXMubmEoVW5pdmVyc2l0ZWl0Mi4yMiksICIiKSwKICAgIFVuaXZlcnNpdGVpdDEuMjQgPSByZXBsYWNlKFVuaXZlcnNpdGVpdDEuMjQsIGlzLm5hKFVuaXZlcnNpdGVpdDEuMjQpLCAiIiksCiAgICBVbml2ZXJzaXRlaXQyLjI0ID0gcmVwbGFjZShVbml2ZXJzaXRlaXQyLjI0LCBpcy5uYShVbml2ZXJzaXRlaXQyLjI0KSwgIiIpLAogICAgZGlzY2lwbGluZS4yMiA9IHJlcGxhY2UoZGlzY2lwbGluZS4yMiwgaXMubmEoZGlzY2lwbGluZS4yMiksICIiKSwKICAgIGRpc2NpcGxpbmUuMjQgPSByZXBsYWNlKGRpc2NpcGxpbmUuMjQsIGlzLm5hKGRpc2NpcGxpbmUuMjQpLCAiIikKICApCgogIHNhbXBsZSA8LSB3aGljaCgoZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDEuMjIgJWluJSB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDIuMjIgJWluJSB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDEuMjQgJWluJSB1bml2ZXJzaXR5IHwgZGVtb2dyYXBoaWNzJFVuaXZlcnNpdGVpdDIuMjQgJWluJSB1bml2ZXJzaXR5KSAmIChkZW1vZ3JhcGhpY3MkZGlzY2lwbGluZS4yMiAlaW4lIGRpc2NpcGxpbmUgfCBkZW1vZ3JhcGhpY3MkZGlzY2lwbGluZS4yNCAlaW4lIGRpc2NpcGxpbmUpKQoKICBkZW1vZ3JhcGhpY3Nfc29jIDwtIGRlbW9ncmFwaGljc1tzYW1wbGUsIF0KICBzY2hvbGFyc19zZWwgPC0gbGFwcGx5KHNjaG9sYXJzLCAiWyIsIHNhbXBsZSkKCiAgIyBzdGVwIDIKICBpZHMgPC0gZGVtb2dyYXBoaWNzX3NvYyRhdV9pZAogIG53YXZlcyA8LSBsZW5ndGgod2F2ZXMpCiAgbmV0cyA8LSBhcnJheSgwLCBkaW0gPSBjKG53YXZlcywgbGVuZ3RoKGlkcyksIGxlbmd0aChpZHMpKSwgZGltbmFtZXMgPSBsaXN0KHdhdmUgPSAxOm53YXZlcywgaWRzLCBpZHMpKQogIGRpbW5hbWVzKG5ldHMpCgogICMgc3RlcCAzCiAgZGZfd29ya3MgPC0gdGliYmxlKAogICAgd29ya3NfaWQgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLCBmdW5jdGlvbihsKSBsJGlkKSksCiAgICB3b3Jrc19hdXRob3IgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLCBmdW5jdGlvbihsKSBsJGF1dGhvciksIHJlY3Vyc2l2ZSA9IEZBTFNFKSwKICAgIHdvcmtzX3llYXIgPSB1bmxpc3QobGFwcGx5KHNjaG9sYXJzX3NlbCR3b3JrLCBmdW5jdGlvbihsKSBsJHB1YmxpY2F0aW9uX3llYXIpLCByZWN1cnNpdmUgPSBGQUxTRSkKICApCgogIGRmX3dvcmtzIDwtIGRmX3dvcmtzWyFkdXBsaWNhdGVkKGRmX3dvcmtzKSwgXQoKICAjIHN0ZXAgNAogIGlmICh0eXBlID09ICJmaXJzdCIpIHsKICAgIGZvciAoaiBpbiAxOm53YXZlcykgewogICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXI+PXdhdmVzW1tqXV1bMV0gJiBkZl93b3JrcyR3b3Jrc195ZWFyPD13YXZlc1tbal1dWzJdLF0KICAgICAgZm9yIChpIGluIDE6bnJvdyhkZl93b3Jrc193KSkgewogICAgICAgIGVnbyA8LSBkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkWzFdCiAgICAgICAgYWx0ZXJzIDwtIGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWRbLTFdCiAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ28pID4gMCAmIHN1bShpZHMgJWluJSBhbHRlcnMpID4gMCkgewogICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ28pLCB3aGljaChpZHMgJWluJSBhbHRlcnMpXSA8LSAxCiAgICAgICAgfQogICAgICB9CiAgICB9CiAgfQoKICBpZiAodHlwZSA9PSAibGFzdCIpIHsKICAgIGZvciAoaiBpbiAxOm53YXZlcykgewogICAgICBkZl93b3Jrc193IDwtIGRmX3dvcmtzW2RmX3dvcmtzJHdvcmtzX3llYXIgPj0gd2F2ZXNbW2pdXVsxXSAmIGRmX3dvcmtzJHdvcmtzX3llYXIgPD0gd2F2ZXNbW2pdXVsyXSwgXQogICAgICBmb3IgKGkgaW4gMTpucm93KGRmX3dvcmtzX3cpKSB7CiAgICAgICAgZWdvIDwtIHJldihkZl93b3Jrc193JHdvcmtzX2F1dGhvcltpXVtbMV1dJGF1X2lkKVsxXQogICAgICAgIGFsdGVycyA8LSByZXYoZGZfd29ya3NfdyR3b3Jrc19hdXRob3JbaV1bWzFdXSRhdV9pZClbLTFdCiAgICAgICAgaWYgKHN1bShpZHMgJWluJSBlZ28pID4gMCAmIHN1bShpZHMgJWluJSBhbHRlcnMpID4gMCkgewogICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ28pLCB3aGljaChpZHMgJWluJSBhbHRlcnMpXSA8LSAxCiAgICAgICAgfQogICAgICB9CiAgICB9CiAgfQoKICBpZiAodHlwZSA9PSAiYWxsIikgewogICAgZm9yIChqIGluIDE6bndhdmVzKSB7CiAgICAgIGRmX3dvcmtzX3cgPC0gZGZfd29ya3NbZGZfd29ya3Mkd29ya3NfeWVhciA+PSB3YXZlc1tbal1dWzFdICYgZGZfd29ya3Mkd29ya3NfeWVhciA8PSB3YXZlc1tbal1dWzJdLCBdCiAgICAgIGZvciAoaSBpbiAxOm5yb3coZGZfd29ya3NfdykpIHsKICAgICAgICBlZ29zIDwtIGRmX3dvcmtzX3ckd29ya3NfYXV0aG9yW2ldW1sxXV0kYXVfaWQKICAgICAgICBpZiAoc3VtKGlkcyAlaW4lIGVnb3MpID4gMCkgewogICAgICAgICAgbmV0c1tqLCB3aGljaChpZHMgJWluJSBlZ29zKSwgd2hpY2goaWRzICVpbiUgZWdvcyldIDwtIDEKICAgICAgICB9CiAgICAgIH0KICAgIH0KICB9CiAgb3V0cHV0IDwtIGxpc3QoKQogIG91dHB1dCRkYXRhIDwtIHNjaG9sYXJzX3NlbAogIG91dHB1dCRuZXRzIDwtIG5ldHMKICByZXR1cm4ob3V0cHV0KQp9CmBgYAoKYGBge3J9CiNzYXZlIHRoZSBvdXRwdXQgb2YgeW91ciBmdW5jdGlvbgp0ZXN0IDwtIGZjb2xuZXQoZGF0YSA9IHNjaG9sYXJzLCAKICAgICAgICAgICAgICAgIHVuaXZlcnNpdHkgPSBjKCJSVSIsICJFVVIiLCAiV1VSIiwgIlV2QSIsICJMZWlkZW4iLCAiVlUiLCAiVVUiLCAiVXZUIiksIAogICAgICAgICAgICAgICAgZGlzY2lwbGluZSA9IGMoInNvY2lvbG9neSIsICJwb2xpdGljYWwgc2NpZW5jZSIpLCAKICAgICAgICAgICAgICAgIHdhdmVzID0gbGlzdChjKDIwMTUsIDIwMTgpLCBjKDIwMTksIDIwMjMpKSwgCiAgICAgICAgICAgICAgICB0eXBlID0gYygiZmlyc3QiKSkKCgoKCgoKdGVzdF93MSA8LSBpZ3JhcGg6OmdyYXBoX2Zyb21fYWRqYWNlbmN5X21hdHJpeCgKICB0ZXN0JG5ldHNbMSwsXSwgI2ZvciB0aGlzIGV4YW1wbGUgSSB0YWtlIHRoZSBmaXJzdCB3YXZlIG9mIGRhdGEuICh0aHVzIEkgc2VsZWN0IHRoZSBhcnJheSBvZiBuZXR3b3JrcyBhbmQgdGFrZSB0aGUgZmlyc3QgbWF0cml4KQogIG1vZGUgPSBjKCJkaXJlY3RlZCIpLAogIGRpYWcgPSBGQUxTRSwKICBhZGQuY29sbmFtZXMgPSBOVUxMLAogIGFkZC5yb3duYW1lcyA9IE5VTEwKKQoKcGxvdCh0ZXN0X3cxLAogIHZlcnRleC5sYWJlbCA9IE5BLAogIGVkZ2Uud2lkdGggPSAwLjIsCiAgZWRnZS5hcnJvdy5zaXplID0wLjIpCgpgYGAKCmBgYHtyfQp0ZXN0IDwtIGZjb2xuZXQoZGF0YSA9IHNjaG9sYXJzLCAKICAgICAgICAgICAgICAgIHVuaXZlcnNpdHkgPSBjKCJSVSIsICJFVVIiLCAiV1VSIiwgIlV2QSIsICJMZWlkZW4iLCAiVlUiLCAiVVUiLCAiVXZUIiksIAogICAgICAgICAgICAgICAgZGlzY2lwbGluZSA9IGMoInNvY2lvbG9neSIsICJwb2xpdGljYWwgc2NpZW5jZSIpLCAKICAgICAgICAgICAgICAgIHdhdmVzID0gbGlzdChjKDIwMTUsIDIwMTgpLCBjKDIwMTksIDIwMjMpKSwgCiAgICAgICAgICAgICAgICB0eXBlID0gYygiYWxsIikpCgp0ZXN0X3cyIDwtIGlncmFwaDo6Z3JhcGhfZnJvbV9hZGphY2VuY3lfbWF0cml4KAogIHRlc3QkbmV0c1syLCxdLCAjbm93LCBJIHRha2UgdGhlIHNlY29uZCB3YXZlCiAgbW9kZSA9IGMoImRpcmVjdGVkIiksCiAgd2VpZ2h0ZWQgPSBOVUxMLAogIGRpYWcgPSBGQUxTRSwKICBhZGQuY29sbmFtZXMgPSBOVUxMCikKCiNMZXQgdXMgZmluZCBlZ28gY2hhcmFjdGVyaXN0aWNzLiAKI2ZpcnN0IGZpc2ggb3V0IHRoZSBkYXRhCmRmIDwtIHRlc3QkZGF0YQoKI3NhbWUgY29tcGxpY2F0ZWQgc3RydWN0dXJlIGFzICdzY2hvbGFycycgdGh1cyBmaXJzdCBtYWtlIGEgZGF0YWZyYW1lIGZyb20gdGhlIGxpc3QgaW4gd2hpY2ggYWxsIGluZm8gd2FzIHNhdmVkLiAKZGZfZWdvIDwtIGRvLmNhbGwocmJpbmQuZGF0YS5mcmFtZSwgZGYkZGVtb2dyYXBoaWNzKQoKI0RPIE5PVCBNRVNTIFVQIFRIRSBPUkRFUiEgVEhVUyBJRiBZT1UgSk9JTiBUSElTIERBVEEgV0lUSCBZT1VSIE9XTiBEQVRBIENIRUNLIFRIQVQgT1JERVIgUkVNQUlORUQgVEhFIFNBTUUhISAKCiNBZGRpbmcgZ2VuZGVyCgpkZl9nZW5kZXIgPC0gZmxvYWQoIi4vZGF0YS9wcm9jZXNzZWQvZGZfZ2VuZGVyLnJkYSIpCgoKZ2VuZGVyIDwtIGRmX2dlbmRlclssIGMoIm5hbWUiLCAiZ2VuZGVyIildCgpnZW5kZXIgPC0gZ2VuZGVyICU+JQpyZW5hbWUoTmFhbSA9IG5hbWUpCgoKZGZfZWdvIDwtIGxlZnRfam9pbihkZl9lZ28sIGdlbmRlciwgYnk9Ik5hYW0iKQoKcGxvdCh0ZXN0X3cyLAogIHZlcnRleC5jb2xvciA9IGlmZWxzZShkZl9lZ28kZ2VuZGVyID09ICJmZW1hbGUiLCAicmVkIiwgImJsdWUiKSwgI25vdywgSSBjYW4gdXNlIGFjdG9yIGF0dHJpYnV0ZXMgZm9yIHBsb3R0aW5nLiAKICB2ZXJ0ZXgubGFiZWwgPSBOQSwKICBlZGdlLndpZHRoID0gMC4yLAogIGVkZ2UuYXJyb3cuc2l6ZSA9MC4yKQoKYGBgCgpgYGB7cn0Kd2F2ZTEgPC0gdGVzdCRuZXRzWzEsLF0Kd2F2ZTIgPC0gdGVzdCRuZXRzWzIsLF0KCnN1bShpcy5uYSh3YXZlMikpCgpzdW0oZGlhZyh3YXZlMik9PTApCgpkaWFnKHdhdmUyKSA8LSAwCmRpYWcod2F2ZTEpIDwtIDAKCnN1bShkaWFnKHdhdmUyKT09MCkKCnN1bShkaWFnKHdhdmUxKT09MCkKCgpzdW0od2F2ZTI+MSkKCnN1bSh3YXZlMj4wKQoKIyBwdXQgdGhlIG5ldHMgaW4gYW4gYXJyYXkKbmV0X3NvY19hcnJheSA8LSBhcnJheShkYXRhID0gYyh3YXZlMSwgd2F2ZTIpLCBkaW0gPSBjKGRpbSh3YXZlMSksIDIpKQoKIyBkZXBlbmRlYm50Cm5ldCA8LSBzaWVuYURlcGVuZGVudChuZXRfc29jX2FycmF5KQoKZGYgPC0gdGVzdCRkYXRhCgpkZl9lZ28gPC0gZG8uY2FsbChyYmluZC5kYXRhLmZyYW1lLCBkZiRkZW1vZ3JhcGhpY3MpCgp1bmlxdWUoYyhkZl9lZ28kZnVuY3RpZS4yMiwgZGZfZWdvJEZ1bmN0aWUuMjQpKQoKZGZfZWdvJEZ1bmN0aWUuMjJbaXMubmEoZGZfZWdvJEZ1bmN0aWUuMjIpXSA8LSAiIgpkZl9lZ28kRnVuY3RpZS4yNFtpcy5uYShkZl9lZ28kRnVuY3RpZS4yNCldIDwtICIiCgoKZGZfZWdvJGZ1bmN0aWUgPC0gaWZlbHNlKGRmX2VnbyRGdW5jdGllLjIyPT0iSG9vZ2xlcmFhciIsIDEsIDApCmRmX2VnbyRmdW5jdGllIDwtIGlmZWxzZShkZl9lZ28kRnVuY3RpZS4yND09Ikhvb2dsZXJhYXIiLCAxLCAwKQpkZl9lZ28kZnVuY3RpZSA8LSBpZmVsc2UoZGZfZWdvJEZ1bmN0aWUuMjI9PSJCaWp6b25kZXIgaG9vZ2xlcmFhciIsIDEsIGRmX2VnbyRmdW5jdGllKQpkZl9lZ28kZnVuY3RpZSA8LSBpZmVsc2UoZGZfZWdvJEZ1bmN0aWUuMjQ9PSJCaWp6b25kZXIgaG9vZ2xlcmFhciIsIDEsIGRmX2VnbyRmdW5jdGllKQoKCiMgZ2VuZGVyCnRhYmxlKGRmX2VnbyRmdW5jdGllLCB1c2VOQT0iYWx3YXlzIikKZnVuY3RpZSA8LSBjb0NvdmFyKGRmX2VnbyRmdW5jdGllKQoKbXlkYXRhIDwtIHNpZW5hRGF0YUNyZWF0ZShuZXQsIGZ1bmN0aWUpCmBgYAoKIyBTdGVwIDI6IGVmZmVjdHMKCmBgYHtyfQpteWVmZiA8LSBnZXRFZmZlY3RzKG15ZGF0YSkKCm15ZWZmCgoKCmBgYAoKIyBTdGVwIDM6CgpgYGB7cn0KaWYgKCFkaXIuZXhpc3RzKCJyZXN1bHRzIikpIGRpci5jcmVhdGUoInJlc3VsdHMiKQoKcHJpbnQwMVJlcG9ydChteWRhdGEsIG1vZGVsbmFtZSA9ICIuL3Jlc3VsdHMvc29jX2luaXQiKQpgYGAKCiMgU3RlcCA0CgpgYGB7ciwgZXZhbD0gRkFMU0V9CnNldC5zZWVkKDQyKQoKP3NpZW5hQWxnb3JpdGhtCm15QWxnb3JpdGhtIDwtIHNpZW5hQWxnb3JpdGhtQ3JlYXRlKHByb2puYW1lID0gInNvY19pbml0IikKYW5zTTEgPC0gc2llbmEwNyhteUFsZ29yaXRobSwgZGF0YSA9IG15ZGF0YSwgZWZmZWN0cyA9IG15ZWZmLCByZXR1cm5EZXBzID0gVFJVRSkKIyBpZiBuZWNlc3NhcnkgZXN0aW1hdGUgYWdhaW4hICBhbnNNMSA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYsCiMgcHJldkFucyA9IGFuc00xLCByZXR1cm5EZXBzPVRSVUUpCmFuc00xCgpteWVmZiA8LSBnZXRFZmZlY3RzKG15ZGF0YSkKCiNteWVmZiA8LSBpbmNsdWRlRWZmZWN0cyhteWVmZiwgaXNvbGF0ZU5ldCwgaW5Qb3AsIG91dEFjdCkgICN3ZSBrbm93IHRoYXQgcXVpdGUgYSBsb3Qgb2Ygc3RhZmYgaGFzIG5vdCBwdWJsaXNoZWQgd2l0aCBzb21lb25lIGVsc2UKbXllZmYgPC0gaW5jbHVkZUVmZmVjdHMobXllZmYsIG15ZWZmLCBpblBvcCwgb3V0QWN0LCBiYWxhbmNlLCBhbnRpSXNvLCBlZ29YKQoKbXllZmYgPC0gc2V0RWZmZWN0KG15ZWZmLCBlZ29YLCBpbnRlcmFjdGlvbjEgPSAiZnVuY3RpZSIpCgoKbXlBbGdvcml0aG0gPC0gc2llbmFBbGdvcml0aG1DcmVhdGUocHJvam5hbWUgPSAic29jX2luaXQiKQphbnNNMSA8LSBzaWVuYTA3KG15QWxnb3JpdGhtLCBkYXRhID0gbXlkYXRhLCBlZmZlY3RzID0gbXllZmYsIHJldHVybkRlcHMgPSBUUlVFKQojIGlmIG5lY2Vzc2FyeSBlc3RpbWF0ZSBhZ2FpbiEgIGFuc00xIDwtIHNpZW5hMDcobXlBbGdvcml0aG0sIGRhdGEgPSBteWRhdGEsIGVmZmVjdHMgPSBteWVmZiwKIyBwcmV2QW5zID0gYW5zTTEsIHJldHVybkRlcHM9VFJVRSkKYW5zTTEKYGBgCi0tLS0KCiMgaG9tZXdvcmsKClwtIHBpY2sgYSBzdGF0aXN0aWMgZnJvbSBSc2llbmEgbWFudWFsCgpcLSBNYWtlIHN1cmUgZGUgZGF0YSBpcyByZWFkeQoKXC0gUHJlc2VudCBzdGF0aXN0aWMKCiMjIGJhbGFuY2UKCiFbXShpbWFnZXMvY2xpcGJvYXJkLTE0NjE3OTY2OTIucG5nKQoKa2V5IHZhcmlhYmxlcyB4aWggYW5kIHhqaCBkZXBpY3QgdGllcyBvZiBpIGFuZCBqIHRvIGFsdGVycyBleGNsdWRpbmcKZWFjaCBvdGhlci4gRm9yIGVhY2ggYWx0ZXIgd2hpY2ggdGhleSBkbyBub3Qgc2hhcmUgXHx4aWggLSB4amhcfAppbmNyZWFzZXMgYnkgMSB0aGVyZWJ5IHNob3dpbmcgdG8gd2hhdCBkZWdyZWUgdGhlaXIgbmV0d29ya3Mgb3ZlcmxhcC4gYjAKaXMgYWRkZWQgYXMgYSBjb25zdGFudC4KCiMjIGFudGkgaXNvbGF0ZXMgZWZmZWN0CgohW10oaW1hZ2VzL2NsaXBib2FyZC0yNjMxNTA1NjUzLnBuZykKCnNob3dzIHByZWZlcmVuY2UgZm9yIGlzb2xhdGVzCgp4K2ogPSBhbHRlciBpbmRlZ3JlZQoKeGorID0gYWx0ZXIgb3V0ZGVncmVlCgp0aGlzIG1lYW5zIHRoYXQgd2hlbiB0aWUgdG8gaiBpcyBzZXZlcmVkIHdoaWNoIGNhdXNlcyBqIHRvIGJlIGlzb2xhdGVkCih4K2ogaXMgMCkgdGhlIGNvbmRpdGlvbiBpcyBub3QgbWV0IHJlZHVjaW5nIHRoZSBzY29yZS4gSWYgYW4gYWx0ZXIgaXMKaXNvbGF0ZWQgYW5kIGEgY29ubmVjdGlvbiBpcyBtYWRlOiB4K2ogPTEgYW5kIHhqKz0wLiB0aGlzIGluY3JlYXNlcyB0aGUKc2NvcmUgYXMgd2VsbC4KClJlZmVyZW5jZXMKClJvbmFsZCBCdXJ0Cg==</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("Week5.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
