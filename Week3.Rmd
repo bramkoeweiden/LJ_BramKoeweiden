@@ -124,7 +124,13 @@ df <- oa_fetch(entity = "author", search = "Jochem Tolsma")
 fshowdf(df)
 
 df_papers <- oa_fetch(entity = "works", author.id = df$id)
+
+df_names <- fload('/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda')
+view (df)
+
+
 ```
+
 
 ----
 
@@ -148,15 +154,19 @@ str (df_papers$authorships[[1]][["display_name"]])
 
 ?unnest_wider
 
+# Unnest the df's in authorships row of df_papers dataset
+
 df_papers2 <- df_papers %>%
   unnest_longer (authorships) %>%
   unnest_wider (authorships, names_sep="_")
 
 str (df_papers2$authorships_display_name)
 
+# Making new df which counts collaborations with JT
+
 co_authors <- df_papers2 %>%
 count(authorships_display_name)
-
+view (co_authors)
 #calculation average tie strength not sure how to implement it in our final dataset.
 
 jt_avgtiestr <- (sum(co_authors$n)-co_authors$n[co_authors$authorships_display_name == 'Jochem Tolsma'])/(nrow(co_authors)-1)
@@ -167,7 +177,6 @@ jt_avgtiestr_a <- jt_avgtiestr/(nrow(df_papers)-1)
 
 
 
-df <- fload('/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda')
 
 ?openalexR
 
