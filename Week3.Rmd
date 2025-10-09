@@ -136,7 +136,7 @@ view (df)
 
 # Creating mock variables
 
-```{r}
+```{r, eval= FALSE}
 #Calculation H-index
 
 ?desc

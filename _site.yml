@@ -18,6 +18,10 @@ navbar:
         href: Week2.html
       - text: "Week 3"
         href: Week3.html
+      - text: "Week 4"
+        href: Week4.html
+      - text: "Week 5"
+        href: Week5.html
     - text: "Research paper"
       menu:
       - text: "Introduction"
