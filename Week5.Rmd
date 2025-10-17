@@ -407,11 +407,17 @@ df_ego$functie <- ifelse(df_ego$Functie.22=="Bijzonder hoogleraar", 1, df_ego$fu
 df_ego$functie <- ifelse(df_ego$Functie.24=="Bijzonder hoogleraar", 1, df_ego$functie)
 
 
-# gender
+# Functie
 table(df_ego$functie, useNA="always")
 functie <- coCovar(df_ego$functie)
 
+
+
+
 mydata <- sienaDataCreate(net, functie)
+
+
+
 ```
 
 # Step 2: effects
@@ -448,18 +454,28 @@ ansM1
 myeff <- getEffects(mydata)
 
 #myeff <- includeEffects(myeff, isolateNet, inPop, outAct)  #we know that quite a lot of staff has not published with someone else
-myeff <- includeEffects(myeff, myeff, inPop, outAct, balance, antiIso, egoX)
+#myeff <- includeEffects(myeff, myeff, inPop, outAct, balance)
+
+
+myeff <- setEffect(myeff, balance)
+
+myeff <- includeInteraction(myeff, balance, egoX, interaction1 = c("", "functie"))
 
 myeff <- setEffect(myeff, egoX, interaction1 = "functie")
 
-
-myAlgorithm <- sienaAlgorithmCreate(projname = "soc_init")
+myAlgorithm <- sienaAlgorithmCreate(projname = "soc_init", n3=500,)
 ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+
+
 # if necessary estimate again!  ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff,
 # prevAns = ansM1, returnDeps=TRUE)
+#testen sneller door iteraties te verminderen 
+ #iteraties verminderen met n3? fases kan je ook verminderen
+ansM1
 ansM1
 ```
-----
+
+------------------------------------------------------------------------
 
 # homework
 
@@ -491,7 +507,7 @@ xj+ = alter outdegree
 this means that when tie to j is severed which causes j to be isolated
 (x+j is 0) the condition is not met reducing the score. If an alter is
 isolated and a connection is made: x+j =1 and xj+=0. this increases the
-score as well.
+score as well. **Always include "inpop" as well.**
 
 References
 

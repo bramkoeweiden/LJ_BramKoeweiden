@@ -1,0 +1,182 @@
+
+
+-----------------------------------
+New Analysis started.
+Date and time: 10/10/2025 15:17:33
+New results follow.
+-----------------------------------
+
+RSiena version 1.4.20 (10 Nov 24)
+
+
+@1
+Estimation by stochastic approximation algorithm.
+=================================================
+
+Current random number seed is 1.
+Effects object used: myeff 
+Model Type:
+ Standard actor-oriented model 
+Estimation method: unconditional moment estimation
+.
+
+Time duration for simulations in each period is 1.0.
+Standard errors are estimated with the likelihood ratio method.
+Dolby method (regression on scores) is used.
+Dependent network variable friendship :
+All digraphs are constrained to having outdegrees not larger than 6 .
+Initial value of gain parameter is  0.1000000.
+Reduction factor for gain parameter is  0.5000000.
+Number of subphases in Phase 2 is 4.
+
+Initial parameter values are 
+  1. rate:  constant friendship rate (period 1)             7.4169
+  2. rate:  constant friendship rate (period 2)             6.1665
+  3. eval:  outdegree (density)                            -1.6682
+  4. eval:  reciprocity                                     0.0000
+  5. eval:  transitive triplets                             0.0000
+  6. eval:  transitive recipr. triplets                     0.0000
+  7. eval:  indegree - popularity                           0.0000
+  8. eval:  outdegree - activity                            0.0000
+  9. eval:  indegree - activity                             0.0000
+ 10. eval:  fem alter                                       0.0000
+ 11. eval:  fem ego                                         0.0000
+ 12. eval:  same fem                                        0.0000
+ 13. eval:  selfesteem alter                                0.0000
+ 14. eval:  selfesteem ego                                  0.0000
+ 15. eval:  selfesteem ego x selfesteem alter               0.0000
+ 16. eval:  feedback from selfesteem                       -2.4184
+ 17. eval:  intercept                                       0.5166
+ 18. eval:  friendship indegree                             0.0000
+ 19. rate:  scale parameter (period 1)                      0.1156
+ 20. rate:  scale parameter (period 2)                      0.1731
+
+
+Values of target statistics are
+  1. Amount of network change in period 1                               558.0000
+  2. Amount of network change in period 2                               470.0000
+  3. Number of ties                                                     983.0000
+  4. Number of reciprocated ties                                        574.0000
+  5. Number of transitive triplets                                     1249.0000
+  6. Number of transitive recipr. triplets                              835.0000
+  7. Sum of squared indegrees                                          4799.0000
+  8. Sum of squared outdegrees                                         4319.0000
+  9. Sum of crossproducts indegree x outdegree                         3921.0000
+ 10. Sum indegrees x fem                                                392.0000
+ 11. Sum outdegrees x fem                                               407.0000
+ 12. Same values on fem                                                 886.0000
+ 13. Sum indegrees x selfesteem                                         -27.8357
+ 14. Sum outdegrees x selfesteem                                         -0.8426
+ 15. Sum selfesteem ego x selfesteem alter                               16.3526
+ 16. Feedback of selfesteem on selfesteem (A_selfesteem.selfesteem)      34.0539
+ 17. Intercept of selfesteem (b_selfesteem)                              10.0767
+ 18. beh. selfesteem indegrees                                           33.9822
+ 19. Time scaling continuous behavior change in period 1                 13.9000
+ 20. Time scaling continuous behavior change in period 2                 18.1200
+These were calculated from the data.
+
+ 20 parameters, 20 statistics
+
+Estimation of derivatives by the LR method (type 1).
+
+
+@2
+End of stochastic approximation algorithm, phase 3.
+---------------------------------------------------
+
+Total of 5619 iterations.
+Parameter estimates based on 2619 iterations,
+convergence diagnostics, covariance and derivative matrices based on 3000 iterations.
+
+Information for convergence diagnosis.
+Averages, standard deviations, and t-ratios for deviations from targets:
+  1.   0.0967  20.2604   0.0048 
+  2.   0.1203  18.1764   0.0066 
+  3.   3.6223  28.8437   0.1256 
+  4.   1.1387  27.7736   0.0410 
+  5.   8.5423 139.2815   0.0613 
+  6.   9.4540 110.4201   0.0856 
+  7.   8.2937 286.5691   0.0289 
+  8.  -6.8830 205.7815  -0.0334 
+  9.  17.6307 218.2287   0.0808 
+ 10.   0.0917  20.7520   0.0044 
+ 11.   0.0833  19.4477   0.0043 
+ 12.   1.2020  29.8436   0.0403 
+ 13.   0.2177  13.3317   0.0163 
+ 14.   0.2451  10.2092   0.0240 
+ 15.   0.1486   6.1169   0.0243 
+ 16.  -0.0678   2.2899  -0.0296 
+ 17.  -0.1653   5.1353  -0.0322 
+ 18.  -0.6637  22.3752  -0.0297 
+ 19.  -0.0301   1.6842  -0.0178 
+ 20.   0.0292   2.2546   0.0130 
+
+Good convergence is indicated by the t-ratios being close to zero.
+
+Overall maximum convergence ratio =  0.9589 .
+
+
+
+@2
+Estimation Results.
+-------------------
+
+Regular end of estimation algorithm.
+Total of 5619 iteration steps.
+
+
+@3
+Estimates and standard errors
+                             
+ 1. rate:  constant friendship rate (period 1)                    13.2590  (   1.4162)
+ 2. rate:  constant friendship rate (period 2)                    10.8985  (   1.0162)
+ 3. eval:  outdegree (density)                                    -2.7865  (   0.2281)
+ 4. eval:  reciprocity                                             2.5600  (   0.1628)
+ 5. eval:  transitive triplets                                     0.8788  (   0.0559)
+ 6. eval:  transitive recipr. triplets                            -0.5367  (   0.0911)
+ 7. eval:  indegree - popularity                                  -0.0285  (   0.0229)
+ 8. eval:  outdegree - activity                                    0.0134  (   0.0294)
+ 9. eval:  indegree - activity                                    -0.1188  (   0.0457)
+10. eval:  fem alter                                              -0.1356  (   0.0937)
+11. eval:  fem ego                                                 0.0613  (   0.1068)
+12. eval:  same fem                                                0.6813  (   0.0902)
+13. eval:  selfesteem alter                                       -0.1518  (   0.1269)
+14. eval:  selfesteem ego                                          0.3602  (   0.1278)
+15. eval:  selfesteem ego x selfesteem alter                      -0.0809  (   0.2324)
+16. eval:  feedback from selfesteem                               -2.4165  (   0.4299)
+17. eval:  intercept                                               0.6689  (   0.5097)
+18. eval:  friendship indegree                                    -0.0407  (   0.1226)
+19. rate:  scale parameter (period 1)                              0.1158  (   1.6842)
+20. rate:  scale parameter (period 2)                              0.1720  (   0.0087)
+
+
+@3
+Covariance matrices
+                   
+Covariance matrix of estimates (correlations below diagonal):
+     2.006      0.216      0.030     -0.079     -0.031      0.034     -0.006     -0.004      0.025      0.011      0.040     -0.024      0.035      0.009     -0.026      0.044     -0.059      0.020     -0.028      0.003
+     0.150      1.033      0.039     -0.062     -0.021      0.028     -0.004     -0.004      0.015      0.010      0.015     -0.014      0.022      0.004     -0.002      0.044      0.017     -0.002     -0.041      0.002
+     0.093      0.168      0.052     -0.016     -0.003      0.008     -0.003     -0.004      0.001      0.004      0.004     -0.011      0.009      0.006     -0.002      0.017     -0.022      0.005     -0.001      0.001
+    -0.343     -0.374     -0.420      0.026      0.005     -0.010      0.002      0.002     -0.004     -0.002     -0.005      0.002     -0.008     -0.002      0.005     -0.005      0.009     -0.003     -0.001     -0.001
+    -0.395     -0.375     -0.205      0.592      0.003     -0.004      0.000      0.000     -0.001     -0.001     -0.002      0.001     -0.002     -0.001      0.001     -0.002      0.003     -0.001      0.001      0.000
+     0.266      0.300      0.379     -0.656     -0.874      0.008     -0.001      0.000      0.000      0.001      0.003     -0.001      0.004      0.002     -0.003      0.004     -0.008      0.002      0.000      0.000
+    -0.185     -0.191     -0.593      0.474      0.119     -0.283      0.001      0.000      0.000      0.000     -0.001      0.001     -0.001      0.000      0.001     -0.001      0.001      0.000     -0.001      0.000
+    -0.085     -0.130     -0.567      0.314      0.054     -0.063      0.115      0.001     -0.001      0.000     -0.001      0.000     -0.001     -0.001      0.000     -0.001      0.001      0.000      0.001      0.000
+     0.380      0.325      0.091     -0.528     -0.227      0.059     -0.253     -0.583      0.002      0.000      0.001      0.000      0.001      0.001     -0.001      0.000      0.001      0.000     -0.002      0.000
+     0.086      0.103      0.189     -0.135     -0.123      0.172     -0.080     -0.072     -0.048      0.009     -0.004     -0.002      0.005      0.001     -0.002      0.004     -0.005      0.001      0.004      0.000
+     0.262      0.138      0.145     -0.311     -0.282      0.300     -0.239     -0.205      0.273     -0.392      0.011     -0.001      0.004      0.003     -0.002      0.004     -0.008      0.002     -0.005      0.000
+    -0.192     -0.149     -0.514      0.121      0.114     -0.175      0.262      0.040     -0.018     -0.232     -0.125      0.008     -0.003     -0.002      0.001     -0.005      0.006     -0.001      0.000      0.000
+     0.195      0.169      0.312     -0.385     -0.306      0.357     -0.246     -0.153      0.132      0.381      0.262     -0.304      0.016      0.001     -0.005      0.010     -0.015      0.004      0.004      0.001
+     0.047      0.034      0.207     -0.116     -0.081      0.150     -0.167     -0.279      0.215      0.092      0.249     -0.134      0.036      0.016      0.001      0.001     -0.009      0.002     -0.001      0.000
+    -0.080     -0.010     -0.039      0.123      0.099     -0.121      0.104      0.009     -0.080     -0.104     -0.098      0.051     -0.169      0.017      0.054     -0.001      0.013     -0.003     -0.003      0.000
+     0.073      0.100      0.171     -0.076     -0.077      0.102     -0.118     -0.079      0.024      0.111      0.096     -0.142      0.184      0.011     -0.005      0.185     -0.026      0.006     -0.246      0.001
+    -0.082      0.032     -0.190      0.113      0.122     -0.174      0.120      0.069      0.024     -0.110     -0.155      0.121     -0.236     -0.144      0.107     -0.120      0.260     -0.059      0.047     -0.002
+     0.118     -0.019      0.193     -0.133     -0.152      0.193     -0.114     -0.097      0.014      0.123      0.166     -0.129      0.243      0.143     -0.117      0.117     -0.944      0.015      0.001      0.000
+    -0.012     -0.024     -0.002     -0.005      0.007      0.000     -0.013      0.022     -0.021      0.025     -0.029     -0.002      0.018     -0.003     -0.009     -0.339      0.055      0.002      2.837      0.000
+     0.262      0.265      0.590     -0.468     -0.425      0.549     -0.509     -0.205      0.124      0.350      0.399     -0.477      0.633      0.240     -0.184      0.279     -0.362      0.364     -0.003      0.000
+
+Derivative matrix of expected statistics X by parameters and
+covariance/correlation matrix of X can be found using
+summary(ans) within R, or by using the 'verbose' option in Siena07.
+ 
+Total computation time 1010.85 seconds.

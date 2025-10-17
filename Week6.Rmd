@@ -1,0 +1,421 @@
+---
+title: "Week 1"
+#bibliography: references.bib
+author: "Bram Koeweiden"
+bibliography: references.bib
+---
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+#rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, eval=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+klippy::klippy(color = 'darkred')
+klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+------------------------------------------------------------------------
+
+```{r}
+rm(list = ls())
+
+
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+colorize <- function(x, color) {
+    sprintf("<span style='color: %s;'>%s</span>", color, x)
+}
+
+packages = c("RSiena", "devtools", "igraph")
+fpackage.check(packages)
+#devtools::install_github('JochemTolsma/RsienaTwoStep', build_vignettes=TRUE)
+packages = c("RsienaTwoStep")
+fpackage.check(packages)
+
+library(tidyverse)
+```
+
+```{r}
+scholars <- fload("./data/processed/scholars_20240924.rda")
+```
+
+```{r}
+fcolnet <- function(data = scholars, university = c("RU", "EUR", "WUR", "UvA", "Leiden", "VU", "UU", "UvT"), discipline = c("sociology", "political science"), waves = list(c(2015, 2018), c(2019, 2023)), type = c("first")) {
+  
+  
+  # step 1
+  demographics <- do.call(rbind.data.frame, data$demographics)
+  demographics <- demographics %>% mutate(
+    Universiteit1.22 = replace(Universiteit1.22, is.na(Universiteit1.22), ""),
+    Universiteit2.22 = replace(Universiteit2.22, is.na(Universiteit2.22), ""),
+    Universiteit1.24 = replace(Universiteit1.24, is.na(Universiteit1.24), ""),
+    Universiteit2.24 = replace(Universiteit2.24, is.na(Universiteit2.24), ""),
+    discipline.22 = replace(discipline.22, is.na(discipline.22), ""),
+    discipline.24 = replace(discipline.24, is.na(discipline.24), "")
+  )
+
+  sample <- which((demographics$Universiteit1.22 %in% university | demographics$Universiteit2.22 %in% university | demographics$Universiteit1.24 %in% university | demographics$Universiteit2.24 %in% university) & (demographics$discipline.22 %in% discipline | demographics$discipline.24 %in% discipline))
+
+  demographics_soc <- demographics[sample, ]
+  scholars_sel <- lapply(scholars, "[", sample)
+
+  # step 2
+  ids <- demographics_soc$au_id
+  nwaves <- length(waves)
+  nets <- array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids, ids))
+  dimnames(nets)
+
+  # step 3
+  df_works <- tibble(
+    works_id = unlist(lapply(scholars_sel$work, function(l) l$id)),
+    works_author = unlist(lapply(scholars_sel$work, function(l) l$author), recursive = FALSE),
+    works_year = unlist(lapply(scholars_sel$work, function(l) l$publication_year), recursive = FALSE)
+  )
+
+  df_works <- df_works[!duplicated(df_works), ]
+
+  # step 4
+  if (type == "first") {
+    for (j in 1:nwaves) {
+      df_works_w <- df_works[df_works$works_year>=waves[[j]][1] & df_works$works_year<=waves[[j]][2],]
+      for (i in 1:nrow(df_works_w)) {
+        ego <- df_works_w$works_author[i][[1]]$au_id[1]
+        alters <- df_works_w$works_author[i][[1]]$au_id[-1]
+        if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+          nets[j, which(ids %in% ego), which(ids %in% alters)] <- 1
+        }
+      }
+    }
+  }
+
+  if (type == "last") {
+    for (j in 1:nwaves) {
+      df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2], ]
+      for (i in 1:nrow(df_works_w)) {
+        ego <- rev(df_works_w$works_author[i][[1]]$au_id)[1]
+        alters <- rev(df_works_w$works_author[i][[1]]$au_id)[-1]
+        if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+          nets[j, which(ids %in% ego), which(ids %in% alters)] <- 1
+        }
+      }
+    }
+  }
+
+  if (type == "all") {
+    for (j in 1:nwaves) {
+      df_works_w <- df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2], ]
+      for (i in 1:nrow(df_works_w)) {
+        egos <- df_works_w$works_author[i][[1]]$au_id
+        if (sum(ids %in% egos) > 0) {
+          nets[j, which(ids %in% egos), which(ids %in% egos)] <- 1
+        }
+      }
+    }
+  }
+  output <- list()
+  output$data <- scholars_sel
+  output$nets <- nets
+  return(output)
+}
+```
+
+```{r}
+test <- fcolnet(data = scholars, 
+                university = c("RU", "EUR", "WUR", "UvA", "Leiden", "VU", "UU", "UvT"), 
+                discipline = c("sociology", "political science"), 
+                waves = list(c(2015, 2018), c(2019, 2023)), 
+                type = c("all"))
+
+test_w2 <- igraph::graph_from_adjacency_matrix(
+  test$nets[2,,], #now, I take the second wave
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL
+)
+
+#Let us find ego characteristics. 
+#first fish out the data
+df <- test$data
+
+#same complicated structure as 'scholars' thus first make a dataframe from the list in which all info was saved. 
+df_ego <- do.call(rbind.data.frame, df$demographics)
+
+#DO NOT MESS UP THE ORDER! THUS IF YOU JOIN THIS DATA WITH YOUR OWN DATA CHECK THAT ORDER REMAINED THE SAME!! 
+
+#Adding gender
+
+df_gender <- fload("./data/processed/df_gender.rda")
+
+
+gender <- df_gender[, c("name", "gender")]
+
+gender <- gender %>%
+rename(Naam = name)
+
+
+df_ego <- left_join(df_ego, gender, by="Naam")
+
+plot(test_w2,
+  vertex.color = ifelse(df_ego$gender == "female", "red", "blue"), #now, I can use actor attributes for plotting. 
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2)
+
+```
+
+```{r}
+wave1 <- test$nets[1,,]
+wave2 <- test$nets[2,,]
+
+sum(is.na(wave2))
+
+sum(diag(wave2)==0)
+
+diag(wave2) <- 0
+diag(wave1) <- 0
+
+sum(diag(wave2)==0)
+
+sum(diag(wave1)==0)
+
+
+sum(wave2>1)
+
+sum(wave2>0)
+
+#puts nets in an array
+net_soc_array <- array(data = c(wave1, wave2), dim = c(dim(wave1), 2))
+
+# dependebnt
+net <- sienaDependent(net_soc_array)
+
+df <- test$data
+
+df_ego <- do.call(rbind.data.frame, df$demographics)
+
+unique(c(df_ego$functie.22, df_ego$Functie.24))
+
+df_ego$Functie.22[is.na(df_ego$Functie.22)] <- ""
+df_ego$Functie.24[is.na(df_ego$Functie.24)] <- ""
+
+
+df_ego$functie <- ifelse(df_ego$Functie.22=="Hoogleraar", 1, 0)
+df_ego$functie <- ifelse(df_ego$Functie.24=="Hoogleraar", 1, 0)
+df_ego$functie <- ifelse(df_ego$Functie.22=="Bijzonder hoogleraar", 1, df_ego$functie)
+df_ego$functie <- ifelse(df_ego$Functie.24=="Bijzonder hoogleraar", 1, df_ego$functie)
+
+df <- test$data
+
+
+table(df_ego$functie, useNA="always")
+functie <- coCovar(df_ego$functie)
+
+df_ego$uni_22_num <- as.numeric(factor(
+  df_ego$Universiteit1.22,
+  levels = c("RU", "EUR", "WUR", "UvA", "Leiden", "VU", "UU", "UvT")
+))
+
+df_ego$uni_24_num <- as.numeric(factor(
+  df_ego$Universiteit1.24,
+  levels = c("RU", "EUR", "WUR", "UvA", "Leiden", "VU", "UU", "UvT")
+))
+df_ego$uni_22_num==df_ego$uni_24_num
+
+table(df_ego$uni_24_num, useNA="always")
+uni_24 <- coCovar(df_ego$uni_24_num)
+
+mydata <- sienaDataCreate(net, functie, uni_24)
+```
+
+```{r, eval= FALSE}
+# Werkt nog niet zonder gender van jaar ervoor
+
+df_ego <- do.call(rbind.data.frame, df$demographics)
+
+#DO NOT MESS UP THE ORDER! THUS IF YOU JOIN THIS DATA WITH YOUR OWN DATA CHECK THAT ORDER REMAINED THE SAME!! 
+
+#Adding gender
+
+df_gender <- fload("./data/processed/df_gender.rda")
+
+
+gender <- df_gender[, c("name", "gender")]
+
+gender <- gender %>%
+rename(Naam = name)
+
+
+df_ego <- left_join(df_ego, gender, by="Naam")
+
+
+df_ego$gender <- ifelse(df_ego$gender=="female", 1, 0)
+#Female = 1, male = 0
+
+df_ego$gender
+# gender
+table(df_ego$gender, useNA="always")
+#v_gender <- coCovar(df_ego$gender)
+
+v_gender <- coCovar(df_ego$gender, nodeSet = attr(net, "nodeSet"))
+
+str(v_gender)
+str(net)
+
+attr(net, "nodeSet")
+attr(v_gender, "nodeSet")
+length(df_ego$gender)
+dim(net)
+
+str(net)
+attributes(net)
+
+
+
+```
+
+# Step 2
+
+```{r}
+myeff <- getEffects(mydata)
+
+myeff
+
+
+
+```
+
+# Step 3:
+
+```{r}
+if (!dir.exists("results")) dir.create("results")
+
+print01Report(mydata, modelname = "./results/r_w6")
+```
+
+# Step 4
+
+```{r, eval= FALSE}
+set.seed(42)
+
+
+#myAlgorithm <- sienaAlgorithmCreate(projname = "r_w6")
+#ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
+# if necessary estimate again!  ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff,
+# prevAns = ansM1, returnDeps=TRUE)
+ansM1
+
+myeff <- getEffects(mydata)
+
+#myeff <- includeEffects(myeff, isolateNet, inPop, outAct)  #we know that quite a lot of staff has not published with someone else
+myeff <- includeEffects(myeff, inPop, outAct, transTies )
+
+
+myeff <- setEffect(myeff, sameX, interaction1 = "uni_24")
+
+
+
+myAlgorithm <- sienaAlgorithmCreate(projname = "soc_init", n3 = 200, firstg = 2)
+ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE, batch = TRUE, nbrNodes = 6)
+# if necessary estimate again!  ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff,
+# prevAns = ansM1, returnDeps=TRUE)
+ansM1
+
+parallel::detectCores()
+
+```
+
+```{r, eval=FALSE}
+
+library(RSiena)
+
+?sienaDependent
+
+mynet1 <- sienaDependent(array(c(s501, s502, s503), dim=c(50, 50, 3)))
+mybeh <- sienaDependent(s50a, type="behavior")
+
+
+smoke <- s50s
+
+smoke <- varCovar(s50s)
+
+mydata <- sienaDataCreate(mynet1, mybeh, smoke)
+
+print01Report(mydata)
+
+mydata
+
+myeff <-getEffects(mydata)
+
+myeff <- includeEffects (myeff, unequalX, name="mynet1", interaction1="smoke")
+
+myeff <- includeEffects (myeff, unequalX, name="mynet1", interaction1="mybeh")
+
+myAlgorithm <- sienaAlgorithmCreate()
+ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, prevAns=ansM1)
+ansM1
+
+
+
+
+
+
+```
+
+------------------------------------------------------------------------
+
+# Notes
+
+[@bozeman2011]
+
+[@kretschmer2018]
+
+Bridging ties across clusters is useful for knowledge production. It follows that those who bridge the gaps by collaborating with scholars from different universities would be beneficial. There are reasons to expect gender differences in this regard [@kretschmer2018 @bozeman2011]. Thus research questions:
+
+1: Is a higher amount of interuniversity ties linked to a higher betweennes centrality?
+
+2: Do men more often choose to collaborate with scholars outside of their university than women?

@@ -363,6 +363,9 @@ div.tocify {
     <li>
       <a href="Week5.html">Week 5</a>
     </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -464,13 +467,13 @@ fshowdf &lt;- function(x, ...) {
 #install.packages (&quot;reshape2&quot;) 
 
 library(tidyverse)</code></pre>
-<pre><code>## ── Attaching core tidyverse packages ────────────────────── tidyverse 2.0.0 ──
+<pre><code>## ── Attaching core tidyverse packages ──────────────
 ## ✔ dplyr     1.1.4     ✔ readr     2.1.5
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ## ✔ ggplot2   3.5.2     ✔ tibble    3.2.1
 ## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
 ## ✔ purrr     1.0.4     
-## ── Conflicts ──────────────────────────────────────── tidyverse_conflicts() ──
+## ── Conflicts ───────────── tidyverse_conflicts() ──
 ## ✖ lubridate::%--%()      masks igraph::%--%()
 ## ✖ dplyr::as_data_frame() masks tibble::as_data_frame(), igraph::as_data_frame()
 ## ✖ purrr::compose()       masks igraph::compose()
@@ -533,7 +536,7 @@ jt &lt;- read_html(&quot;https://api.openalex.org/authors?search=Jochem+Tolsma&q
     html_text2()
 
 substr(jt, 1, 100)</code></pre>
-<pre><code>## [1] &quot;{\&quot;meta\&quot;:{\&quot;count\&quot;:1,\&quot;db_response_time_ms\&quot;:54,\&quot;page\&quot;:1,\&quot;per_page\&quot;:25,\&quot;groups_count\&quot;:null},\&quot;results\&quot;:[{&quot;</code></pre>
+<pre><code>## [1] &quot;{\&quot;meta\&quot;:{\&quot;count\&quot;:1,\&quot;db_response_time_ms\&quot;:96,\&quot;page\&quot;:1,\&quot;per_page\&quot;:25,\&quot;groups_count\&quot;:null},\&quot;results\&quot;:[{&quot;</code></pre>
 <pre class="r"><code># Going directly to JSON (most information)
 
 jt_json &lt;- fromJSON(&quot;https://api.openalex.org/authors?search=Jochem+Tolsma&quot;, simplifyVector = FALSE)
@@ -684,9 +687,9 @@ str(jt_json$results, 2)</code></pre>
 ##   ..$ orcid                    : chr &quot;https://orcid.org/0000-0002-4411-6932&quot;
 ##   ..$ display_name             : chr &quot;Jochem Tolsma&quot;
 ##   ..$ display_name_alternatives:List of 3
-##   ..$ relevance_score          : num 9103
-##   ..$ works_count              : int 87
-##   ..$ cited_by_count           : int 2118
+##   ..$ relevance_score          : num 9011
+##   ..$ works_count              : int 88
+##   ..$ cited_by_count           : int 2123
 ##   ..$ summary_stats            :List of 3
 ##   ..$ ids                      :List of 2
 ##   ..$ affiliations             :List of 3
@@ -696,7 +699,7 @@ str(jt_json$results, 2)</code></pre>
 ##   ..$ x_concepts               :List of 19
 ##   ..$ counts_by_year           :List of 14
 ##   ..$ works_api_url            : chr &quot;https://api.openalex.org/works?filter=author.id:A5087380803&quot;
-##   ..$ updated_date             : chr &quot;2025-10-03T23:47:51.631546&quot;
+##   ..$ updated_date             : chr &quot;2025-10-13T04:19:12.660137&quot;
 ##   ..$ created_date             : chr &quot;2023-07-21&quot;</code></pre>
 <pre class="r"><code>df_jt &lt;- jt_json %&gt;%
     .$results %&gt;%
@@ -772,7 +775,7 @@ Jochem Tolsma
 J. Tolsma , Jochem Tolsma, J L Tolsma
 </td>
 <td style="text-align:right;">
-9103.35
+9011.15
 </td>
 <td style="text-align:left;">
 <a href="https://openalex.org/A5087380803"
@@ -785,15 +788,15 @@ class="uri">https://orcid.org/0000-0002-4411-6932</a>
 class="uri">https://orcid.org/0000-0002-4411-6932</a>
 </td>
 <td style="text-align:right;">
-87
+88
 </td>
 <td style="text-align:right;">
-2118
+2123
 </td>
 <td style="text-align:left;">
 2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014,
 2013, 2012, 3, 9, 5, 4, 4, 0, 4, 3, 3, 13, 4, 8, 6, 2, 1, 6, 4, 4, 4, 0,
-3, 3, 2, 6, 3, 4, 4, 2, 173, 269, 255, 192, 245, 221, 179, 180, 114,
+3, 3, 2, 6, 3, 4, 4, 2, 178, 269, 255, 192, 245, 221, 179, 180, 114,
 167, 135, 99, 77, 51
 </td>
 <td style="text-align:right;">
@@ -1092,9 +1095,9 @@ class="uri">https://api.openalex.org/works?filter=author.id:A5087380803</a>
 </tbody>
 </table>
 </div>
-<pre class="r"><code>df_papers &lt;- oa_fetch(entity = &quot;works&quot;, author.id = df$id)</code></pre>
-<pre><code>## HTTP status 429 Too Many Requests</code></pre>
-<pre class="r"><code>df_names &lt;- fload(&#39;/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda&#39;)
+<pre class="r"><code>df_papers &lt;- oa_fetch(entity = &quot;works&quot;, author.id = df$id)
+
+df_names &lt;- fload(&#39;/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda&#39;)
 view (df)</code></pre>
 <hr />
 </div>
