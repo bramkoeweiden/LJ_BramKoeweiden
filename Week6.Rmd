@@ -200,11 +200,39 @@ rename(Naam = name)
 
 df_ego <- left_join(df_ego, gender, by="Naam")
 
-plot(test_w2,
-  vertex.color = ifelse(df_ego$gender == "female", "red", "blue"), #now, I can use actor attributes for plotting. 
+comp <- igraph::components(test_w2)
+g_con <- induced_subgraph(test_w2, which(comp$membership == which.max(comp$csize)))
+l <- layout_with_dh(g_con)
+
+plot(g_con,
+  vertex.color = ifelse(df_ego$Universiteit1.24 == "RU", "red", 
+                 ifelse(df_ego$Universiteit1.24 == "WUR", "green",
+                 ifelse(df_ego$Universiteit1.24 == "UU", "yellow",
+                 ifelse(df_ego$Universiteit1.24 == "UvA", "black",
+                 ifelse(df_ego$Universiteit1.24 == "Leiden", "blue",
+                 ifelse(df_ego$Universiteit1.24 == "VU", "purple",
+                 ifelse(df_ego$Universiteit1.24 == "UvT", "lightblue",
+                 ifelse(df_ego$Universiteit1.24 == "EUR", "lemonchiffon",
+                 ifelse(df_ego$Universiteit1.24 == "RUG", "coral", "white"))))))))),
   vertex.label = NA,
   edge.width = 0.2,
-  edge.arrow.size =0.2)
+  edge.arrow.size =0.2, layout = l)
+
+l <- layout_with_dh(test_w2)
+
+plot(test_w2,
+  vertex.color = ifelse(df_ego$Universiteit1.24 == "RU", "red", 
+                 ifelse(df_ego$Universiteit1.24 == "WUR", "green",
+                 ifelse(df_ego$Universiteit1.24 == "UU", "yellow",
+                 ifelse(df_ego$Universiteit1.24 == "UvA", "black",
+                 ifelse(df_ego$Universiteit1.24 == "Leiden", "blue",
+                 ifelse(df_ego$Universiteit1.24 == "VU", "purple",
+                 ifelse(df_ego$Universiteit1.24 == "UvT", "lightblue",
+                 ifelse(df_ego$Universiteit1.24 == "EUR", "lemonchiffon",
+                 ifelse(df_ego$Universiteit1.24 == "RUG", "coral", "white"))))))))),
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2, layout = l)
 
 ```
 
@@ -352,18 +380,21 @@ ansM1
 myeff <- getEffects(mydata)
 
 #myeff <- includeEffects(myeff, isolateNet, inPop, outAct)  #we know that quite a lot of staff has not published with someone else
-myeff <- includeEffects(myeff, inPop, outAct, transTies )
+myeff <- includeEffects(myeff, inPop, outAct, egoX)
 
 
 myeff <- setEffect(myeff, sameX, interaction1 = "uni_24")
+myeff <- setEffect(myeff, egoX, interaction1 = "functie")
 
 
 
-myAlgorithm <- sienaAlgorithmCreate(projname = "soc_init", n3 = 200, firstg = 2)
-ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE, batch = TRUE, nbrNodes = 6)
+myAlgorithm <- sienaAlgorithmCreate(projname = "soc_init", n3 = 200)
+ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff, returnDeps = TRUE)
 # if necessary estimate again!  ansM1 <- siena07(myAlgorithm, data = mydata, effects = myeff,
 # prevAns = ansM1, returnDeps=TRUE)
 ansM1
+
+
 
 parallel::detectCores()
 

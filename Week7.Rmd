@@ -1,0 +1,294 @@
+---
+title: "Week 7"
+#bibliography: references.bib
+author: "Bram Koeweiden"
+bibliography: references.bib
+---
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+#rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, eval=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+klippy::klippy(color = 'darkred')
+klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+------------------------------------------------------------------------
+
+#Notes evaluation
+
+- make sure it is clear that the social network perspective is clear through all parts: micro macro link through social networks.
+- reflect on goodness of fit
+- make a meaninful plot of your network
+
+
+
+----
+
+# In class work
+
+```{r, eval = FALSE}
+
+?sienaGOF
+gofi0 <- sienaGOF(ansM1, IndegreeDistribution, verbose = FALSE, join = TRUE, varName = "net")
+gofo0 <- sienaGOF(ansM1, OutdegreeDistribution, verbose = FALSE, join = TRUE, levls = c(0:10, 15, 20),
+    varName = "net")
+gof0.tc <- sienaGOF(ansM1, TriadCensus, verbose = FALSE, join = TRUE, varName = "net")
+
+
+
+plot(gofi0)
+plot(gofo0)
+plot(gof0.tc)
+
+RI <- sienaRI(data = mydata, ans = ansM1)
+RI <- RSiena:::sienaRI(data = mydata, ans = ansM1)
+
+class(RI)
+
+RSiena:::plot.sienaRI(RI, addPieChart = TRUE, legendColumns = 3)
+
+#Only works on small networks
+
+#goodness of fit also on diad census and triad census
+
+
+
+```
+
+
+```{r}
+rm(list=ls())
+
+fpackage.check <- function(packages) {
+    lapply(packages, FUN = function(x) {
+        if (!require(x, character.only = TRUE)) {
+            install.packages(x, dependencies = TRUE)
+            library(x, character.only = TRUE)
+        }
+    })
+}
+
+fsave <- function(x, file = NULL, location = "./data/processed/") {
+    ifelse(!dir.exists("data"), dir.create("data"), FALSE)
+    ifelse(!dir.exists("data/processed"), dir.create("data/processed"), FALSE)
+    if (is.null(file))
+        file = deparse(substitute(x))
+    datename <- substr(gsub("[:-]", "", Sys.time()), 1, 8)
+    totalname <- paste(location, datename, file, ".rda", sep = "")
+    save(x, file = totalname)  #need to fix if file is reloaded as input name, not as x. 
+}
+
+fload <- function(filename) {
+    load(filename)
+    get(ls()[ls() != "filename"])
+}
+
+fshowdf <- function(x, ...) {
+    knitr::kable(x, digits = 2, "html", ...) %>%
+        kableExtra::kable_styling(bootstrap_options = c("striped", "hover")) %>%
+        kableExtra::scroll_box(width = "100%", height = "300px")
+}
+
+colorize <- function(x, color) {
+    sprintf("<span style='color: %s;'>%s</span>", color, x)
+}
+
+packages = c("RSiena", "devtools", "igraph")
+fpackage.check(packages)
+#devtools::install_github('JochemTolsma/RsienaTwoStep', build_vignettes=TRUE)
+packages = c("RsienaTwoStep")
+fpackage.check(packages)
+
+```
+
+```{r}
+scholars <- fload("./data/processed/scholars_20240925.rda")
+
+```
+
+```{r}
+
+
+fcolnet = function(data = scholars, university = c("RU", "EUR", "WUR", "UvA", "Leiden", "VU", "UU", "UvT"), discipline = c("sociology", "political science"), waves = list(c(2015,
+    2018), c(2019, 2023), c(2024, 2025)), type = c("first")) {
+
+    university = paste0('(', paste0(university, collapse='|' ), ')')
+    discipline = paste0('(', paste0(discipline, collapse='|' ), ')')
+
+    # step 1
+    demographics = data$demographics
+    sample = which(
+        (str_detect(demographics$universiteit.22, university)
+            | str_detect(demographics$universiteit.24, university)
+            | str_detect(demographics$universiteit.25, university)
+        ) & (
+            str_detect(demographics$discipline.22, discipline)
+            | str_detect(demographics$discipline.24, discipline)
+            | str_detect(demographics$discipline.25, discipline)
+        ) |> replace_na(FALSE))
+
+    demographics_soc = demographics[sample, ] |> drop_na(id)
+
+    # step 2
+    ids = demographics_soc$id |> unique()
+
+
+    scholars_sel = list() 
+    for (id_ in ids){
+        scholars_sel[[id_]] = bind_rows(scholars$works) |>
+            filter(author_id == id_)
+    }
+    scholars_sel = bind_rows(scholars$works) 
+    
+
+    nwaves = length(waves)
+    nets = array(0, dim = c(nwaves, length(ids), length(ids)), dimnames = list(wave = 1:nwaves, ids,
+        ids))
+    dimnames(nets)
+
+    # step 3
+    df_works = tibble(
+            works_id = scholars_sel$id, 
+            works_author = scholars_sel$authorships, 
+            works_year = scholars_sel$publication_year
+        )
+
+
+    df_works = df_works[!duplicated(df_works), ]
+
+    # step 4
+    if (type == "first") {
+        for (j in 1:length(waves)) {
+            df_works_w = df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego = df_works_w$works_author[i][[1]]$id[1]
+                alters = df_works_w$works_author[i][[1]]$id[-1]
+                if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] = 1
+                }
+            }
+        }
+    }
+
+    if (type == "last") {
+        for (j in 1:length(waves)) {
+            df_works_w = df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                ego = rev(df_works_w$works_author[i][[1]]$id[1])
+                alters = rev(df_works_w$works_author[i][[1]]$id[-1])
+                if (sum(ids %in% ego) > 0 & sum(ids %in% alters) > 0) {
+                  nets[j, which(ids %in% ego), which(ids %in% alters)] = 1
+                }
+            }
+        }
+    }
+    if (type == "all") {
+        for (j in 1:length(waves)) {
+            df_works_w = df_works[df_works$works_year >= waves[[j]][1] & df_works$works_year <= waves[[j]][2],
+                ]
+            for (i in 1:nrow(df_works_w)) {
+                egos = df_works_w$works_author[i][[1]]$id
+                if (sum(ids %in% egos) > 0) {
+                  nets[j, which(ids %in% egos), which(ids %in% egos)] = 1
+                }
+            }
+            diag(nets[j,,]) = 0
+        }
+    }
+
+    output = list()
+    output$data = demographics_soc
+    output$nets = nets
+    return(output)
+}
+```
+
+```{r}
+
+packages = c(
+    "RSiena", "tidyverse",
+    'dplyr', 'stringr' # these packages were added to make the code run
+)
+fpackage.check(packages)
+scholars = fload('data/processed/20251017scholars.Rda')
+```
+
+
+
+```{r, eval = FALSE}
+
+test = fcolnet(scholars, university = c("RU", "EUR", "WUR", "UvA", "Leiden", "VU", "UU", "UvT"))
+df_ego = bind_rows(test$data)
+
+
+
+test <- igraph::graph_from_adjacency_matrix(
+  test$nets[3,,], #now, I take the second wave
+  mode = c("directed"),
+  weighted = NULL,
+  diag = FALSE,
+  add.colnames = NULL
+)
+
+#Let us find ego characteristics. 
+#first fish out the data
+df <- test$data
+
+#same complicated structure as 'scholars' thus first make a dataframe from the list in which all info was saved. 
+df_ego <- do.call(rbind.data.frame, df$demographics)
+
+#DO NOT MESS UP THE ORDER! THUS IF YOU JOIN THIS DATA WITH YOUR OWN DATA CHECK THAT ORDER REMAINED THE SAME!! 
+
+#Adding gender
+
+comp <- igraph::components(test_w3)
+g_con <- induced_subgraph(test_w3, which(comp$membership == which.max(comp$csize)))
+l <- layout_with_dh(lgl)
+
+plot(g_con,
+  vertex.color = ifelse(df_ego$universiteit1.24 == "RU", "red", 
+                 ifelse(df_ego$universiteit1.24 == "WUR", "green",
+                 ifelse(df_ego$universiteit1.24 == "UU", "yellow",
+                 ifelse(df_ego$universiteit1.24 == "UvA", "black",
+                 ifelse(df_ego$universiteit1.24 == "Leiden", "blue",
+                 ifelse(df_ego$universiteit1.24 == "VU", "purple",
+                 ifelse(df_ego$universiteit1.24 == "UvT", "lightblue",
+                 ifelse(df_ego$universiteit1.24 == "EUR", "lemonchiffon",
+                 ifelse(df_ego$universiteit1.24 == "RUG", "coral", "white"))))))))),
+  vertex.label = NA,
+  edge.width = 0.2,
+  edge.arrow.size =0.2, layout = l)
+```
+
+```{r}
+
+
+
+
+```
+
+
+----
+# Syntax Jos
+
+
+

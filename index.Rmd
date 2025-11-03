@@ -60,10 +60,10 @@ Everyone can fork this repository. Use this example to journal your lab work and
 We, Jochem Tolsma and Bas Hofstra, use this repository for our Social Network Analysis For Social Scientists course [@SNASS]. <!--- this is a reference, stored in references.bib. It will be automatically added at the bottom of the page --->
 
 ```{r test, fig.width = 6, fig.height = 3, eval=FALSE}
-knitr::include_graphics("./images/image.jpg")
+knitr::include_graphics("./images/cover_network.jpg")
 ```
 
-![](images/frontpage.jpg)
+![](images/cover_network.jpg)
 
 ## How to use
 

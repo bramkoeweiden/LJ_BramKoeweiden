@@ -1,0 +1,44 @@
+---
+title: "Week 2"
+#bibliography: references.bib
+author: "Bram Koeweiden"
+bibliography: references.bib
+---
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+#rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+klippy::klippy(color = 'darkred')
+klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+------------------------------------------------------------------------
+
+# Theory
+
+@granovetter1973 theorized that weak relational ties are more valuable for one's social network than strong ties. He defined the strength of ties is a product of the time, emotional intensity, intimacy and reciprocal services which form that tie. Because good friends of good friends are likely to become friends, strong ties are most likely to occur in dense networks. While these strong ties might be more dependable than weaker ties, they likely also carry a lot more redundant information the dense networks they are in likely hold many common contacts with the same information. The benefit of receiving more unique knowledge from weak ties has proven to be particularly relevant for academia as its core purpose is to generate new knowledge [@garciachavez2025; @vanderwal2021].
+
+In scientific collaboration, I expect university affiliations to be an important factor in the perspective of the strength of weak ties. Inter-university collaboration has become a common feature of science [@garciachavez2025]. Still, scientists have their offices in their own university and are thus through teaching duties, lunch breaks and proximity, likely to build the strongest relationships with their intra-university colleagues. For collaboration this means that possible co-authors are likely easiest to find and convince within one's affiliated university. In line with @granovetter1973 this likely means that collaboration on scientific articles happens within rather than between universities. *H1: There is more intra-university collaboration than inter-university collaboration in sociology and political science departments of Dutch universities..*
+
+As societal gender norms still cause gendered differences in restrictions and expectations, I expect gender differences in intra versus inter-university collaboration. @jaspers2022 have shown how even among women who work as much as their male partner, on average they still have to do more of the houshold and care work. Consequently, women tend to have less free time and lower quality free time than men. This lack of free time might increase the experienced institutional boundary of collaborating with scholars from different universities further for women because the travel time would take a relatively larger amount of time than for men. As a result, women might have less available time to invest in inter-university collaboration reducing their proportion of inter-university collaborations. Aside from direct time constraints, gender bias in favor of men might also play a role. For example men are still more often invited to speak at academic conferences than women [@corona-sobrino2020; @isbell2012]. Because of a lower representation, women will likely not gain as much networking benefits and status from such conferences as their male colleagues. Aside from the actions of the female scientists themselves this lack of status and name recognition might also reduce the chance of people from other universities inviting them to collaborate relative to male scientists. Taken together due to restrictions because of gender norms and gender bias I expect the following. *H2: there are relatively fewer inter-university collaborations among female sociologists and political scientists than among male sociologists and political scientists in the Netherlands.*
+
+The second hypotheses still leaves room for multiple theoretical explanations. Restrictions due to gender roles might cause women to choose less inter-university collaboration or gender-bias might reduce the likelihood of women gaining enough status to be approached for inter-university collaborations. To disentangle these effects I will consider gender differences in first author collaboration behaviour. First authors are often the more junior researchers meaning that they are likely the ones to reach out to other researchers. While there might still be gender bias in the response when junior researchers reach out, I expect this influence of clear gender bias to be limited due to university gender equality programs [@teelken2013]. Further more, restrictions are likely most relevant for junior researchers in inter-university collaboration, as they will likely be the ones who have adjust more in aspects like travel. The result is that the gender differences in collaboration behaviour due to restrictions are likely most pronounced among first authors. Focusing on behaviour specifically tests the restrictions perspective deemphasizing the possible influence of gender bias. I will use stochastic actor oriented modeling to show whether the preference for intra-university collaboration among first-authors plays a role in explaining the structure of collaboration networks and whether this preference is different for male and female researchers. *H3: Dutch sociologists and political scientists' more often choose for intra-university than inter-university collaboration.*
+
+*H4: The preference for intra-university over inter-university collaboration among female sociologists and political scientists is stronger than this preference of their male counterparts.*
+
+------------------------------------------------------------------------

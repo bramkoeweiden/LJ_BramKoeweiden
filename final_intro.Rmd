@@ -1,0 +1,50 @@
+---
+title: "Week 2"
+#bibliography: references.bib
+author: "Bram Koeweiden"
+bibliography: references.bib
+---
+
+```{r, globalsettings, echo=FALSE, warning=FALSE, results='hide'}
+library(knitr)
+
+knitr::opts_chunk$set(echo = TRUE)
+opts_chunk$set(tidy.opts=list(width.cutoff=100),tidy=TRUE, warning = FALSE, message = FALSE,comment = "#>", cache=TRUE, class.source=c("test"), class.output=c("test2"))
+options(width = 100)
+#rgl::setupKnitr()
+
+
+
+colorize <- function(x, color) {sprintf("<span style='color: %s;'>%s</span>", color, x) }
+
+```
+
+```{r klippy, echo=FALSE, eval=FALSE, include=TRUE}
+klippy::klippy(position = c('top', 'right'))
+klippy::klippy(color = 'darkred')
+klippy::klippy(tooltip_message = 'Click to copy', tooltip_success = 'Done')
+```
+
+Last compiled on `r format(Sys.time(), '%B, %Y')`
+
+<br>
+
+------------------------------------------------------------------------
+
+# Introduction
+
+The gender gap in the amount of people starting academic careers in the Netherlands has mostly closed [@mulders2024]. However, even though all universities have implemented gender equality policies, the academic careers of women still tend to be shorter which is reflected in their under representation in the higher rungs of the academic world [@mulders2024; @teelken2013]. Aside from gender inequality being undesirable by itself, it also increases the risks of missing valuable diversity in perspectives in de scientific debate [@hofstra2020; @schroeder2022]. In this study I will consider how differences in the collaboration behaviour of male and female researchers affect scientific publishing network structures. These structures are relevant as they are shown to play an important role in scholars' career progression [@vanderwal2021].
+
+@vanderwal2021 have shown that scientific collaboration networks of female scientists tend to be smaller and more clustered than those of male scientists. Their research also proved a negative correlation between dense clustered collaboration networks and academic success. In reality dense clustering in the scientific context likely entails mostly collaborating with people who are easier to reach, for example from the same university. This pattern can also be seen in international collaboration where male researchers tend to have more international collaboration networks [@kwiek2021]. These findings seem to be in line with [@granovetter1973]'s strength of weak ties hypotheses as dense and clustered networks increase the chances of receiving redundant information, and decrease the chances of having 'brokerage positions' connecting multiple networks.
+
+To understand how gender differences in network structures could result from choices and restrictions on the individual level, I will study gender differences in inter-university cooperation. This approach benefits from adding a substantive dimension to having ties connecting clusters, while being relevant to a higher percentage of researchers than international cooperation. To get an overview of how collaboration networks cluster around universities we will first answer the first research question. *Q1: Do social and political scientists co-publish more with colleagues from within their university than with inter-university colleagues?*
+
+If specific pairs of universities due to proximity or special arrangements have much more collaboration than the rest, this might bias the results of later analyses. Therefore I will also show the sum of collaborations between all pairs of universities.
+
+Theoretically I will consider how the unequal division of houshold tasks due to pervasive gendernorms [@jaspers2022] might influence the preferences and restrictions of women for inter university collaboration. This focus allows better understanding of how societal gender norms might influence behaviour of individual researchers. The social network perspective makes it possible to understand how these individual behaviours, hrough complex network dynamics aggregate to collaboration network structures which could disadvantage women. This leads to the second research question. *Q2: To what degree do female Dutch sociologists and political scientists have a lower proportion of inter-university collaborations than males sociologists and political scientists?*
+
+While the gender differences in network structure at one time point might a possible explanation for academic career success [@vanderwal2021], the causal steps that have produced this difference remain untested. A more clustered network structure for women might result from the restrictions women experience themselves in their collaboration choices, but they might alo result from status differences due to gender bais which reduce the likelihood of scientists from other universities initiating contact. To adres this question of agency or genderbias, I will employ a stochastic actor oriented modeling approach which allows me to test whether preferences for certain collaboration partners differ between male and female first authors. As the first author generally has the more junior position, focusing on first authors is theoretically more relevant for the restrictions they will experience. On top of that, it ensures the results reflect the processes which could cause gender inequality at the stage of scientific careers where they are shown to be most relevant [@mulders2024]. To test whether organisational boundaries actually deter first-authors from collaborating between universities I will answer the third research question. *Q3: Does a preference for intra-university collaboration among first authors play a role in the evolution of scientific copublishing networks?* Gender differences in the presumed intra-university preference will be tested by answering the fourth research question. *Q4: To what degree does the preference for intra-university collaboration versus inter-university collaboration differ between male and female scholars?*
+
+------------------------------------------------------------------------
+
+

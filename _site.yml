@@ -24,13 +24,28 @@ navbar:
         href: Week5.html
       - text: "Week 6"
         href: Week6.html
+      - text: "Week 6"
+        href: Week6.html
     - text: "Research paper"
       menu:
       - text: "Introduction"
         href: intro.html
       - text: "Theory"
         href: theory.html 
-        
+    - text: "Final research paper"
+      menu:
+      - text: "Introduction research paper"
+        href: final_intro.html
+      - text: "Theory research paper"
+        href: final_intro.html
+      - text: "Data & Methods"
+        href: data_methods.html
+      - text: "Descriptive results"
+        href: results_desc.html
+      - text: "RSiena results"
+        href: results_RSiena.html        
+      - text: "Conclusion"
+        href: conclusion.html 
         # here, other .Rmds can be added
 
 

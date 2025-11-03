@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Bram Koeweiden" />
+
+
+<title>Week 2</title>
+
+<script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/flatly.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<script src="site_libs/navigation-1.1/sourceembed.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="site_libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="site_libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="site_libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+<link href="site_libs/font-awesome-6.5.2/css/all.min.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+<style type="text/css">
+#rmd-source-code {
+  display: none;
+}
+</style>
+
+<style type="text/css">
+/* for pandoc --citeproc since 2.11 */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="tweaks.css" type="text/css" />
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html"></a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    My journal
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="Week1.html">Week 1</a>
+    </li>
+    <li>
+      <a href="Week2.html">Week 2</a>
+    </li>
+    <li>
+      <a href="Week3.html">Week 3</a>
+    </li>
+    <li>
+      <a href="Week4.html">Week 4</a>
+    </li>
+    <li>
+      <a href="Week5.html">Week 5</a>
+    </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="intro.html">Introduction</a>
+    </li>
+    <li>
+      <a href="theory.html">Theory</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="final_intro.html">Introduction research paper</a>
+    </li>
+    <li>
+      <a href="final_intro.html">Theory research paper</a>
+    </li>
+    <li>
+      <a href="data_methods.html">Data &amp; Methods</a>
+    </li>
+    <li>
+      <a href="results_desc.html">Descriptive results</a>
+    </li>
+    <li>
+      <a href="results_RSiena.html">RSiena results</a>
+    </li>
+    <li>
+      <a href="conclusion.html">Conclusion</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/bramkoeweiden/LJ_BramKoeweiden">
+    <span class="fab fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+<li role="separator" class="divider"></li>
+<li><a id="rmd-download-source" href="#">Download Rmd</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">Week 2</h1>
+<h4 class="author">Bram Koeweiden</h4>
+
+</div>
+
+
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('right', 'top', 'auto', '1', 'Copy code', 'Copied!');
+</script>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', '#8B0000', '1', 'Copy code', 'Copied!');
+</script>
+<script>
+  addClassKlippyTo("pre.r, pre.markdown");
+  addKlippy('left', 'top', 'auto', '1', 'Click to copy', 'Done');
+</script>
+<p>Last compiled on November, 2025</p>
+<hr />
+<div id="theory" class="section level1" number="1">
+<h1><span class="header-section-number">1</span> Theory</h1>
+<p><span class="citation">Granovetter (1973)</span> theorized that weak
+relational ties are more valuable for one’s social network than strong
+ties. He defined the strength of ties is a product of the time,
+emotional intensity, intimacy and reciprocal services which form that
+tie. Because good friends of good friends are likely to become friends,
+strong ties are most likely to occur in dense networks. While these
+strong ties might be more dependable than weaker ties, they likely also
+carry a lot more redundant information the dense networks they are in
+likely hold many common contacts with the same information. The benefit
+of receiving more unique knowledge from weak ties has proven to be
+particularly relevant for academia as its core purpose is to generate
+new knowledge <span class="citation">(Garcia Chavez, Gruber, and
+Schubert 2025; Wal, Thorogood, and Horrocks 2021)</span>.</p>
+<p>In scientific collaboration, I expect university affiliations to be
+an important factor in the perspective of the strength of weak ties.
+Inter-university collaboration has become a common feature of science
+<span class="citation">(Garcia Chavez, Gruber, and Schubert
+2025)</span>. Still, scientists have their offices in their own
+university and are thus through teaching duties, lunch breaks and
+proximity, likely to build the strongest relationships with their
+intra-university colleagues. For collaboration this means that possible
+co-authors are likely easiest to find and convince within one’s
+affiliated university. In line with <span class="citation">Granovetter
+(1973)</span> this likely means that collaboration on scientific
+articles happens within rather than between universities. <em>H1: There
+is more intra-university collaboration than inter-university
+collaboration in sociology and political science departments of Dutch
+universities..</em></p>
+<p>As societal gender norms still cause gendered differences in
+restrictions and expectations, I expect gender differences in intra
+versus inter-university collaboration. <span class="citation">Jaspers,
+Lippe, and Evertsson (2022)</span> have shown how even among women who
+work as much as their male partner, on average they still have to do
+more of the houshold and care work. Consequently, women tend to have
+less free time and lower quality free time than men. This lack of free
+time might increase the experienced institutional boundary of
+collaborating with scholars from different universities further for
+women because the travel time would take a relatively larger amount of
+time than for men. As a result, women might have less available time to
+invest in inter-university collaboration reducing their proportion of
+inter-university collaborations. Aside from direct time constraints,
+gender bias in favor of men might also play a role. For example men are
+still more often invited to speak at academic conferences than women
+<span class="citation">(Corona-Sobrino et al. 2020; Isbell, Young, and
+Harcourt 2012)</span>. Because of a lower representation, women will
+likely not gain as much networking benefits and status from such
+conferences as their male colleagues. Aside from the actions of the
+female scientists themselves this lack of status and name recognition
+might also reduce the chance of people from other universities inviting
+them to collaborate relative to male scientists. Taken together due to
+restrictions because of gender norms and gender bias I expect the
+following. <em>H2: there are relatively fewer inter-university
+collaborations among female sociologists and political scientists than
+among male sociologists and political scientists in the
+Netherlands.</em></p>
+<p>The second hypotheses still leaves room for multiple theoretical
+explanations. Restrictions due to gender roles might cause women to
+choose less inter-university collaboration or gender-bias might reduce
+the likelihood of women gaining enough status to be approached for
+inter-university collaborations. To disentangle these effects I will
+consider gender differences in first author collaboration behaviour.
+First authors are often the more junior researchers meaning that they
+are likely the ones to reach out to other researchers. While there might
+still be gender bias in the response when junior researchers reach out,
+I expect this influence of clear gender bias to be limited due to
+university gender equality programs <span class="citation">(Teelken and
+Deem 2013)</span>. Further more, restrictions are likely most relevant
+for junior researchers in inter-university collaboration, as they will
+likely be the ones who have adjust more in aspects like travel. The
+result is that the gender differences in collaboration behaviour due to
+restrictions are likely most pronounced among first authors. Focusing on
+behaviour specifically tests the restrictions perspective deemphasizing
+the possible influence of gender bias. I will use stochastic actor
+oriented modeling to show whether the preference for intra-university
+collaboration among first-authors plays a role in explaining the
+structure of collaboration networks and whether this preference is
+different for male and female researchers. <em>H3: Dutch sociologists
+and political scientists’ more often choose for intra-university than
+inter-university collaboration.</em></p>
+<p><em>H4: The preference for intra-university over inter-university
+collaboration among female sociologists and political scientists is
+stronger than this preference of their male counterparts.</em></p>
+<hr />
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
+<div id="ref-corona-sobrino2020" class="csl-entry">
+Corona-Sobrino, Carmen, Mónica García-Melón, Rocio Poveda-Bautista, and
+Hannia González-Urango. 2020. <span>“Closing the Gender Gap at Academic
+Conferences: A Tool for Monitoring and Assessing Academic
+Events.”</span> Edited by Dragan Pamucar. <em>PLOS ONE</em> 15 (12):
+e0243549. <a
+href="https://doi.org/10.1371/journal.pone.0243549">https://doi.org/10.1371/journal.pone.0243549</a>.
+</div>
+<div id="ref-garciachavez2025" class="csl-entry">
+Garcia Chavez, Cecilia, Sonia Gruber, and Torben Schubert. 2025.
+<span>“How Do Intra- and Inter-Organisational Collaboration Affect
+Research Performance? Evidence from German Universities.”</span>
+<em>Journal of Informetrics</em> 19 (3): 101675. <a
+href="https://doi.org/10.1016/j.joi.2025.101675">https://doi.org/10.1016/j.joi.2025.101675</a>.
+</div>
+<div id="ref-granovetter1973" class="csl-entry">
+Granovetter, Mark S. 1973. <span>“The Strength of Weak Ties.”</span>
+<em>American Journal of Sociology</em> 78 (6): 1360–80. <a
+href="https://doi.org/10.1086/225469">https://doi.org/10.1086/225469</a>.
+</div>
+<div id="ref-isbell2012" class="csl-entry">
+Isbell, Lynne A., Truman P. Young, and Alexander H. Harcourt. 2012.
+<span>“Stag Parties Linger: Continued Gender Bias in a Female-Rich
+Scientific Discipline.”</span> Edited by Joanna E. Lambert. <em>PLoS
+ONE</em> 7 (11): e49682. <a
+href="https://doi.org/10.1371/journal.pone.0049682">https://doi.org/10.1371/journal.pone.0049682</a>.
+</div>
+<div id="ref-jaspers2022" class="csl-entry">
+Jaspers, Eva, Tanja van der Lippe, and Marie Evertsson. 2022.
+<span>“Gender inequality, households, and work.”</span> In, 176–95.
+Edward Elgar Publishing. <a
+href="https://www.elgaronline.com/edcollchap-oa/book/9781789909432/book-part-9781789909432-18.xml">https://www.elgaronline.com/edcollchap-oa/book/9781789909432/book-part-9781789909432-18.xml</a>.
+</div>
+<div id="ref-teelken2013" class="csl-entry">
+Teelken, Christine, and Rosemary Deem. 2013. <span>“All Are Equal, but
+Some Are More Equal Than Others: Managerialism and Gender Equality in
+Higher Education in Comparative Perspective.”</span> <em>Comparative
+Education</em> 49 (4): 520–35. <a
+href="https://doi.org/10.1080/03050068.2013.807642">https://doi.org/10.1080/03050068.2013.807642</a>.
+</div>
+<div id="ref-vanderwal2021" class="csl-entry">
+Wal, Jessica E. M. van der, Rose Thorogood, and Nicholas P. C. Horrocks.
+2021. <span>“Collaboration Enhances Career Progression in Academic
+Science, Especially for Female Researchers.”</span> <em>Proceedings of
+the Royal Society B: Biological Sciences</em> 288 (1958): 20210219. <a
+href="https://doi.org/10.1098/rspb.2021.0219">https://doi.org/10.1098/rspb.2021.0219</a>.
+</div>
+</div>
+</div>
+
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAyIgojYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJCcmFtIEtvZXdlaWRlbiIKYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgotLS0KCmBgYHtyLCBnbG9iYWxzZXR0aW5ncywgZWNobz1GQUxTRSwgd2FybmluZz1GQUxTRSwgcmVzdWx0cz0naGlkZSd9CmxpYnJhcnkoa25pdHIpCgprbml0cjo6b3B0c19jaHVuayRzZXQoZWNobyA9IFRSVUUpCm9wdHNfY2h1bmskc2V0KHRpZHkub3B0cz1saXN0KHdpZHRoLmN1dG9mZj0xMDApLHRpZHk9VFJVRSwgd2FybmluZyA9IEZBTFNFLCBtZXNzYWdlID0gRkFMU0UsY29tbWVudCA9ICIjPiIsIGNhY2hlPVRSVUUsIGNsYXNzLnNvdXJjZT1jKCJ0ZXN0IiksIGNsYXNzLm91dHB1dD1jKCJ0ZXN0MiIpKQpvcHRpb25zKHdpZHRoID0gMTAwKQojcmdsOjpzZXR1cEtuaXRyKCkKCgoKY29sb3JpemUgPC0gZnVuY3Rpb24oeCwgY29sb3IpIHtzcHJpbnRmKCI8c3BhbiBzdHlsZT0nY29sb3I6ICVzOyc+JXM8L3NwYW4+IiwgY29sb3IsIHgpIH0KCmBgYAoKYGBge3Iga2xpcHB5LCBlY2hvPUZBTFNFLCBpbmNsdWRlPVRSVUV9CmtsaXBweTo6a2xpcHB5KHBvc2l0aW9uID0gYygndG9wJywgJ3JpZ2h0JykpCmtsaXBweTo6a2xpcHB5KGNvbG9yID0gJ2RhcmtyZWQnKQprbGlwcHk6OmtsaXBweSh0b29sdGlwX21lc3NhZ2UgPSAnQ2xpY2sgdG8gY29weScsIHRvb2x0aXBfc3VjY2VzcyA9ICdEb25lJykKYGBgCgpMYXN0IGNvbXBpbGVkIG9uIGByIGZvcm1hdChTeXMudGltZSgpLCAnJUIsICVZJylgCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMgVGhlb3J5CgpAZ3Jhbm92ZXR0ZXIxOTczIHRoZW9yaXplZCB0aGF0IHdlYWsgcmVsYXRpb25hbCB0aWVzIGFyZSBtb3JlIHZhbHVhYmxlIGZvciBvbmUncyBzb2NpYWwgbmV0d29yayB0aGFuIHN0cm9uZyB0aWVzLiBIZSBkZWZpbmVkIHRoZSBzdHJlbmd0aCBvZiB0aWVzIGlzIGEgcHJvZHVjdCBvZiB0aGUgdGltZSwgZW1vdGlvbmFsIGludGVuc2l0eSwgaW50aW1hY3kgYW5kIHJlY2lwcm9jYWwgc2VydmljZXMgd2hpY2ggZm9ybSB0aGF0IHRpZS4gQmVjYXVzZSBnb29kIGZyaWVuZHMgb2YgZ29vZCBmcmllbmRzIGFyZSBsaWtlbHkgdG8gYmVjb21lIGZyaWVuZHMsIHN0cm9uZyB0aWVzIGFyZSBtb3N0IGxpa2VseSB0byBvY2N1ciBpbiBkZW5zZSBuZXR3b3Jrcy4gV2hpbGUgdGhlc2Ugc3Ryb25nIHRpZXMgbWlnaHQgYmUgbW9yZSBkZXBlbmRhYmxlIHRoYW4gd2Vha2VyIHRpZXMsIHRoZXkgbGlrZWx5IGFsc28gY2FycnkgYSBsb3QgbW9yZSByZWR1bmRhbnQgaW5mb3JtYXRpb24gdGhlIGRlbnNlIG5ldHdvcmtzIHRoZXkgYXJlIGluIGxpa2VseSBob2xkIG1hbnkgY29tbW9uIGNvbnRhY3RzIHdpdGggdGhlIHNhbWUgaW5mb3JtYXRpb24uIFRoZSBiZW5lZml0IG9mIHJlY2VpdmluZyBtb3JlIHVuaXF1ZSBrbm93bGVkZ2UgZnJvbSB3ZWFrIHRpZXMgaGFzIHByb3ZlbiB0byBiZSBwYXJ0aWN1bGFybHkgcmVsZXZhbnQgZm9yIGFjYWRlbWlhIGFzIGl0cyBjb3JlIHB1cnBvc2UgaXMgdG8gZ2VuZXJhdGUgbmV3IGtub3dsZWRnZSBbQGdhcmNpYWNoYXZlejIwMjU7IEB2YW5kZXJ3YWwyMDIxXS4KCkluIHNjaWVudGlmaWMgY29sbGFib3JhdGlvbiwgSSBleHBlY3QgdW5pdmVyc2l0eSBhZmZpbGlhdGlvbnMgdG8gYmUgYW4gaW1wb3J0YW50IGZhY3RvciBpbiB0aGUgcGVyc3BlY3RpdmUgb2YgdGhlIHN0cmVuZ3RoIG9mIHdlYWsgdGllcy4gSW50ZXItdW5pdmVyc2l0eSBjb2xsYWJvcmF0aW9uIGhhcyBiZWNvbWUgYSBjb21tb24gZmVhdHVyZSBvZiBzY2llbmNlIFtAZ2FyY2lhY2hhdmV6MjAyNV0uIFN0aWxsLCBzY2llbnRpc3RzIGhhdmUgdGhlaXIgb2ZmaWNlcyBpbiB0aGVpciBvd24gdW5pdmVyc2l0eSBhbmQgYXJlIHRodXMgdGhyb3VnaCB0ZWFjaGluZyBkdXRpZXMsIGx1bmNoIGJyZWFrcyBhbmQgcHJveGltaXR5LCBsaWtlbHkgdG8gYnVpbGQgdGhlIHN0cm9uZ2VzdCByZWxhdGlvbnNoaXBzIHdpdGggdGhlaXIgaW50cmEtdW5pdmVyc2l0eSBjb2xsZWFndWVzLiBGb3IgY29sbGFib3JhdGlvbiB0aGlzIG1lYW5zIHRoYXQgcG9zc2libGUgY28tYXV0aG9ycyBhcmUgbGlrZWx5IGVhc2llc3QgdG8gZmluZCBhbmQgY29udmluY2Ugd2l0aGluIG9uZSdzIGFmZmlsaWF0ZWQgdW5pdmVyc2l0eS4gSW4gbGluZSB3aXRoIEBncmFub3ZldHRlcjE5NzMgdGhpcyBsaWtlbHkgbWVhbnMgdGhhdCBjb2xsYWJvcmF0aW9uIG9uIHNjaWVudGlmaWMgYXJ0aWNsZXMgaGFwcGVucyB3aXRoaW4gcmF0aGVyIHRoYW4gYmV0d2VlbiB1bml2ZXJzaXRpZXMuICpIMTogVGhlcmUgaXMgbW9yZSBpbnRyYS11bml2ZXJzaXR5IGNvbGxhYm9yYXRpb24gdGhhbiBpbnRlci11bml2ZXJzaXR5IGNvbGxhYm9yYXRpb24gaW4gc29jaW9sb2d5IGFuZCBwb2xpdGljYWwgc2NpZW5jZSBkZXBhcnRtZW50cyBvZiBEdXRjaCB1bml2ZXJzaXRpZXMuLioKCkFzIHNvY2lldGFsIGdlbmRlciBub3JtcyBzdGlsbCBjYXVzZSBnZW5kZXJlZCBkaWZmZXJlbmNlcyBpbiByZXN0cmljdGlvbnMgYW5kIGV4cGVjdGF0aW9ucywgSSBleHBlY3QgZ2VuZGVyIGRpZmZlcmVuY2VzIGluIGludHJhIHZlcnN1cyBpbnRlci11bml2ZXJzaXR5IGNvbGxhYm9yYXRpb24uIEBqYXNwZXJzMjAyMiBoYXZlIHNob3duIGhvdyBldmVuIGFtb25nIHdvbWVuIHdobyB3b3JrIGFzIG11Y2ggYXMgdGhlaXIgbWFsZSBwYXJ0bmVyLCBvbiBhdmVyYWdlIHRoZXkgc3RpbGwgaGF2ZSB0byBkbyBtb3JlIG9mIHRoZSBob3VzaG9sZCBhbmQgY2FyZSB3b3JrLiBDb25zZXF1ZW50bHksIHdvbWVuIHRlbmQgdG8gaGF2ZSBsZXNzIGZyZWUgdGltZSBhbmQgbG93ZXIgcXVhbGl0eSBmcmVlIHRpbWUgdGhhbiBtZW4uIFRoaXMgbGFjayBvZiBmcmVlIHRpbWUgbWlnaHQgaW5jcmVhc2UgdGhlIGV4cGVyaWVuY2VkIGluc3RpdHV0aW9uYWwgYm91bmRhcnkgb2YgY29sbGFib3JhdGluZyB3aXRoIHNjaG9sYXJzIGZyb20gZGlmZmVyZW50IHVuaXZlcnNpdGllcyBmdXJ0aGVyIGZvciB3b21lbiBiZWNhdXNlIHRoZSB0cmF2ZWwgdGltZSB3b3VsZCB0YWtlIGEgcmVsYXRpdmVseSBsYXJnZXIgYW1vdW50IG9mIHRpbWUgdGhhbiBmb3IgbWVuLiBBcyBhIHJlc3VsdCwgd29tZW4gbWlnaHQgaGF2ZSBsZXNzIGF2YWlsYWJsZSB0aW1lIHRvIGludmVzdCBpbiBpbnRlci11bml2ZXJzaXR5IGNvbGxhYm9yYXRpb24gcmVkdWNpbmcgdGhlaXIgcHJvcG9ydGlvbiBvZiBpbnRlci11bml2ZXJzaXR5IGNvbGxhYm9yYXRpb25zLiBBc2lkZSBmcm9tIGRpcmVjdCB0aW1lIGNvbnN0cmFpbnRzLCBnZW5kZXIgYmlhcyBpbiBmYXZvciBvZiBtZW4gbWlnaHQgYWxzbyBwbGF5IGEgcm9sZS4gRm9yIGV4YW1wbGUgbWVuIGFyZSBzdGlsbCBtb3JlIG9mdGVuIGludml0ZWQgdG8gc3BlYWsgYXQgYWNhZGVtaWMgY29uZmVyZW5jZXMgdGhhbiB3b21lbiBbQGNvcm9uYS1zb2JyaW5vMjAyMDsgQGlzYmVsbDIwMTJdLiBCZWNhdXNlIG9mIGEgbG93ZXIgcmVwcmVzZW50YXRpb24sIHdvbWVuIHdpbGwgbGlrZWx5IG5vdCBnYWluIGFzIG11Y2ggbmV0d29ya2luZyBiZW5lZml0cyBhbmQgc3RhdHVzIGZyb20gc3VjaCBjb25mZXJlbmNlcyBhcyB0aGVpciBtYWxlIGNvbGxlYWd1ZXMuIEFzaWRlIGZyb20gdGhlIGFjdGlvbnMgb2YgdGhlIGZlbWFsZSBzY2llbnRpc3RzIHRoZW1zZWx2ZXMgdGhpcyBsYWNrIG9mIHN0YXR1cyBhbmQgbmFtZSByZWNvZ25pdGlvbiBtaWdodCBhbHNvIHJlZHVjZSB0aGUgY2hhbmNlIG9mIHBlb3BsZSBmcm9tIG90aGVyIHVuaXZlcnNpdGllcyBpbnZpdGluZyB0aGVtIHRvIGNvbGxhYm9yYXRlIHJlbGF0aXZlIHRvIG1hbGUgc2NpZW50aXN0cy4gVGFrZW4gdG9nZXRoZXIgZHVlIHRvIHJlc3RyaWN0aW9ucyBiZWNhdXNlIG9mIGdlbmRlciBub3JtcyBhbmQgZ2VuZGVyIGJpYXMgSSBleHBlY3QgdGhlIGZvbGxvd2luZy4gKkgyOiB0aGVyZSBhcmUgcmVsYXRpdmVseSBmZXdlciBpbnRlci11bml2ZXJzaXR5IGNvbGxhYm9yYXRpb25zIGFtb25nIGZlbWFsZSBzb2Npb2xvZ2lzdHMgYW5kIHBvbGl0aWNhbCBzY2llbnRpc3RzIHRoYW4gYW1vbmcgbWFsZSBzb2Npb2xvZ2lzdHMgYW5kIHBvbGl0aWNhbCBzY2llbnRpc3RzIGluIHRoZSBOZXRoZXJsYW5kcy4qCgpUaGUgc2Vjb25kIGh5cG90aGVzZXMgc3RpbGwgbGVhdmVzIHJvb20gZm9yIG11bHRpcGxlIHRoZW9yZXRpY2FsIGV4cGxhbmF0aW9ucy4gUmVzdHJpY3Rpb25zIGR1ZSB0byBnZW5kZXIgcm9sZXMgbWlnaHQgY2F1c2Ugd29tZW4gdG8gY2hvb3NlIGxlc3MgaW50ZXItdW5pdmVyc2l0eSBjb2xsYWJvcmF0aW9uIG9yIGdlbmRlci1iaWFzIG1pZ2h0IHJlZHVjZSB0aGUgbGlrZWxpaG9vZCBvZiB3b21lbiBnYWluaW5nIGVub3VnaCBzdGF0dXMgdG8gYmUgYXBwcm9hY2hlZCBmb3IgaW50ZXItdW5pdmVyc2l0eSBjb2xsYWJvcmF0aW9ucy4gVG8gZGlzZW50YW5nbGUgdGhlc2UgZWZmZWN0cyBJIHdpbGwgY29uc2lkZXIgZ2VuZGVyIGRpZmZlcmVuY2VzIGluIGZpcnN0IGF1dGhvciBjb2xsYWJvcmF0aW9uIGJlaGF2aW91ci4gRmlyc3QgYXV0aG9ycyBhcmUgb2Z0ZW4gdGhlIG1vcmUganVuaW9yIHJlc2VhcmNoZXJzIG1lYW5pbmcgdGhhdCB0aGV5IGFyZSBsaWtlbHkgdGhlIG9uZXMgdG8gcmVhY2ggb3V0IHRvIG90aGVyIHJlc2VhcmNoZXJzLiBXaGlsZSB0aGVyZSBtaWdodCBzdGlsbCBiZSBnZW5kZXIgYmlhcyBpbiB0aGUgcmVzcG9uc2Ugd2hlbiBqdW5pb3IgcmVzZWFyY2hlcnMgcmVhY2ggb3V0LCBJIGV4cGVjdCB0aGlzIGluZmx1ZW5jZSBvZiBjbGVhciBnZW5kZXIgYmlhcyB0byBiZSBsaW1pdGVkIGR1ZSB0byB1bml2ZXJzaXR5IGdlbmRlciBlcXVhbGl0eSBwcm9ncmFtcyBbQHRlZWxrZW4yMDEzXS4gRnVydGhlciBtb3JlLCByZXN0cmljdGlvbnMgYXJlIGxpa2VseSBtb3N0IHJlbGV2YW50IGZvciBqdW5pb3IgcmVzZWFyY2hlcnMgaW4gaW50ZXItdW5pdmVyc2l0eSBjb2xsYWJvcmF0aW9uLCBhcyB0aGV5IHdpbGwgbGlrZWx5IGJlIHRoZSBvbmVzIHdobyBoYXZlIGFkanVzdCBtb3JlIGluIGFzcGVjdHMgbGlrZSB0cmF2ZWwuIFRoZSByZXN1bHQgaXMgdGhhdCB0aGUgZ2VuZGVyIGRpZmZlcmVuY2VzIGluIGNvbGxhYm9yYXRpb24gYmVoYXZpb3VyIGR1ZSB0byByZXN0cmljdGlvbnMgYXJlIGxpa2VseSBtb3N0IHByb25vdW5jZWQgYW1vbmcgZmlyc3QgYXV0aG9ycy4gRm9jdXNpbmcgb24gYmVoYXZpb3VyIHNwZWNpZmljYWxseSB0ZXN0cyB0aGUgcmVzdHJpY3Rpb25zIHBlcnNwZWN0aXZlIGRlZW1waGFzaXppbmcgdGhlIHBvc3NpYmxlIGluZmx1ZW5jZSBvZiBnZW5kZXIgYmlhcy4gSSB3aWxsIHVzZSBzdG9jaGFzdGljIGFjdG9yIG9yaWVudGVkIG1vZGVsaW5nIHRvIHNob3cgd2hldGhlciB0aGUgcHJlZmVyZW5jZSBmb3IgaW50cmEtdW5pdmVyc2l0eSBjb2xsYWJvcmF0aW9uIGFtb25nIGZpcnN0LWF1dGhvcnMgcGxheXMgYSByb2xlIGluIGV4cGxhaW5pbmcgdGhlIHN0cnVjdHVyZSBvZiBjb2xsYWJvcmF0aW9uIG5ldHdvcmtzIGFuZCB3aGV0aGVyIHRoaXMgcHJlZmVyZW5jZSBpcyBkaWZmZXJlbnQgZm9yIG1hbGUgYW5kIGZlbWFsZSByZXNlYXJjaGVycy4gKkgzOiBEdXRjaCBzb2Npb2xvZ2lzdHMgYW5kIHBvbGl0aWNhbCBzY2llbnRpc3RzJyBtb3JlIG9mdGVuIGNob29zZSBmb3IgaW50cmEtdW5pdmVyc2l0eSB0aGFuIGludGVyLXVuaXZlcnNpdHkgY29sbGFib3JhdGlvbi4qCgoqSDQ6IFRoZSBwcmVmZXJlbmNlIGZvciBpbnRyYS11bml2ZXJzaXR5IG92ZXIgaW50ZXItdW5pdmVyc2l0eSBjb2xsYWJvcmF0aW9uIGFtb25nIGZlbWFsZSBzb2Npb2xvZ2lzdHMgYW5kIHBvbGl0aWNhbCBzY2llbnRpc3RzIGlzIHN0cm9uZ2VyIHRoYW4gdGhpcyBwcmVmZXJlbmNlIG9mIHRoZWlyIG1hbGUgY291bnRlcnBhcnRzLioKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQo=</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeSourceEmbed("final_theory.Rmd");
+  window.initializeCodeFolding("show" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

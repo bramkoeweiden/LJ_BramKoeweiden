@@ -6,7 +6,7 @@ Filename is ./results/r_w6.txt.
 
 This file contains primary output for SIENA project <<./results/r_w6>>.
 
-Date and time: 17/10/2025 07:38:59 
+Date and time: 17/10/2025 10:30:31 
 
 RSiena version 1.4.20 (10 11 2024)
 

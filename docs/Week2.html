@@ -387,6 +387,9 @@ div.tocify {
     <li>
       <a href="Week6.html">Week 6</a>
     </li>
+    <li>
+      <a href="Week6.html">Week 6</a>
+    </li>
   </ul>
 </li>
 <li class="dropdown">
@@ -401,6 +404,33 @@ div.tocify {
     </li>
     <li>
       <a href="theory.html">Theory</a>
+    </li>
+  </ul>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Final research paper
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li>
+      <a href="final_intro.html">Introduction research paper</a>
+    </li>
+    <li>
+      <a href="final_intro.html">Theory research paper</a>
+    </li>
+    <li>
+      <a href="data_methods.html">Data &amp; Methods</a>
+    </li>
+    <li>
+      <a href="results_desc.html">Descriptive results</a>
+    </li>
+    <li>
+      <a href="results_RSiena.html">RSiena results</a>
+    </li>
+    <li>
+      <a href="conclusion.html">Conclusion</a>
     </li>
   </ul>
 </li>
@@ -497,17 +527,10 @@ snt[lower.tri(snt)]</code></pre>
 <pre class="r"><code>install.packages(&quot;igraph&quot;)</code></pre>
 <pre><code>## 
 ## The downloaded binary packages are in
-##  /var/folders/bq/bp7qm1nj40146k2d8nfv1j3c0000gn/T//Rtmpj4Xl1o/downloaded_packages</code></pre>
-<pre class="r"><code>library(igraph)</code></pre>
-<pre><code>## 
-## Attaching package: &#39;igraph&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     decompose, spectrum</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     union</code></pre>
-<pre class="r"><code>set.seed(123643)
+##  /var/folders/bq/bp7qm1nj40146k2d8nfv1j3c0000gn/T//RtmpyE6ybN/downloaded_packages</code></pre>
+<pre class="r"><code>library(igraph)
+
+set.seed(123643)
 snt &lt;- matrix(sample(x= 0:1, size=16, replace = T), nrow = 4, ncol = 4)
 
 
