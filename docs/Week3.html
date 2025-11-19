@@ -9,11 +9,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Bram" />
+<meta name="author" content="Bram Koeweiden" />
 
-<meta name="date" content="2025-09-19" />
 
-<title>Webscraping</title>
+<title>Week 3</title>
 
 <script src="site_libs/header-attrs-2.29/header-attrs.js"></script>
 <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -397,7 +396,7 @@ div.tocify {
       <a href="final_intro.html">Introduction research paper</a>
     </li>
     <li>
-      <a href="final_intro.html">Theory research paper</a>
+      <a href="final_theory.html">Theory research paper</a>
     </li>
     <li>
       <a href="data_methods.html">Data &amp; Methods</a>
@@ -440,9 +439,8 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Webscraping</h1>
-<h4 class="author">Bram</h4>
-<h4 class="date">2025-09-19</h4>
+<h1 class="title toc-ignore">Week 3</h1>
+<h4 class="author">Bram Koeweiden</h4>
 
 </div>
 
@@ -547,14 +545,14 @@ jt &lt;- read_html(&quot;https://api.openalex.org/authors?search=Jochem+Tolsma&q
     html_text2()
 
 substr(jt, 1, 100)</code></pre>
-<pre><code>## [1] &quot;{\&quot;meta\&quot;:{\&quot;count\&quot;:1,\&quot;db_response_time_ms\&quot;:184,\&quot;page\&quot;:1,\&quot;per_page\&quot;:25,\&quot;groups_count\&quot;:null},\&quot;results\&quot;:[&quot;</code></pre>
+<pre><code>## [1] &quot;{\&quot;meta\&quot;:{\&quot;count\&quot;:3,\&quot;db_response_time_ms\&quot;:12,\&quot;page\&quot;:1,\&quot;per_page\&quot;:25,\&quot;groups_count\&quot;:null},\&quot;results\&quot;:[{&quot;</code></pre>
 <pre class="r"><code># Going directly to JSON (most information)
 
 jt_json &lt;- fromJSON(&quot;https://api.openalex.org/authors?search=Jochem+Tolsma&quot;, simplifyVector = FALSE)
 glimpse(jt_json, max.level = 1)</code></pre>
 <pre><code>## List of 3
 ##  $ meta    :List of 5
-##  $ results :List of 1
+##  $ results :List of 3
 ##  $ group_by: list()</code></pre>
 <pre class="r"><code>#Finding affiliations
 
@@ -576,7 +574,7 @@ jt_json[[&quot;results&quot;]][[1]][[&quot;display_name&quot;]]</code></pre>
 ## [1] &quot;NL&quot;
 ## 
 ## [[1]]$institution$type
-## [1] &quot;funder&quot;
+## [1] &quot;education&quot;
 ## 
 ## [[1]]$institution$lineage
 ## [[1]]$institution$lineage[[1]]
@@ -615,18 +613,36 @@ jt_json[[&quot;results&quot;]][[1]][[&quot;display_name&quot;]]</code></pre>
 ## [[1]]$years[[10]]
 ## [1] 2015
 ## 
+## [[1]]$years[[11]]
+## [1] 2014
+## 
+## [[1]]$years[[12]]
+## [1] 2013
+## 
+## [[1]]$years[[13]]
+## [1] 2012
+## 
+## [[1]]$years[[14]]
+## [1] 2011
+## 
+## [[1]]$years[[15]]
+## [1] 2010
+## 
+## [[1]]$years[[16]]
+## [1] 2009
+## 
 ## 
 ## 
 ## [[2]]
 ## [[2]]$institution
 ## [[2]]$institution$id
-## [1] &quot;https://openalex.org/I4210087716&quot;
+## [1] &quot;https://openalex.org/I169381384&quot;
 ## 
 ## [[2]]$institution$ror
-## [1] &quot;https://ror.org/005rems48&quot;
+## [1] &quot;https://ror.org/012p63287&quot;
 ## 
 ## [[2]]$institution$display_name
-## [1] &quot;Interuniversity Center for Social Science Theory and Methodology&quot;
+## [1] &quot;University of Groningen&quot;
 ## 
 ## [[2]]$institution$country_code
 ## [1] &quot;NL&quot;
@@ -636,7 +652,7 @@ jt_json[[&quot;results&quot;]][[1]][[&quot;display_name&quot;]]</code></pre>
 ## 
 ## [[2]]$institution$lineage
 ## [[2]]$institution$lineage[[1]]
-## [1] &quot;https://openalex.org/I4210087716&quot;
+## [1] &quot;https://openalex.org/I169381384&quot;
 ## 
 ## 
 ## 
@@ -645,30 +661,39 @@ jt_json[[&quot;results&quot;]][[1]][[&quot;display_name&quot;]]</code></pre>
 ## [1] 2025
 ## 
 ## [[2]]$years[[2]]
+## [1] 2024
+## 
+## [[2]]$years[[3]]
+## [1] 2023
+## 
+## [[2]]$years[[4]]
 ## [1] 2022
+## 
+## [[2]]$years[[5]]
+## [1] 2021
 ## 
 ## 
 ## 
 ## [[3]]
 ## [[3]]$institution
 ## [[3]]$institution$id
-## [1] &quot;https://openalex.org/I169381384&quot;
+## [1] &quot;https://openalex.org/I4210087716&quot;
 ## 
 ## [[3]]$institution$ror
-## [1] &quot;https://ror.org/012p63287&quot;
+## [1] &quot;https://ror.org/005rems48&quot;
 ## 
 ## [[3]]$institution$display_name
-## [1] &quot;University of Groningen&quot;
+## [1] &quot;Interuniversity Center for Social Science Theory and Methodology&quot;
 ## 
 ## [[3]]$institution$country_code
 ## [1] &quot;NL&quot;
 ## 
 ## [[3]]$institution$type
-## [1] &quot;funder&quot;
+## [1] &quot;education&quot;
 ## 
 ## [[3]]$institution$lineage
 ## [[3]]$institution$lineage[[1]]
-## [1] &quot;https://openalex.org/I169381384&quot;
+## [1] &quot;https://openalex.org/I4210087716&quot;
 ## 
 ## 
 ## 
@@ -677,41 +702,70 @@ jt_json[[&quot;results&quot;]][[1]][[&quot;display_name&quot;]]</code></pre>
 ## [1] 2025
 ## 
 ## [[3]]$years[[2]]
-## [1] 2024
-## 
-## [[3]]$years[[3]]
-## [1] 2023
-## 
-## [[3]]$years[[4]]
-## [1] 2022
-## 
-## [[3]]$years[[5]]
-## [1] 2021</code></pre>
+## [1] 2022</code></pre>
 <pre class="r"><code>jt_json[[&quot;results&quot;]][[1]][[&quot;summary_stats&quot;]][[&quot;h_index&quot;]]</code></pre>
-<pre><code>## [1] 22</code></pre>
+<pre><code>## [1] 23</code></pre>
 <pre class="r"><code>#str object, max.level
 
 str(jt_json$results, 2)</code></pre>
-<pre><code>## List of 1
+<pre><code>## List of 3
 ##  $ :List of 18
 ##   ..$ id                       : chr &quot;https://openalex.org/A5087380803&quot;
 ##   ..$ orcid                    : chr &quot;https://orcid.org/0000-0002-4411-6932&quot;
 ##   ..$ display_name             : chr &quot;Jochem Tolsma&quot;
-##   ..$ display_name_alternatives:List of 3
-##   ..$ relevance_score          : num 9056
+##   ..$ display_name_alternatives:List of 5
+##   ..$ relevance_score          : num 10747
 ##   ..$ works_count              : int 88
-##   ..$ cited_by_count           : int 2129
+##   ..$ cited_by_count           : int 2169
 ##   ..$ summary_stats            :List of 3
 ##   ..$ ids                      :List of 2
 ##   ..$ affiliations             :List of 3
-##   ..$ last_known_institutions  :List of 2
-##   ..$ topics                   :List of 25
-##   ..$ topic_share              :List of 25
-##   ..$ x_concepts               :List of 19
-##   ..$ counts_by_year           :List of 14
+##   ..$ last_known_institutions  :List of 3
+##   ..$ topics                   :List of 5
+##   ..$ topic_share              :List of 5
+##   ..$ x_concepts               :List of 4
+##   ..$ counts_by_year           :List of 21
 ##   ..$ works_api_url            : chr &quot;https://api.openalex.org/works?filter=author.id:A5087380803&quot;
-##   ..$ updated_date             : chr &quot;2025-11-01T05:35:29.807690&quot;
-##   ..$ created_date             : chr &quot;2023-07-21&quot;</code></pre>
+##   ..$ updated_date             : chr &quot;2025-10-27T03:07:04.448195&quot;
+##   ..$ created_date             : chr &quot;2016-06-24&quot;
+##  $ :List of 18
+##   ..$ id                       : chr &quot;https://openalex.org/A2038712691&quot;
+##   ..$ orcid                    : chr &quot;https://orcid.org/0000-0002-4411-6932&quot;
+##   ..$ display_name             : chr &quot;Jochem Tolsma&quot;
+##   ..$ display_name_alternatives:List of 1
+##   ..$ relevance_score          : num 96.6
+##   ..$ works_count              : int 8
+##   ..$ cited_by_count           : int 0
+##   ..$ summary_stats            :List of 3
+##   ..$ ids                      :List of 2
+##   ..$ affiliations             : list()
+##   ..$ last_known_institutions  : list()
+##   ..$ topics                   :List of 5
+##   ..$ topic_share              :List of 5
+##   ..$ x_concepts               :List of 5
+##   ..$ counts_by_year           : list()
+##   ..$ works_api_url            : chr &quot;https://api.openalex.org/works?filter=author.id:A2038712691&quot;
+##   ..$ updated_date             : chr &quot;2025-10-27T03:11:17.418693&quot;
+##   ..$ created_date             : chr &quot;2025-10-10&quot;
+##  $ :List of 18
+##   ..$ id                       : chr &quot;https://openalex.org/A5050882020&quot;
+##   ..$ orcid                    : NULL
+##   ..$ display_name             : chr &quot;J. Tolsma&quot;
+##   ..$ display_name_alternatives:List of 2
+##   ..$ relevance_score          : num 69.6
+##   ..$ works_count              : int 1
+##   ..$ cited_by_count           : int 0
+##   ..$ summary_stats            :List of 3
+##   ..$ ids                      :List of 2
+##   ..$ affiliations             : list()
+##   ..$ last_known_institutions  : list()
+##   ..$ topics                   :List of 1
+##   ..$ topic_share              :List of 1
+##   ..$ x_concepts               :List of 2
+##   ..$ counts_by_year           :List of 1
+##   ..$ works_api_url            : chr &quot;https://api.openalex.org/works?filter=author.id:A5050882020&quot;
+##   ..$ updated_date             : chr &quot;2025-10-10T17:16:08.811792&quot;
+##   ..$ created_date             : chr &quot;2025-10-10&quot;</code></pre>
 <pre class="r"><code>df_jt &lt;- jt_json %&gt;%
     .$results %&gt;%
     .[[1]] %&gt;%
@@ -783,10 +837,11 @@ class="uri">https://openalex.org/A5087380803</a>
 Jochem Tolsma
 </td>
 <td style="text-align:left;">
-J. Tolsma , Jochem Tolsma, J L Tolsma
+Jochem Tolsma , J L Tolsma , J. (Jochem) Tolsma, J. Tolsma , None Jochem
+Tolsma
 </td>
 <td style="text-align:right;">
-9055.69
+10747.41
 </td>
 <td style="text-align:left;">
 <a href="https://openalex.org/A5087380803"
@@ -802,52 +857,45 @@ class="uri">https://orcid.org/0000-0002-4411-6932</a>
 88
 </td>
 <td style="text-align:right;">
-2129
+2169
 </td>
 <td style="text-align:left;">
-2025, 2024, 2023, 2022, 2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014,
-2013, 2012, 3, 9, 5, 4, 4, 0, 4, 3, 3, 13, 4, 8, 6, 2, 2, 6, 4, 4, 4, 0,
-3, 3, 2, 6, 3, 4, 4, 2, 188, 269, 255, 192, 245, 221, 179, 180, 114,
-168, 135, 99, 77, 51
+1994, 1995, 2004, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015,
+2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025, 2, 1, 1, 3, 2, 4,
+5, 5, 2, 6, 7, 5, 11, 2, 3, 4, 4, 4, 5, 9, 2, 0, 0, 0, 2, 1, 3, 3, 3, 1,
+2, 2, 2, 5, 2, 2, 3, 3, 4, 4, 6, 2, 0, 0, 20, 5, 2, 321, 339, 101, 86,
+162, 511, 54, 212, 26, 78, 110, 45, 42, 11, 12, 0
 </td>
 <td style="text-align:right;">
-2.89
+1.65
 </td>
 <td style="text-align:right;">
-22
+23
 </td>
 <td style="text-align:right;">
 37
 </td>
 <td style="text-align:left;">
-<a href="https://openalex.org/I169381384"
-class="uri">https://openalex.org/I169381384</a>, <a
-href="https://openalex.org/I145872427"
-class="uri">https://openalex.org/I145872427</a>, <a
+<a href="https://openalex.org/I145872427"
+class="uri">https://openalex.org/I145872427</a> , <a
+href="https://openalex.org/I169381384"
+class="uri">https://openalex.org/I169381384</a> , <a
+href="https://openalex.org/I4210087716"
+class="uri">https://openalex.org/I4210087716</a> , <a
+href="https://ror.org/016xsfp80"
+class="uri">https://ror.org/016xsfp80</a> , <a
 href="https://ror.org/012p63287"
 class="uri">https://ror.org/012p63287</a> , <a
-href="https://ror.org/016xsfp80"
-class="uri">https://ror.org/016xsfp80</a> , University of Groningen ,
-Radboud University Nijmegen , NL , NL , funder , funder , <a
-href="https://openalex.org/I169381384"
-class="uri">https://openalex.org/I169381384</a>, <a
-href="https://openalex.org/I145872427"
-class="uri">https://openalex.org/I145872427</a>
+href="https://ror.org/005rems48"
+class="uri">https://ror.org/005rems48</a> , Radboud University Nijmegen
+, University of Groningen , Interuniversity Center for Social Science
+Theory and Methodology, NL , NL , NL , education , education , education
+, , ,
 </td>
 <td style="text-align:left;">
 1 , 1 , 1 , 1 , 2 , 2 , 2 , 2 , 3 , 3 , 3 , 3 , 4 , 4 , 4 , 4 , 5 , 5 ,
-5 , 5 , 6 , 6 , 6 , 6 , 7 , 7 , 7 , 7 , 8 , 8 , 8 , 8 , 9 , 9 , 9 , 9 ,
-10 , 10 , 10 , 10 , 11 , 11 , 11 , 11 , 12 , 12 , 12 , 12 , 13 , 13 , 13
-, 13 , 14 , 14 , 14 , 14 , 15 , 15 , 15 , 15 , 16 , 16 , 16 , 16 , 17 ,
-17 , 17 , 17 , 18 , 18 , 18 , 18 , 19 , 19 , 19 , 19 , 20 , 20 , 20 , 20
-, 21 , 21 , 21 , 21 , 22 , 22 , 22 , 22 , 23 , 23 , 23 , 23 , 24 , 24 ,
-24 , 24 , 25 , 25 , 25 , 25 , 15 , 15 , 15 , 15 , 12 , 12 , 12 , 12 , 10
-, 10 , 10 , 10 , 10 , 10 , 10 , 10 , 10 , 10 , 10 , 10 , 8 , 8 , 8 , 8 ,
-7 , 7 , 7 , 7 , 7 , 7 , 7 , 7 , 7 , 7 , 7 , 7 , 6 , 6 , 6 , 6 , 5 , 5 ,
-5 , 5 , 5 , 5 , 5 , 5 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 ,
-4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 4 , 3 , 3 , 3 , 3 , 3 , 3 ,
-3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 , 3 ,
-2 , 2 , 2 , 2 , <a href="https://openalex.org/T11239"
+5 , 5 , 15 , 15 , 15 , 15 , 12 , 12 , 12 , 12 , 10 , 10 , 10 , 10 , 10 ,
+10 , 10 , 10 , 10 , 10 , 10 , 10 , <a href="https://openalex.org/T11239"
 class="uri">https://openalex.org/T11239</a> , <a
 href="https://openalex.org/subfields/3312"
 class="uri">https://openalex.org/subfields/3312</a> , <a
@@ -863,18 +911,18 @@ href="https://openalex.org/fields/33"
 class="uri">https://openalex.org/fields/33</a> , <a
 href="https://openalex.org/domains/2"
 class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10108"
-class="uri">https://openalex.org/T10108</a> , <a
-href="https://openalex.org/subfields/3320"
-class="uri">https://openalex.org/subfields/3320</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
 href="https://openalex.org/T10314"
 class="uri">https://openalex.org/T10314</a> , <a
 href="https://openalex.org/subfields/3312"
 class="uri">https://openalex.org/subfields/3312</a> , <a
+href="https://openalex.org/fields/33"
+class="uri">https://openalex.org/fields/33</a> , <a
+href="https://openalex.org/domains/2"
+class="uri">https://openalex.org/domains/2</a> , <a
+href="https://openalex.org/T10108"
+class="uri">https://openalex.org/T10108</a> , <a
+href="https://openalex.org/subfields/3320"
+class="uri">https://openalex.org/subfields/3320</a> , <a
 href="https://openalex.org/fields/33"
 class="uri">https://openalex.org/fields/33</a> , <a
 href="https://openalex.org/domains/2"
@@ -886,230 +934,191 @@ class="uri">https://openalex.org/subfields/3312</a> , <a
 href="https://openalex.org/fields/33"
 class="uri">https://openalex.org/fields/33</a> , <a
 href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10349"
-class="uri">https://openalex.org/T10349</a> , <a
-href="https://openalex.org/subfields/3312"
-class="uri">https://openalex.org/subfields/3312</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10216"
-class="uri">https://openalex.org/T10216</a> , <a
-href="https://openalex.org/subfields/3312"
-class="uri">https://openalex.org/subfields/3312</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10235"
-class="uri">https://openalex.org/T10235</a> , <a
-href="https://openalex.org/subfields/3306"
-class="uri">https://openalex.org/subfields/3306</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10557"
-class="uri">https://openalex.org/T10557</a> , <a
-href="https://openalex.org/subfields/3315"
-class="uri">https://openalex.org/subfields/3315</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T13064"
-class="uri">https://openalex.org/T13064</a> , <a
-href="https://openalex.org/subfields/3304"
-class="uri">https://openalex.org/subfields/3304</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10574"
-class="uri">https://openalex.org/T10574</a> , <a
-href="https://openalex.org/subfields/3312"
-class="uri">https://openalex.org/subfields/3312</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10762"
-class="uri">https://openalex.org/T10762</a> , <a
-href="https://openalex.org/subfields/3203"
-class="uri">https://openalex.org/subfields/3203</a> , <a
-href="https://openalex.org/fields/32"
-class="uri">https://openalex.org/fields/32</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10843"
-class="uri">https://openalex.org/T10843</a> , <a
-href="https://openalex.org/subfields/3318"
-class="uri">https://openalex.org/subfields/3318</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T11397"
-class="uri">https://openalex.org/T11397</a> , <a
-href="https://openalex.org/subfields/3320"
-class="uri">https://openalex.org/subfields/3320</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10443"
-class="uri">https://openalex.org/T10443</a> , <a
-href="https://openalex.org/subfields/3320"
-class="uri">https://openalex.org/subfields/3320</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T13709"
-class="uri">https://openalex.org/T13709</a> , <a
-href="https://openalex.org/subfields/3304"
-class="uri">https://openalex.org/subfields/3304</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10674"
-class="uri">https://openalex.org/T10674</a> , <a
-href="https://openalex.org/subfields/3304"
-class="uri">https://openalex.org/subfields/3304</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T12592"
-class="uri">https://openalex.org/T12592</a> , <a
-href="https://openalex.org/subfields/3109"
-class="uri">https://openalex.org/subfields/3109</a> , <a
-href="https://openalex.org/fields/31"
-class="uri">https://openalex.org/fields/31</a> , <a
-href="https://openalex.org/domains/3"
-class="uri">https://openalex.org/domains/3</a> , <a
-href="https://openalex.org/T10652"
-class="uri">https://openalex.org/T10652</a> , <a
-href="https://openalex.org/subfields/3312"
-class="uri">https://openalex.org/subfields/3312</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10208"
-class="uri">https://openalex.org/T10208</a> , <a
-href="https://openalex.org/subfields/2002"
-class="uri">https://openalex.org/subfields/2002</a> , <a
-href="https://openalex.org/fields/20"
-class="uri">https://openalex.org/fields/20</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T11076"
-class="uri">https://openalex.org/T11076</a> , <a
-href="https://openalex.org/subfields/3320"
-class="uri">https://openalex.org/subfields/3320</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T10064"
-class="uri">https://openalex.org/T10064</a> , <a
-href="https://openalex.org/subfields/3109"
-class="uri">https://openalex.org/subfields/3109</a> , <a
-href="https://openalex.org/fields/31"
-class="uri">https://openalex.org/fields/31</a> , <a
-href="https://openalex.org/domains/3"
-class="uri">https://openalex.org/domains/3</a> , <a
-href="https://openalex.org/T10182"
-class="uri">https://openalex.org/T10182</a> , <a
-href="https://openalex.org/subfields/3203"
-class="uri">https://openalex.org/subfields/3203</a> , <a
-href="https://openalex.org/fields/32"
-class="uri">https://openalex.org/fields/32</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T13532"
-class="uri">https://openalex.org/T13532</a> , <a
-href="https://openalex.org/subfields/3304"
-class="uri">https://openalex.org/subfields/3304</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
-class="uri">https://openalex.org/domains/2</a> , <a
-href="https://openalex.org/T11895"
-class="uri">https://openalex.org/T11895</a> , <a
-href="https://openalex.org/subfields/3312"
-class="uri">https://openalex.org/subfields/3312</a> , <a
-href="https://openalex.org/fields/33"
-class="uri">https://openalex.org/fields/33</a> , <a
-href="https://openalex.org/domains/2"
 class="uri">https://openalex.org/domains/2</a> , Social Capital and
 Networks , Sociology and Political Science , Social Sciences , Social
 Sciences , Urban, Neighborhood, and Segregation Studies , Sociology and
-Political Science , Social Sciences , Social Sciences , Electoral
-Systems and Political Participation , Political Science and
-International Relations , Social Sciences , Social Sciences , Social and
+Political Science , Social Sciences , Social Sciences , Social and
 Intergroup Psychology , Sociology and Political Science , Social
+Sciences , Social Sciences , Electoral Systems and Political
+Participation , Political Science and International Relations , Social
 Sciences , Social Sciences , Intergenerational and Educational
-Inequality Studies , Sociology and Political Science , Social Sciences ,
-Social Sciences , Migration and Labor Dynamics , Sociology and Political
-Science , Social Sciences , Social Sciences , Migration, Refugees, and
-Integration , Sociology and Political Science , Social Sciences , Social
-Sciences , Health disparities and outcomes , Health , Social Sciences ,
-Social Sciences , Social Media and Politics , Communication , Social
-Sciences , Social Sciences , Dutch Social and Cultural Studies ,
-Education , Social Sciences , Social Sciences , Crime Patterns and
-Interventions , Sociology and Political Science , Social Sciences ,
-Social Sciences , Migration, Health and Trauma , Clinical Psychology ,
-Psychology , Social Sciences , Diversity and Career in Medicine , Gender
-Studies , Social Sciences , Social Sciences , Populism, Right-Wing
-Movements , Political Science and International Relations , Social
-Sciences , Social Sciences , Social Policy and Reform Studies ,
-Political Science and International Relations , Social Sciences , Social
-Sciences , Education in Diverse Contexts , Education , Social Sciences ,
-Social Sciences , School Choice and Performance , Education , Social
-Sciences , Social Sciences , Opinion Dynamics and Social Influence ,
-Statistical and Nonlinear Physics , Physics and Astronomy , Physical
-Sciences , Racial and Ethnic Identity Research , Sociology and Political
-Science , Social Sciences , Social Sciences , Labor market dynamics and
-wage inequality , Economics and Econometrics , Economics, Econometrics
-and Finance , Social Sciences , Policing Practices and Perceptions ,
-Political Science and International Relations , Social Sciences , Social
-Sciences , Complex Network Analysis Techniques , Statistical and
-Nonlinear Physics , Physics and Astronomy , Physical Sciences , Child
-and Adolescent Psychosocial and Emotional Development, Clinical
-Psychology , Psychology , Social Sciences , Education Systems and Policy
-, Education , Social Sciences , Social Sciences , Social and Cultural
-Dynamics , Sociology and Political Science , Social Sciences , Social
-Sciences , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain , topic , subfield , field
-, domain , topic , subfield , field , domain
+Inequality Studies, Sociology and Political Science , Social Sciences ,
+Social Sciences , topic , subfield , field , domain , topic , subfield ,
+field , domain , topic , subfield , field , domain , topic , subfield ,
+field , domain , topic , subfield , field , domain
 </td>
 <td style="text-align:left;">
 <a href="https://api.openalex.org/works?filter=author.id:A5087380803"
 class="uri">https://api.openalex.org/works?filter=author.id:A5087380803</a>
 </td>
 </tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://openalex.org/A2038712691"
+class="uri">https://openalex.org/A2038712691</a>
+</td>
+<td style="text-align:left;">
+Jochem Tolsma
+</td>
+<td style="text-align:left;">
+Jochem Tolsma
+</td>
+<td style="text-align:right;">
+96.61
+</td>
+<td style="text-align:left;">
+<a href="https://openalex.org/A2038712691"
+class="uri">https://openalex.org/A2038712691</a> , <a
+href="https://orcid.org/0000-0002-4411-6932"
+class="uri">https://orcid.org/0000-0002-4411-6932</a>
+</td>
+<td style="text-align:left;">
+<a href="https://orcid.org/0000-0002-4411-6932"
+class="uri">https://orcid.org/0000-0002-4411-6932</a>
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1 , 1 , 1 , 1 , 2 , 2 , 2 , 2 , 3 , 3 , 3 , 3 , 4 , 4 , 4 , 4 , 5 , 5 ,
+5 , 5 , 2 , 2 , 2 , 2 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 ,
+1 , 1 , 1 , 1 , <a href="https://openalex.org/T12088"
+class="uri">https://openalex.org/T12088</a> , <a
+href="https://openalex.org/subfields/3312"
+class="uri">https://openalex.org/subfields/3312</a> , <a
+href="https://openalex.org/fields/33"
+class="uri">https://openalex.org/fields/33</a> , <a
+href="https://openalex.org/domains/2"
+class="uri">https://openalex.org/domains/2</a> , <a
+href="https://openalex.org/T13769"
+class="uri">https://openalex.org/T13769</a> , <a
+href="https://openalex.org/subfields/3109"
+class="uri">https://openalex.org/subfields/3109</a> , <a
+href="https://openalex.org/fields/31"
+class="uri">https://openalex.org/fields/31</a> , <a
+href="https://openalex.org/domains/3"
+class="uri">https://openalex.org/domains/3</a> , <a
+href="https://openalex.org/T10314"
+class="uri">https://openalex.org/T10314</a> , <a
+href="https://openalex.org/subfields/3312"
+class="uri">https://openalex.org/subfields/3312</a> , <a
+href="https://openalex.org/fields/33"
+class="uri">https://openalex.org/fields/33</a> , <a
+href="https://openalex.org/domains/2"
+class="uri">https://openalex.org/domains/2</a> , <a
+href="https://openalex.org/T14118"
+class="uri">https://openalex.org/T14118</a> , <a
+href="https://openalex.org/subfields/3600"
+class="uri">https://openalex.org/subfields/3600</a> , <a
+href="https://openalex.org/fields/36"
+class="uri">https://openalex.org/fields/36</a> , <a
+href="https://openalex.org/domains/4"
+class="uri">https://openalex.org/domains/4</a> , <a
+href="https://openalex.org/T11454"
+class="uri">https://openalex.org/T11454</a> , <a
+href="https://openalex.org/subfields/3207"
+class="uri">https://openalex.org/subfields/3207</a> , <a
+href="https://openalex.org/fields/32"
+class="uri">https://openalex.org/fields/32</a> , <a
+href="https://openalex.org/domains/2"
+class="uri">https://openalex.org/domains/2</a> , Intergenerational and
+Educational Inequality Studies, Sociology and Political Science , Social
+Sciences , Social Sciences , Fusion and Plasma Physics Studies ,
+Statistical and Nonlinear Physics , Physics and Astronomy , Physical
+Sciences , Social and Intergroup Psychology , Sociology and Political
+Science , Social Sciences , Social Sciences , Social and Demographic
+Issues in Germany , General Health Professions , Health Professions ,
+Health Sciences , Cultural Differences and Values , Social Psychology ,
+Psychology , Social Sciences , topic , subfield , field , domain , topic
+, subfield , field , domain , topic , subfield , field , domain , topic
+, subfield , field , domain , topic , subfield , field , domain
+</td>
+<td style="text-align:left;">
+<a href="https://api.openalex.org/works?filter=author.id:A2038712691"
+class="uri">https://api.openalex.org/works?filter=author.id:A2038712691</a>
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+<a href="https://openalex.org/A5050882020"
+class="uri">https://openalex.org/A5050882020</a>
+</td>
+<td style="text-align:left;">
+J. Tolsma
+</td>
+<td style="text-align:left;">
+J. Tolsma , J. (Jochem) Tolsma
+</td>
+<td style="text-align:right;">
+69.58
+</td>
+<td style="text-align:left;">
+<a href="https://openalex.org/A5050882020"
+class="uri">https://openalex.org/A5050882020</a>
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+2008, 1, 0, 0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:left;">
+</td>
+<td style="text-align:left;">
+1 , 1 , 1 , 1 , 1 , 1 , 1 , 1 , <a href="https://openalex.org/T11168"
+class="uri">https://openalex.org/T11168</a> , <a
+href="https://openalex.org/subfields/3303"
+class="uri">https://openalex.org/subfields/3303</a>, <a
+href="https://openalex.org/fields/33"
+class="uri">https://openalex.org/fields/33</a> , <a
+href="https://openalex.org/domains/2"
+class="uri">https://openalex.org/domains/2</a> , International
+Development and Aid , Development , Social Sciences , Social Sciences ,
+topic , subfield , field , domain
+</td>
+<td style="text-align:left;">
+<a href="https://api.openalex.org/works?filter=author.id:A5050882020"
+class="uri">https://api.openalex.org/works?filter=author.id:A5050882020</a>
+</td>
+</tr>
 </tbody>
 </table>
 </div>
-<pre class="r"><code>df_papers &lt;- oa_fetch(entity = &quot;works&quot;, author.id = df$id)
+<pre class="r"><code>#df_papers &lt;- oa_fetch(entity = &quot;works&quot;, author.id = df$id,)
 
-df_names &lt;- fload(&#39;/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda&#39;)
-view (df)</code></pre>
+df_names &lt;- fload(&#39;/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda&#39;)</code></pre>
 <hr />
 </div>
 <div id="creating-mock-variables" class="section level1" number="3">
@@ -24677,7 +24686,7 @@ glimpse(socpol_json, max.level = 1)</code></pre>
 <hr />
 </div>
 
-<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAzIgojYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJCcmFtIEtvZXdlaWRlbiIKLS0tCgotLS0KdGl0bGU6ICJXZWJzY3JhcGluZyIKYXV0aG9yOiAiQnJhbSIKZGF0ZTogIjIwMjUtMDktMTkiCm91dHB1dDogaHRtbF9kb2N1bWVudAotLS0KCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBMb2FkaW5nIHBhY2thZ2VzIGFuZCBjdXN0b20gZnVuY3Rpb25zCgpgYGB7cn0Kcm0obGlzdCA9IGxzKCkpCgpmcGFja2FnZS5jaGVjayA8LSBmdW5jdGlvbihwYWNrYWdlcykgewogICAgbGFwcGx5KHBhY2thZ2VzLCBGVU4gPSBmdW5jdGlvbih4KSB7CiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsKICAgICAgICAgICAgaW5zdGFsbC5wYWNrYWdlcyh4LCBkZXBlbmRlbmNpZXMgPSBUUlVFKQogICAgICAgICAgICBsaWJyYXJ5KHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkKICAgICAgICB9CiAgICB9KQp9Cgpmc2F2ZSA8LSBmdW5jdGlvbih4LCBmaWxlID0gTlVMTCwgbG9jYXRpb24gPSAiLi9kYXRhL3Byb2Nlc3NlZC8iKSB7CiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEiKSwgZGlyLmNyZWF0ZSgiZGF0YSIpLCBGQUxTRSkKICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpCiAgICBpZiAoaXMubnVsbChmaWxlKSkKICAgICAgICBmaWxlID0gZGVwYXJzZShzdWJzdGl0dXRlKHgpKQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpCiAgICB0b3RhbG5hbWUgPC0gcGFzdGUobG9jYXRpb24sIGRhdGVuYW1lLCBmaWxlLCAiLnJkYSIsIHNlcCA9ICIiKQogICAgc2F2ZSh4LCBmaWxlID0gdG90YWxuYW1lKSAgI25lZWQgdG8gZml4IGlmIGZpbGUgaXMgcmVsb2FkZWQgYXMgaW5wdXQgbmFtZSwgbm90IGFzIHguIAp9CgpmbG9hZCA8LSBmdW5jdGlvbihmaWxlbmFtZSkgewogICAgbG9hZChmaWxlbmFtZSkKICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pCn0KCmZzaG93ZGYgPC0gZnVuY3Rpb24oeCwgLi4uKSB7CiAgICBrbml0cjo6a2FibGUoeCwgZGlnaXRzID0gMiwgImh0bWwiLCAuLi4pICU+JQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQogICAgICAgIGthYmxlRXh0cmE6OnNjcm9sbF9ib3god2lkdGggPSAiMTAwJSIsIGhlaWdodCA9ICIzMDBweCIpCn0KCgojaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikKI2luc3RhbGwucGFja2FnZXMoInNjaG9sYXIiKSAKI2luc3RhbGwucGFja2FnZXMoIm9wZW5hbGV4UiIpCiNpbnN0YWxsLnBhY2thZ2VzKCJydmVzdCIpIAojaW5zdGFsbC5wYWNrYWdlcygianNvbmxpdGUiKQojaW5zdGFsbC5wYWNrYWdlcygia2FibGVFeHRyYSIpCiNpbnN0YWxsLnBhY2thZ2VzICgiaHR0ciIpCiNpbnN0YWxsLnBhY2thZ2VzICgieG1sMiIpIAojaW5zdGFsbC5wYWNrYWdlcyAoInJ2ZXN0IikgCiNpbnN0YWxsLnBhY2thZ2VzICgicmVzaGFwZTIiKSAKCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KHNjaG9sYXIpIApsaWJyYXJ5KG9wZW5hbGV4UikKbGlicmFyeShydmVzdCkgCmxpYnJhcnkoanNvbmxpdGUpCmxpYnJhcnkoa2FibGVFeHRyYSkKbGlicmFyeSAoaHR0cikgCmxpYnJhcnkgKHhtbDIpIApsaWJyYXJ5IChydmVzdCkgCmxpYnJhcnkgKHJlc2hhcGUyKSAKbGlicmFyeShzY2hvbGFyKQpsaWJyYXJ5IChpZHMpCmxpYnJhcnkgKHN0cmluZ3IpCmxpYnJhcnkgKHN0cmluZ2kpCgoKCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIEluIGNsYXNzIHdvcmsKCmBgYHtyfQpvcHRpb25zKG9wZW5hbGV4Ui5tYWlsdG8gPSAiYnJhbS5rb2V3ZWlkZW5AcnUubmwiKSAgI3BsZWFzZSBQbGVhc2UgcmVwbGFjZSB3aXRoIHlvdXIgb3duIGVtYWlsYWRyZXNzCgp1cmwgPC0gImh0dHBzOi8vYXBpLm9wZW5hbGV4Lm9yZy9hdXRob3JzP3NlYXJjaD1Kb2NoZW0gVG9sc21hIgoKIyBiYXNlZCBvbiB3aGF0IHlvdSBoYXZlIGxlYXJuZWQgc28gZmFyLCB5b3Ugd291bGQgcHJvYmFibHkgZmlyc3QgdHJ5OgpqdCA8LSByZWFkX2h0bWwoImh0dHBzOi8vYXBpLm9wZW5hbGV4Lm9yZy9hdXRob3JzP3NlYXJjaD1Kb2NoZW0rVG9sc21hIikgJT4lCiAgICBodG1sX3RleHQyKCkKCnN1YnN0cihqdCwgMSwgMTAwKQoKIyBHb2luZyBkaXJlY3RseSB0byBKU09OIChtb3N0IGluZm9ybWF0aW9uKQoKanRfanNvbiA8LSBmcm9tSlNPTigiaHR0cHM6Ly9hcGkub3BlbmFsZXgub3JnL2F1dGhvcnM/c2VhcmNoPUpvY2hlbStUb2xzbWEiLCBzaW1wbGlmeVZlY3RvciA9IEZBTFNFKQpnbGltcHNlKGp0X2pzb24sIG1heC5sZXZlbCA9IDEpCgojRmluZGluZyBhZmZpbGlhdGlvbnMKCmp0X2pzb25bWyJyZXN1bHRzIl1dW1sxXV1bWyJkaXNwbGF5X25hbWUiXV0KanRfanNvbltbInJlc3VsdHMiXV1bWzFdXVtbImFmZmlsaWF0aW9ucyJdXQpqdF9qc29uW1sicmVzdWx0cyJdXVtbMV1dW1sic3VtbWFyeV9zdGF0cyJdXVtbImhfaW5kZXgiXV0KCgojc3RyIG9iamVjdCwgbWF4LmxldmVsCgpzdHIoanRfanNvbiRyZXN1bHRzLCAyKQoKCgoKZGZfanQgPC0ganRfanNvbiAlPiUKICAgIC4kcmVzdWx0cyAlPiUKICAgIC5bWzFdXSAlPiUKICAgIGRpc2NhcmQoaXNfZW1wdHkpCgojIFVzaW5nIG9wZW5hbGV4UiAobGVzcyBpbmZvcm1hdGlvbikKCmRmIDwtIG9hX2ZldGNoKGVudGl0eSA9ICJhdXRob3IiLCBzZWFyY2ggPSAiSm9jaGVtIFRvbHNtYSIpCmZzaG93ZGYoZGYpCgpkZl9wYXBlcnMgPC0gb2FfZmV0Y2goZW50aXR5ID0gIndvcmtzIiwgYXV0aG9yLmlkID0gZGYkaWQpCgpkZl9uYW1lcyA8LSBmbG9hZCgnL1VzZXJzL2JyYW1rb2V3ZWlkZW4vRG9jdW1lbnRzL1NvY2lhbCBOZXR3b3Jrcy9MSl9CcmFtS29ld2VpZGVuL0RhdGEvUHJvY2Vzc2VkLzIwMjMwNjIwZGZfZ2VuZGVyX2p0LnJkYScpCnZpZXcgKGRmKQoKCmBgYAoKCi0tLS0KCiMgQ3JlYXRpbmcgbW9jayB2YXJpYWJsZXMKCmBgYHtyLCBldmFsPSBGQUxTRX0KI0NhbGN1bGF0aW9uIEgtaW5kZXgKCj9kZXNjCmhfaW5kZXggPC0gZGZfcGFwZXJzICU+JQogIGFycmFuZ2UoZGVzYyhjaXRlZF9ieV9jb3VudCkpICU+JSAgICAgICAgICMgc29ydCBwYXBlcnMgYnkgY2l0YXRpb25zCiAgbXV0YXRlKHJhbmsgPSByb3dfbnVtYmVyKCkpICU+JSAgICAgICMgcmFuayA9IHBhcGVyIHBvc2l0aW9uCiAgc3VtbWFyaXNlKGggPSBtYXgocmFua1tjaXRlZF9ieV9jb3VudCA+PSByYW5rXSkpICU+JQogIHB1bGwoaCkKCmhfaW5kZXgKCiNGaWd1cmluZyBvdXQgYXZlcmFnZSB0aWUgc3RyZW5ndGgKCnN0ciAoZGZfcGFwZXJzJGF1dGhvcnNoaXBzW1sxXV1bWyJkaXNwbGF5X25hbWUiXV0pCgo/dW5uZXN0X3dpZGVyCgojIFVubmVzdCB0aGUgZGYncyBpbiBhdXRob3JzaGlwcyByb3cgb2YgZGZfcGFwZXJzIGRhdGFzZXQKCmRmX3BhcGVyczIgPC0gZGZfcGFwZXJzICU+JQogIHVubmVzdF9sb25nZXIgKGF1dGhvcnNoaXBzKSAlPiUKICB1bm5lc3Rfd2lkZXIgKGF1dGhvcnNoaXBzLCBuYW1lc19zZXA9Il8iKQoKc3RyIChkZl9wYXBlcnMyJGF1dGhvcnNoaXBzX2Rpc3BsYXlfbmFtZSkKCiMgTWFraW5nIG5ldyBkZiB3aGljaCBjb3VudHMgY29sbGFib3JhdGlvbnMgd2l0aCBKVAoKY29fYXV0aG9ycyA8LSBkZl9wYXBlcnMyICU+JQpjb3VudChhdXRob3JzaGlwc19kaXNwbGF5X25hbWUpCnZpZXcgKGNvX2F1dGhvcnMpCiNjYWxjdWxhdGlvbiBhdmVyYWdlIHRpZSBzdHJlbmd0aCBub3Qgc3VyZSBob3cgdG8gaW1wbGVtZW50IGl0IGluIG91ciBmaW5hbCBkYXRhc2V0LgoKanRfYXZndGllc3RyIDwtIChzdW0oY29fYXV0aG9ycyRuKS1jb19hdXRob3JzJG5bY29fYXV0aG9ycyRhdXRob3JzaGlwc19kaXNwbGF5X25hbWUgPT0gJ0pvY2hlbSBUb2xzbWEnXSkvKG5yb3coY29fYXV0aG9ycyktMSkKCiMgYXNzeW1ldHJpYyB0aWUgc3RyZW5ndGggYXMgaW4gYXJ0aWNsZQoKanRfYXZndGllc3RyX2EgPC0ganRfYXZndGllc3RyLyhucm93KGRmX3BhcGVycyktMSkKCgoKCj9vcGVuYWxleFIKCiNXcmFwcGVyOiAib3BlbmFsZXhSIiBUaGlzCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIFdlYnNjcmFwaW5nIHR1dG9yaWFsIG5hbWVzCgpgYGB7cn0Kc29jIDwtIHJlYWQuY3N2KCIuL2RhdGEvbmFtZXNfc29jLmNzdiIsIHNlcCA9ICI7IiwgZW5jb2RpbmcgPSAiVVRGLTgiKSAgIyBlbmNvZGluZyB0byBtYWludGFpbiBkaWFjcml0aWNzCnBvbCA8LSByZWFkLmNzdigiLi9kYXRhL25hbWVzX3BvbC5jc3YiLCBzZXAgPSAiOyIsIGVuY29kaW5nID0gIlVURi04IikKCiMgcmVtb3ZpbmcgdGhlICdzcGVjaWFsaXNhdGllJyBjb2x1bW4gZnJvbSB0aGUgcG9saXRpY2FsIHNjaWVuY2UgZGF0YSBmcmFtZSBiZWNhdXNlIGl0IGlzIHBvb3JseQojIGZpbGxlZCBhbmQgZG9lcyBub3QgZXhpc3QgaW4gc29jaW9sb2d5Cgpwb2wgPC0gc3Vic2V0KHBvbCwgc2VsZWN0ID0gLVNwZWNpYWxpc2F0aWUpCgoKIyBtYWtpbmcgdGhlIGNvbHVtbiBuYW1lcyBlYXNpZXIgdG8gY2FsbApjb2xuYW1lcyhwb2wpIDwtIGMoIm5hbWUiLCAidW5pIiwgImVtYWlsIiwgInBvc2l0aW9uIikKY29sbmFtZXMoc29jKSA8LSBjKCJuYW1lIiwgInVuaSIsICJlbWFpbCIsICJwb3NpdGlvbiIpCgoKIyByZW1vdmluZyBlbXB0eSByb3dzCnNvYyA8LSBzb2Nbc29jJG5hbWUgIT0gIiIsIF0KcG9sIDwtIHBvbFtwb2wkbmFtZSAhPSAiIiwgXQoKCgojIGNvbWJpbmluZyB0aGUgdHdvIGRhdGFmcmFtZXMgaW4gb25lLCBidXQgZmlyc3QgYWRkaW5nIGEgZGlzY2lwbGluZSBpZGVudGlmaWVyIGZvciBib3RoCnNvYyRkaXNjaXBsaW5lIDwtIHJlcCgic29jaW9sb2d5IiwgbnJvdyhzb2MpKQpwb2wkZGlzY2lwbGluZSA8LSByZXAoInBvbGl0aWNhbCBzY2llbmNlIiwgbnJvdyhwb2wpKQoKZGYgPC0gcmJpbmQuZGF0YS5mcmFtZShzb2MsIHBvbCkKCgojIHJlbW92aW5nIGRvdWJsZSBzcGFjZXMKZGYkbmFtZSA8LSBnc3ViKCJcXHMrIiwgIiAiLCBkZiRuYW1lKSAgIyAgJ1xccycgaW5kaWNhdGVzIGEgd2hpdGVzcGFjZSwgc28gJ1xccysnIHJlZmVycyB0byAyIG9yIG1vcmUgd2hpdGVzcGFjZXMKZGYkbmFtZSA8LSB0cmltd3MoZGYkbmFtZSkKCgojIGFkZGluZyBhIHllYXIgdmFyaWFibGUgLSBpbiBjYXNlIG11bHRpcGxlIHllYXJzIGFyZSB1c2VkLCB5b3Ugc2hvdWxkIGtlZXAgdHJhY2sgb2YgdGhpcy4KZGYkeWVhciA8LSByZXAoMjAyMiwgbnJvdyhkZikpCgoKIyBzb21lIHBlb3BsZSBoYXZlIGRvdWJsZSBhZmZpbGlhdGlvbnMuIFRoZXNlIGFyZSBzdG9yZWQgYXMgJ3VuaTEvdW5pMicgaW4gdGhlICd1bmknIGNvbHVtbi4gV2Ugbm93CiMgd2FudCB0byBjcmVhdGUgdHdvIHNlcGFyYXRlIHZhcmlhYmxlcyBmb3IgZWFjaCBhZmZpbGlhdGlvbi4KZGYkYWZmaWwxIDwtIGRmJHVuaSAgIyBmaXJzdCB3ZSBjcmVhdGUgYSBuZXcgdmFyaWFibGUgZm9yIHRoZSAxc3QgYWZmaWxpYXRpb24sIHdoaWNoIGlzIGEgY29weSBvZiB0aGUgb3JpZ2luYWwgJ3VuaScgdmFyaWFibGUKZGYkYWZmaWwxIDwtIHN0cl9yZW1vdmUoZGYkYWZmaWwxLCAiXFwvLiokIikgICMgcmVtb3ZlIHRoZSAybmQgYWZmaWxpYXRpb24gZnJvbSB0aGUgY29sdW1uIG9mIHRoZSBmaXJzdCBhZmZpbGlhdGlvbgoKZGYkYWZmaWwyIDwtIHN0cl9yZW1vdmUoZGYkdW5pLCAiXi4qXFwvIikgICMgZXh0cmFjdCBldmVyeXRoaW5nIGFmdGVyICcvJyB0byBnZXQgdGhlIDJuZCBhZmZpbGlhdGlvbgpkZiRhZmZpbDIgPC0gc3RyX3JlbW92ZShkZiRhZmZpbDIsIGRmJGFmZmlsMSkKCgojIHRyYW5zbGF0aW5nIHRoZSBwb3NpdGlvbnMgdG8gRW5nbGlzaCAtIHNpbmNlIHRoZSBwb3NpdGlvbiBzdHJpbmcgaXMgZnJlZSBmb3JtLCB3ZSBoYXZlIHRvIGV4dHJhY3QKIyB0aGUgcmVsZXZhbnQgaW5mbyBmcm9tIHRoZXJlLiAgd2Ugc3RhcnQgYnkgdGhlIG1vc3Qgc2VuaW9yIHBvc2l0aW9ucywgYmVjYXVzZSBzb21lIHBlb3BsZSBsaXN0CiMgbXVsdGlwbGUgYW5kIHdlIG9ubHkgd2FudCB0byBleHRyYWN0IHRoZSBtb3N0IHNlbmlvciByZXNlYXJjaCBwb3NpdGlvbiB0aGV5IG9jY3VweQpkZiRwb3NpdGlvbiA8LSB0b2xvd2VyKGRmJHBvc2l0aW9uKQpkZiRwb3NpdGlvbiA8LSBpZmVsc2UoYXMubnVtZXJpYyhzdHJfZGV0ZWN0KGRmJHBvc2l0aW9uLCAiaG9vZ2xlcmFhciIpKSA9PSAxLCAiZnVsbF9wcm9mIiwgZGYkcG9zaXRpb24pCmRmJHBvc2l0aW9uIDwtIGlmZWxzZShhcy5udW1lcmljKHN0cl9kZXRlY3QoZGYkcG9zaXRpb24sICJob29mZGRvY2VudCIpKSA9PSAxLCAiYXNzb2NpYXRlX3Byb2YiLCBkZiRwb3NpdGlvbikKZGYkcG9zaXRpb24gPC0gaWZlbHNlKGFzLm51bWVyaWMoc3RyX2RldGVjdChkZiRwb3NpdGlvbiwgInVuaXZlcnNpdGFpciBkb2NlbnQiKSkgPT0gMSwgImFzc2lzdGFudF9wcm9mIiwKICAgIGRmJHBvc2l0aW9uKQpkZiRwb3NpdGlvbiA8LSBpZmVsc2UoYXMubnVtZXJpYyhzdHJfZGV0ZWN0KGRmJHBvc2l0aW9uLCAicG9zdGRvYyIpKSA9PSAxLCAicG9zdGRvYyIsIGRmJHBvc2l0aW9uKQpkZiRwb3NpdGlvbiA8LSBpZmVsc2UoYXMubnVtZXJpYyhzdHJfZGV0ZWN0KGRmJHBvc2l0aW9uLCAiKHBoZCl8KGRvY3RvcmFsKXwocHJvbW92ZW5kdXMpIikpID09IDEsICJwaGQiLAogICAgZGYkcG9zaXRpb24pCgojIGFsbCBvdGhlciBwb3NpdGlvbnMgYXJlIHNldCB0byBvdGhlciAtIHdlIGRvIHRoaXMgYmVjYXVzZSB0aGUgcG9zaXRpb24gZm9ybSBvbiB0aGUgd2Vic2l0ZSBpcyBhCiMgZnJlZSB0ZXh0IGZvcm0sIHNvIHRoZSBlbnRyaWVzIGhlcmUgYXJlIG5vdCBzdGFuZGFyZGl6ZWQuICBub24tcmVzZWFyY2ggcG9zaXRpb25zIGFyZSBub3QgcmVhbGx5CiMgcmVsZXZhbnQgZm9yIHRoaXMgYW5hbHlzaXMsIGJlY2F1c2UgdGhlc2UgcGVvcGxlIGRvIG5vdCBsaWtlbHkgaGF2ZSB2ZXJ5IG1hbnkgY28tYXV0aG9ycy4KZGYkcG9zaXRpb24gPC0gaWZlbHNlKCFkZiRwb3NpdGlvbiAlaW4lIGMoImZ1bGxfcHJvZiIsICJhc3NvY2lhdGVfcHJvZiIsICJhc3Npc3RhbnRfcHJvZiIsICJwb3N0ZG9jIiwKICAgICJwaGQiKSwgIm90aGVyIiwgZGYkcG9zaXRpb24pCgpmc2hvd2RmKGRmKQoKI2dpdmluZyB1bmlxdWUgaWRlbnRpZmllciB0byBhbGwgc2Nob2xhcnMKc2V0LnNlZWQoMjgwNikKCmRmJGlkIDwtIGlkczo6cmFuZG9tX2lkKG4gPSBucm93KGRmKSwgYnl0ZXMgPSAzLCB1c2Vfb3BlbnNzbCA9IEZBTFNFKQoKaGVhZChkZiRpZCkKCj9zdHJpbmdpCgojIGxpc3Qgb2Ygbm9uYmlsaWFyeSBwYXJ0aWNsZXMKYygidmFuIGRlbiIsICJ2YW4gZGVyIiwgInZhbiBkZSIsICJ2YW5kZW4iLCAidmFuZGUiLCAidmFuICd0IiwgIm9wIGRlIiwgImRlIGxhIiwgImRlbiIsICJ2YW4iLCAiZGUiLAogICAgInRlbiIsICJ0ZXIiLCAiZWwiLCAibGEiLCAiZGkiKQoKIyBTb21lIG5hbWVzIGhhdmUgbm9iaWxpYXJ5IHBhcnRpY2xlcyAoZS5nLiAnRGEgQ29zdGEnIG9yICdEdSBCb2lzJykuIEVzcGVjaWFsbHkgaW4gRHV0Y2ggbmFtZXMsCiMgdGhleSBhcmUgdmVyeSBjb21tb24uIFdlIGV4dHJhY3QgdGhlc2UgaW4gYSBzZXBhcmF0ZSBvYmplY3QKbnAgPC0gYygiKFZ8dilhbiAoRHxkKWVyIiwgIihWfHYpYW4gKER8ZCllbiIsICIoVnx2KWFuIChEfGQpZSIsICIoVnx2KWFuZGUobik/IiwgIihWfHYpYW4gJyhUfHQpIiwgIihWfHYpYW4nKFR8dCkiLAogICAgIihWfHYpYW4gKEh8aClldCIsICIoVnx2KW9uIChEfGQpZXIiLCAiKE98bylwIChEfGQpZW4/IiwgIihPfG8pcCAndCIsICIoT3xvKWYgdGVuIiwgIihBfGEpYW4gZGUobik/IiwKICAgICIoRHxkKWUgKEx8bClhIiwgIihJfGkpbiAoSHxoKWV0IiwgIihJfGkpbiAnKFR8dCkiLCAiKEl8aSluJyhUfHQpIiwgIihJfGkpbiAoVHx0KSIsICIoSXxpKW4gKER8ZCllciIsCiAgICAiKEJ8YilpaiAoRHxkKWUiKQoKbnAyIDwtIGMoIlxccyhMfGwpYVxccyIsICJcXHMoT3xvKXBcXHMiLCAiXFxzKFZ8dilhblxccyIsICJcXHMoVnx2KW9uXFxzIiwgIlxccyhEfGQpZW5cXHMiLCAiXFxzKER8ZCllclxccyIsCiAgICAiXFxzKER8ZCllbFxccyIsICJcXHMoRHxkKShlfGF8dXxpKVxccyIsICJcXHMoRHxkKW9zP1xccyIsICJcXHMoVHx0KWVyXFxzIiwgIlxccyhUfHQpZW5cXHMiLCAiXFxzKFR8dCllXFxzIiwKICAgICJcXHMnKFR8dClcXHMiLCAiXFxzKEx8bCllXFxzIiwgIlxccyhFfEEpbC0iLCAiXFxzWyhBfGEpKEV8ZSldKEx8bCknP1xccyIsICJcXHMoRHxkKSciLCAiXFxzenVcXHMiLAogICAgIlxccyhafHopdXJcXHMiLCAiXFxzKFl8eSlcXHMiLCAiXFxzKEV8ZSlcXHMiKQoKCiMgRmlyc3Qgd2UgZXh0cmFjdCB0aGUgbm9iaWxpYXJ5IHBhcnRpY2xlcyBjb25zaXN0aW5nIG9mIG11bHRpcGxlIHdvcmRzCmRmJG5wIDwtIHN0cl9leHRyYWN0KGRmJG5hbWUsIHBhc3RlMChucCwgY29sbGFwc2UgPSAifCIpKQpkZiRucCA8LSBpZmVsc2UoaXMubmEoZGYkbnApLCBzdHJfZXh0cmFjdChkZiRuYW1lLCBwYXN0ZTAobnAyLCBjb2xsYXBzZSA9ICJ8IikpLCBkZiRucCkgICNvbmx5IGV4dHJhY3QgdGhlIHNpbmdsZS13b3JkIE5QIGlmIGl0IGlzIG5vdCBmaWxsZWQgeWV0CgojIGxhc3RuYW1lOiBldmVyeXRoaW5nIGFmdGVyIG5vYmlsaWFyeSBwYXJ0aWNsZQpkZiRsYXN0bmFtZSA8LSBpZmVsc2UoIWlzLm5hKGRmJG5wKSwgc3RyX3JlbW92ZShkZiRuYW1lLCBwYXN0ZTAoIl4uKiIsIGRmJG5wKSksIHdvcmQoZGYkbmFtZSwgLTEpKQoKCiMgc29tZSBjbGVhbmluZzogbWFrZSB0aGUgc3RyaW5nIGxvd2VyY2FzZSBhbmQgcmVtb3ZlIGV4dHJhIHdoaXRlc3BhY2VzCmRmJG5wIDwtIHRvbG93ZXIodHJpbXdzKGRmJG5wLCB3aGljaCA9ICJib3RoIikpCmRmJG5wIDwtIGlmZWxzZShpcy5uYShkZiRucCksICIiLCBkZiRucCkKCmRmJGxhc3RuYW1lIDwtIHRvbG93ZXIodHJpbXdzKGRmJGxhc3RuYW1lLCB3aGljaCA9ICJib3RoIikpCmRmJGxhc3RuYW1lIDwtIHN0cmlfdHJhbnNfZ2VuZXJhbChkZiRsYXN0bmFtZSwgaWQgPSAibGF0aW4tYXNjaWkiKSAgI3JlbW92ZSBkaWFjcml0aWNzCgpkZiRsYXN0bmFtZSA8LSBzdHJfZXh0cmFjdChkZiRsYXN0bmFtZSwgIls6bG93ZXI6XSsiKSAgIyBpZiBtdWx0aXBsZSBsYXN0IG5hbWVzIGFmdGVyIHRoZSBub2JpbGlhcnkgcGFydGljbGUsIHdlIHRha2UgdGhlIGZpcnN0IG9uZQoKZGYkZmlyc3RuYW1lIDwtIHN0cl9yZW1vdmUoZGYkbmFtZSwgIlxccy4qJCIpICMgcmVtb3ZlIGV2ZXJ5dGhpbmcgZnJvbSB0aGUgbmFtZSBvYmplY3QgYWZ0ZXIgdGhlIGZpcnN0IHdoaXRlc3BhY2UKCgojIEkgZmlyc3QgZGV0ZWN0IHRoZSBpbml0aWFscyBieSB1c2luZyBhIGdlbmVyYWwgcGF0dGVybiAtIHNvbWUgcmVndWxhciBleHByZXNzaW9uIG1hZ2ljIGlmIHlvdSB3aWxsLiAKIyB5b3UgY2FuIHVwZGF0ZSB0aGlzIHRvIG1hdGNoIHdoYXQgeW91IGZpbmQgaW4geW91ciBvd24gZGF0YQppbml0aWFscGF0dGVybiA8LSBwYXN0ZShjKCJeKFs6dXBwZXI6XVxcLikrWzp1cHBlcjpdJCIsICAgICAgICMgTGFzdCBpbml0aWFsIGRvZXMgbm90IGhhdmUgYSBmdWxsIHN0b3AgYXQgdGhlIGVuZCAoZS5nLiBBLkEuQSkKICAgICAgICAgICAgICAgICAgICAgICAgICAiKFs6dXBwZXI6XVxcLispKyIsICAgICAgICAgICAgICAgICAjIEFsbCBpbml0aWFscyBoYXZlIGZ1bGwgc3RvcHMgYXQgdGhlIGVuZCAoZS5nLiBBLkEuQS4pCiAgICAgICAgICAgICAgICAgICAgICAgICAgIl5cXHM/Wzp1cHBlcjpdKyQiKSwgICAgICAgICAgICAgICAgIyBFbnRpcmUgc3RyaW5nIGNvbnNpc3RzIG9mIGNhcGl0YWwgbGV0dGVycwogICAgICAgICAgICAgICAgICAgICAgICBjb2xsYXBzZSA9ICJ8IikKCmRmJGluaSA8LSBzdHJfZXh0cmFjdChkZiRmaXJzdG5hbWUsIHBhc3RlMChpbml0aWFscGF0dGVybikpICMgd2UgZXh0cmFjdCB0aGUgaW5pdGlhbHMgZnJvbSBmb3JtYXQgd2UgZGVmaW5lZCwgYW5kIHNhdmUgdGhlbSBpbiBhIGRpZmZlcmVudCBvYmplY3QKZGYkZmlyc3RuYW1lIDwtIGlmZWxzZSghaXMubmEoZGYkaW5pKSwgc3RyX3JlbW92ZShkZiRmaXJzdG5hbWUsIGRmJGluaSksIGRmJGZpcnN0bmFtZSkgIyBleHRyYWN0IGluaXRpYWxzIGZyb20gZmlyc3QgbmFtZSBvYmplY3Qgd2hlbiBwcmVzZW50LCBzbyB0aGF0IHRoZSBmaXJzdCBuYW1lIG9iamVjdCByZWFsbHkgb25seSBjb250YWlucyBmaXJzdCBuYW1lcyAKZGYkaW5pIDwtIGlmZWxzZShpcy5uYShkZiRpbmkpLCAiIiwgZGYkaW5pKSAjIHNldCBpbml0aWFscyBvYmplY3QgdG8gZW1wdHkgaWYgdGhlcmUgYXJlIG5vIGluaXRpYWxzCgoKIyBzb21lIGNsZWFuaW5nOiBtYWtlIHRoZSBmaXJzdCBuYW1lIGxvd2VyY2FzZQpkZiRmaXJzdG5hbWUgPC0gdG9sb3dlcihkZiRmaXJzdG5hbWUpCmRmJGZpcnN0bmFtZSA8LSBzdHJpX3RyYW5zX2dlbmVyYWwoZGYkZmlyc3RuYW1lLCBpZD0ibGF0aW4tYXNjaWkiKSAjcmVtb3ZlIGRpYWNyaXRpY3MKCmRmX25hbWVzIDwtIGRmCmZzYXZlKGRmX25hbWVzKQoKYGBgCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMgV2Vic2NyYXBpbmcgcHVibGljYXRpb25zCgoKCmBgYHtyfQoKCiNwbGF5aW5nIGFyb3VuZCB3aXRoIG9wZW5hbGV4IGFuZCBjcmVhdGluZyBhIGRhdGFzZXQgd2l0aCBkYXRhIGFib3V0IGFsbCByZXNlYXJjaCBmcm9tIHNvY2lvbG9neSBhbmQgcG9saXRpY2FsIHNjaWVuY2UgaW4gdGhlIG5ldGhlcmxhbmRzLgoKP29wZW5hbGV4Ujo6b2FfcXVlcnkKCm9wZW5hbGV4Ujo6b2FfcXVlcnkoZmlsdGVyPSdDb3VudHJ5PU5ldGhlcmxhbmRzJywgJ1N1YmZpZWxkPVNvY2lvbG9neSBhbmQgUG9saXRpY2FsIFNjaWVuY2UnICkKCnNvY3BvbF9qc29uIDwtIGZyb21KU09OKCJodHRwczovL2FwaS5vcGVuYWxleC5vcmcvd29ya3M/ZmlsdGVyPWF1dGhvcnNoaXBzLmNvdW50cmllczpjb3VudHJpZXMvbmwscHJpbWFyeV90b3BpYy5zdWJmaWVsZC5pZDpzdWJmaWVsZHMvMzMxMiZwYWdlPTEiLCBzaW1wbGlmeVZlY3RvciA9IEZBTFNFKQpnbGltcHNlKHNvY3BvbF9qc29uLCBtYXgubGV2ZWwgPSAxKQoKCgpgYGAKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoK</div>
+<div id="rmd-source-code">LS0tCnRpdGxlOiAiV2VlayAzIgojYmlibGlvZ3JhcGh5OiByZWZlcmVuY2VzLmJpYgphdXRob3I6ICJCcmFtIEtvZXdlaWRlbiIKLS0tCgoKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBMb2FkaW5nIHBhY2thZ2VzIGFuZCBjdXN0b20gZnVuY3Rpb25zCgpgYGB7cn0Kcm0obGlzdCA9IGxzKCkpCgpmcGFja2FnZS5jaGVjayA8LSBmdW5jdGlvbihwYWNrYWdlcykgewogICAgbGFwcGx5KHBhY2thZ2VzLCBGVU4gPSBmdW5jdGlvbih4KSB7CiAgICAgICAgaWYgKCFyZXF1aXJlKHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkpIHsKICAgICAgICAgICAgaW5zdGFsbC5wYWNrYWdlcyh4LCBkZXBlbmRlbmNpZXMgPSBUUlVFKQogICAgICAgICAgICBsaWJyYXJ5KHgsIGNoYXJhY3Rlci5vbmx5ID0gVFJVRSkKICAgICAgICB9CiAgICB9KQp9Cgpmc2F2ZSA8LSBmdW5jdGlvbih4LCBmaWxlID0gTlVMTCwgbG9jYXRpb24gPSAiLi9kYXRhL3Byb2Nlc3NlZC8iKSB7CiAgICBpZmVsc2UoIWRpci5leGlzdHMoImRhdGEiKSwgZGlyLmNyZWF0ZSgiZGF0YSIpLCBGQUxTRSkKICAgIGlmZWxzZSghZGlyLmV4aXN0cygiZGF0YS9wcm9jZXNzZWQiKSwgZGlyLmNyZWF0ZSgiZGF0YS9wcm9jZXNzZWQiKSwgRkFMU0UpCiAgICBpZiAoaXMubnVsbChmaWxlKSkKICAgICAgICBmaWxlID0gZGVwYXJzZShzdWJzdGl0dXRlKHgpKQogICAgZGF0ZW5hbWUgPC0gc3Vic3RyKGdzdWIoIls6LV0iLCAiIiwgU3lzLnRpbWUoKSksIDEsIDgpCiAgICB0b3RhbG5hbWUgPC0gcGFzdGUobG9jYXRpb24sIGRhdGVuYW1lLCBmaWxlLCAiLnJkYSIsIHNlcCA9ICIiKQogICAgc2F2ZSh4LCBmaWxlID0gdG90YWxuYW1lKSAgI25lZWQgdG8gZml4IGlmIGZpbGUgaXMgcmVsb2FkZWQgYXMgaW5wdXQgbmFtZSwgbm90IGFzIHguIAp9CgpmbG9hZCA8LSBmdW5jdGlvbihmaWxlbmFtZSkgewogICAgbG9hZChmaWxlbmFtZSkKICAgIGdldChscygpW2xzKCkgIT0gImZpbGVuYW1lIl0pCn0KCmZzaG93ZGYgPC0gZnVuY3Rpb24oeCwgLi4uKSB7CiAgICBrbml0cjo6a2FibGUoeCwgZGlnaXRzID0gMiwgImh0bWwiLCAuLi4pICU+JQogICAgICAgIGthYmxlRXh0cmE6OmthYmxlX3N0eWxpbmcoYm9vdHN0cmFwX29wdGlvbnMgPSBjKCJzdHJpcGVkIiwgImhvdmVyIikpICU+JQogICAgICAgIGthYmxlRXh0cmE6OnNjcm9sbF9ib3god2lkdGggPSAiMTAwJSIsIGhlaWdodCA9ICIzMDBweCIpCn0KCgojaW5zdGFsbC5wYWNrYWdlcygidGlkeXZlcnNlIikKI2luc3RhbGwucGFja2FnZXMoInNjaG9sYXIiKSAKI2luc3RhbGwucGFja2FnZXMoIm9wZW5hbGV4UiIpCiNpbnN0YWxsLnBhY2thZ2VzKCJydmVzdCIpIAojaW5zdGFsbC5wYWNrYWdlcygianNvbmxpdGUiKQojaW5zdGFsbC5wYWNrYWdlcygia2FibGVFeHRyYSIpCiNpbnN0YWxsLnBhY2thZ2VzICgiaHR0ciIpCiNpbnN0YWxsLnBhY2thZ2VzICgieG1sMiIpIAojaW5zdGFsbC5wYWNrYWdlcyAoInJ2ZXN0IikgCiNpbnN0YWxsLnBhY2thZ2VzICgicmVzaGFwZTIiKSAKCmxpYnJhcnkodGlkeXZlcnNlKQpsaWJyYXJ5KHNjaG9sYXIpIApsaWJyYXJ5KG9wZW5hbGV4UikKbGlicmFyeShydmVzdCkgCmxpYnJhcnkoanNvbmxpdGUpCmxpYnJhcnkoa2FibGVFeHRyYSkKbGlicmFyeSAoaHR0cikgCmxpYnJhcnkgKHhtbDIpIApsaWJyYXJ5IChydmVzdCkgCmxpYnJhcnkgKHJlc2hhcGUyKSAKbGlicmFyeShzY2hvbGFyKQpsaWJyYXJ5IChpZHMpCmxpYnJhcnkgKHN0cmluZ3IpCmxpYnJhcnkgKHN0cmluZ2kpCgoKCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgojIEluIGNsYXNzIHdvcmsKCmBgYHtyfQpvcHRpb25zKG9wZW5hbGV4Ui5tYWlsdG8gPSAiYnJhbS5rb2V3ZWlkZW5AcnUubmwiKSAgI3BsZWFzZSBQbGVhc2UgcmVwbGFjZSB3aXRoIHlvdXIgb3duIGVtYWlsYWRyZXNzCgp1cmwgPC0gImh0dHBzOi8vYXBpLm9wZW5hbGV4Lm9yZy9hdXRob3JzP3NlYXJjaD1Kb2NoZW0gVG9sc21hIgoKIyBiYXNlZCBvbiB3aGF0IHlvdSBoYXZlIGxlYXJuZWQgc28gZmFyLCB5b3Ugd291bGQgcHJvYmFibHkgZmlyc3QgdHJ5OgpqdCA8LSByZWFkX2h0bWwoImh0dHBzOi8vYXBpLm9wZW5hbGV4Lm9yZy9hdXRob3JzP3NlYXJjaD1Kb2NoZW0rVG9sc21hIikgJT4lCiAgICBodG1sX3RleHQyKCkKCnN1YnN0cihqdCwgMSwgMTAwKQoKIyBHb2luZyBkaXJlY3RseSB0byBKU09OIChtb3N0IGluZm9ybWF0aW9uKQoKanRfanNvbiA8LSBmcm9tSlNPTigiaHR0cHM6Ly9hcGkub3BlbmFsZXgub3JnL2F1dGhvcnM/c2VhcmNoPUpvY2hlbStUb2xzbWEiLCBzaW1wbGlmeVZlY3RvciA9IEZBTFNFKQpnbGltcHNlKGp0X2pzb24sIG1heC5sZXZlbCA9IDEpCgojRmluZGluZyBhZmZpbGlhdGlvbnMKCmp0X2pzb25bWyJyZXN1bHRzIl1dW1sxXV1bWyJkaXNwbGF5X25hbWUiXV0KanRfanNvbltbInJlc3VsdHMiXV1bWzFdXVtbImFmZmlsaWF0aW9ucyJdXQpqdF9qc29uW1sicmVzdWx0cyJdXVtbMV1dW1sic3VtbWFyeV9zdGF0cyJdXVtbImhfaW5kZXgiXV0KCgojc3RyIG9iamVjdCwgbWF4LmxldmVsCgpzdHIoanRfanNvbiRyZXN1bHRzLCAyKQoKCgoKZGZfanQgPC0ganRfanNvbiAlPiUKICAgIC4kcmVzdWx0cyAlPiUKICAgIC5bWzFdXSAlPiUKICAgIGRpc2NhcmQoaXNfZW1wdHkpCgojIFVzaW5nIG9wZW5hbGV4UiAobGVzcyBpbmZvcm1hdGlvbikKCmRmIDwtIG9hX2ZldGNoKGVudGl0eSA9ICJhdXRob3IiLCBzZWFyY2ggPSAiSm9jaGVtIFRvbHNtYSIpCmZzaG93ZGYoZGYpCgojZGZfcGFwZXJzIDwtIG9hX2ZldGNoKGVudGl0eSA9ICJ3b3JrcyIsIGF1dGhvci5pZCA9IGRmJGlkLCkKCmRmX25hbWVzIDwtIGZsb2FkKCcvVXNlcnMvYnJhbWtvZXdlaWRlbi9Eb2N1bWVudHMvU29jaWFsIE5ldHdvcmtzL0xKX0JyYW1Lb2V3ZWlkZW4vRGF0YS9Qcm9jZXNzZWQvMjAyMzA2MjBkZl9nZW5kZXJfanQucmRhJykKCgoKYGBgCgoKLS0tLQoKIyBDcmVhdGluZyBtb2NrIHZhcmlhYmxlcwoKYGBge3IsIGV2YWw9IEZBTFNFfQojQ2FsY3VsYXRpb24gSC1pbmRleAoKP2Rlc2MKaF9pbmRleCA8LSBkZl9wYXBlcnMgJT4lCiAgYXJyYW5nZShkZXNjKGNpdGVkX2J5X2NvdW50KSkgJT4lICAgICAgICAgIyBzb3J0IHBhcGVycyBieSBjaXRhdGlvbnMKICBtdXRhdGUocmFuayA9IHJvd19udW1iZXIoKSkgJT4lICAgICAgIyByYW5rID0gcGFwZXIgcG9zaXRpb24KICBzdW1tYXJpc2UoaCA9IG1heChyYW5rW2NpdGVkX2J5X2NvdW50ID49IHJhbmtdKSkgJT4lCiAgcHVsbChoKQoKaF9pbmRleAoKI0ZpZ3VyaW5nIG91dCBhdmVyYWdlIHRpZSBzdHJlbmd0aAoKc3RyIChkZl9wYXBlcnMkYXV0aG9yc2hpcHNbWzFdXVtbImRpc3BsYXlfbmFtZSJdXSkKCj91bm5lc3Rfd2lkZXIKCiMgVW5uZXN0IHRoZSBkZidzIGluIGF1dGhvcnNoaXBzIHJvdyBvZiBkZl9wYXBlcnMgZGF0YXNldAoKZGZfcGFwZXJzMiA8LSBkZl9wYXBlcnMgJT4lCiAgdW5uZXN0X2xvbmdlciAoYXV0aG9yc2hpcHMpICU+JQogIHVubmVzdF93aWRlciAoYXV0aG9yc2hpcHMsIG5hbWVzX3NlcD0iXyIpCgpzdHIgKGRmX3BhcGVyczIkYXV0aG9yc2hpcHNfZGlzcGxheV9uYW1lKQoKIyBNYWtpbmcgbmV3IGRmIHdoaWNoIGNvdW50cyBjb2xsYWJvcmF0aW9ucyB3aXRoIEpUCgpjb19hdXRob3JzIDwtIGRmX3BhcGVyczIgJT4lCmNvdW50KGF1dGhvcnNoaXBzX2Rpc3BsYXlfbmFtZSkKdmlldyAoY29fYXV0aG9ycykKI2NhbGN1bGF0aW9uIGF2ZXJhZ2UgdGllIHN0cmVuZ3RoIG5vdCBzdXJlIGhvdyB0byBpbXBsZW1lbnQgaXQgaW4gb3VyIGZpbmFsIGRhdGFzZXQuCgpqdF9hdmd0aWVzdHIgPC0gKHN1bShjb19hdXRob3JzJG4pLWNvX2F1dGhvcnMkbltjb19hdXRob3JzJGF1dGhvcnNoaXBzX2Rpc3BsYXlfbmFtZSA9PSAnSm9jaGVtIFRvbHNtYSddKS8obnJvdyhjb19hdXRob3JzKS0xKQoKIyBhc3N5bWV0cmljIHRpZSBzdHJlbmd0aCBhcyBpbiBhcnRpY2xlCgpqdF9hdmd0aWVzdHJfYSA8LSBqdF9hdmd0aWVzdHIvKG5yb3coZGZfcGFwZXJzKS0xKQoKCgoKP29wZW5hbGV4UgoKI1dyYXBwZXI6ICJvcGVuYWxleFIiIFRoaXMKYGBgCgotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCiMgV2Vic2NyYXBpbmcgdHV0b3JpYWwgbmFtZXMKCmBgYHtyfQpzb2MgPC0gcmVhZC5jc3YoIi4vZGF0YS9uYW1lc19zb2MuY3N2Iiwgc2VwID0gIjsiLCBlbmNvZGluZyA9ICJVVEYtOCIpICAjIGVuY29kaW5nIHRvIG1haW50YWluIGRpYWNyaXRpY3MKcG9sIDwtIHJlYWQuY3N2KCIuL2RhdGEvbmFtZXNfcG9sLmNzdiIsIHNlcCA9ICI7IiwgZW5jb2RpbmcgPSAiVVRGLTgiKQoKIyByZW1vdmluZyB0aGUgJ3NwZWNpYWxpc2F0aWUnIGNvbHVtbiBmcm9tIHRoZSBwb2xpdGljYWwgc2NpZW5jZSBkYXRhIGZyYW1lIGJlY2F1c2UgaXQgaXMgcG9vcmx5CiMgZmlsbGVkIGFuZCBkb2VzIG5vdCBleGlzdCBpbiBzb2Npb2xvZ3kKCnBvbCA8LSBzdWJzZXQocG9sLCBzZWxlY3QgPSAtU3BlY2lhbGlzYXRpZSkKCgojIG1ha2luZyB0aGUgY29sdW1uIG5hbWVzIGVhc2llciB0byBjYWxsCmNvbG5hbWVzKHBvbCkgPC0gYygibmFtZSIsICJ1bmkiLCAiZW1haWwiLCAicG9zaXRpb24iKQpjb2xuYW1lcyhzb2MpIDwtIGMoIm5hbWUiLCAidW5pIiwgImVtYWlsIiwgInBvc2l0aW9uIikKCgojIHJlbW92aW5nIGVtcHR5IHJvd3MKc29jIDwtIHNvY1tzb2MkbmFtZSAhPSAiIiwgXQpwb2wgPC0gcG9sW3BvbCRuYW1lICE9ICIiLCBdCgoKCiMgY29tYmluaW5nIHRoZSB0d28gZGF0YWZyYW1lcyBpbiBvbmUsIGJ1dCBmaXJzdCBhZGRpbmcgYSBkaXNjaXBsaW5lIGlkZW50aWZpZXIgZm9yIGJvdGgKc29jJGRpc2NpcGxpbmUgPC0gcmVwKCJzb2Npb2xvZ3kiLCBucm93KHNvYykpCnBvbCRkaXNjaXBsaW5lIDwtIHJlcCgicG9saXRpY2FsIHNjaWVuY2UiLCBucm93KHBvbCkpCgpkZiA8LSByYmluZC5kYXRhLmZyYW1lKHNvYywgcG9sKQoKCiMgcmVtb3ZpbmcgZG91YmxlIHNwYWNlcwpkZiRuYW1lIDwtIGdzdWIoIlxccysiLCAiICIsIGRmJG5hbWUpICAjICAnXFxzJyBpbmRpY2F0ZXMgYSB3aGl0ZXNwYWNlLCBzbyAnXFxzKycgcmVmZXJzIHRvIDIgb3IgbW9yZSB3aGl0ZXNwYWNlcwpkZiRuYW1lIDwtIHRyaW13cyhkZiRuYW1lKQoKCiMgYWRkaW5nIGEgeWVhciB2YXJpYWJsZSAtIGluIGNhc2UgbXVsdGlwbGUgeWVhcnMgYXJlIHVzZWQsIHlvdSBzaG91bGQga2VlcCB0cmFjayBvZiB0aGlzLgpkZiR5ZWFyIDwtIHJlcCgyMDIyLCBucm93KGRmKSkKCgojIHNvbWUgcGVvcGxlIGhhdmUgZG91YmxlIGFmZmlsaWF0aW9ucy4gVGhlc2UgYXJlIHN0b3JlZCBhcyAndW5pMS91bmkyJyBpbiB0aGUgJ3VuaScgY29sdW1uLiBXZSBub3cKIyB3YW50IHRvIGNyZWF0ZSB0d28gc2VwYXJhdGUgdmFyaWFibGVzIGZvciBlYWNoIGFmZmlsaWF0aW9uLgpkZiRhZmZpbDEgPC0gZGYkdW5pICAjIGZpcnN0IHdlIGNyZWF0ZSBhIG5ldyB2YXJpYWJsZSBmb3IgdGhlIDFzdCBhZmZpbGlhdGlvbiwgd2hpY2ggaXMgYSBjb3B5IG9mIHRoZSBvcmlnaW5hbCAndW5pJyB2YXJpYWJsZQpkZiRhZmZpbDEgPC0gc3RyX3JlbW92ZShkZiRhZmZpbDEsICJcXC8uKiQiKSAgIyByZW1vdmUgdGhlIDJuZCBhZmZpbGlhdGlvbiBmcm9tIHRoZSBjb2x1bW4gb2YgdGhlIGZpcnN0IGFmZmlsaWF0aW9uCgpkZiRhZmZpbDIgPC0gc3RyX3JlbW92ZShkZiR1bmksICJeLipcXC8iKSAgIyBleHRyYWN0IGV2ZXJ5dGhpbmcgYWZ0ZXIgJy8nIHRvIGdldCB0aGUgMm5kIGFmZmlsaWF0aW9uCmRmJGFmZmlsMiA8LSBzdHJfcmVtb3ZlKGRmJGFmZmlsMiwgZGYkYWZmaWwxKQoKCiMgdHJhbnNsYXRpbmcgdGhlIHBvc2l0aW9ucyB0byBFbmdsaXNoIC0gc2luY2UgdGhlIHBvc2l0aW9uIHN0cmluZyBpcyBmcmVlIGZvcm0sIHdlIGhhdmUgdG8gZXh0cmFjdAojIHRoZSByZWxldmFudCBpbmZvIGZyb20gdGhlcmUuICB3ZSBzdGFydCBieSB0aGUgbW9zdCBzZW5pb3IgcG9zaXRpb25zLCBiZWNhdXNlIHNvbWUgcGVvcGxlIGxpc3QKIyBtdWx0aXBsZSBhbmQgd2Ugb25seSB3YW50IHRvIGV4dHJhY3QgdGhlIG1vc3Qgc2VuaW9yIHJlc2VhcmNoIHBvc2l0aW9uIHRoZXkgb2NjdXB5CmRmJHBvc2l0aW9uIDwtIHRvbG93ZXIoZGYkcG9zaXRpb24pCmRmJHBvc2l0aW9uIDwtIGlmZWxzZShhcy5udW1lcmljKHN0cl9kZXRlY3QoZGYkcG9zaXRpb24sICJob29nbGVyYWFyIikpID09IDEsICJmdWxsX3Byb2YiLCBkZiRwb3NpdGlvbikKZGYkcG9zaXRpb24gPC0gaWZlbHNlKGFzLm51bWVyaWMoc3RyX2RldGVjdChkZiRwb3NpdGlvbiwgImhvb2ZkZG9jZW50IikpID09IDEsICJhc3NvY2lhdGVfcHJvZiIsIGRmJHBvc2l0aW9uKQpkZiRwb3NpdGlvbiA8LSBpZmVsc2UoYXMubnVtZXJpYyhzdHJfZGV0ZWN0KGRmJHBvc2l0aW9uLCAidW5pdmVyc2l0YWlyIGRvY2VudCIpKSA9PSAxLCAiYXNzaXN0YW50X3Byb2YiLAogICAgZGYkcG9zaXRpb24pCmRmJHBvc2l0aW9uIDwtIGlmZWxzZShhcy5udW1lcmljKHN0cl9kZXRlY3QoZGYkcG9zaXRpb24sICJwb3N0ZG9jIikpID09IDEsICJwb3N0ZG9jIiwgZGYkcG9zaXRpb24pCmRmJHBvc2l0aW9uIDwtIGlmZWxzZShhcy5udW1lcmljKHN0cl9kZXRlY3QoZGYkcG9zaXRpb24sICIocGhkKXwoZG9jdG9yYWwpfChwcm9tb3ZlbmR1cykiKSkgPT0gMSwgInBoZCIsCiAgICBkZiRwb3NpdGlvbikKCiMgYWxsIG90aGVyIHBvc2l0aW9ucyBhcmUgc2V0IHRvIG90aGVyIC0gd2UgZG8gdGhpcyBiZWNhdXNlIHRoZSBwb3NpdGlvbiBmb3JtIG9uIHRoZSB3ZWJzaXRlIGlzIGEKIyBmcmVlIHRleHQgZm9ybSwgc28gdGhlIGVudHJpZXMgaGVyZSBhcmUgbm90IHN0YW5kYXJkaXplZC4gIG5vbi1yZXNlYXJjaCBwb3NpdGlvbnMgYXJlIG5vdCByZWFsbHkKIyByZWxldmFudCBmb3IgdGhpcyBhbmFseXNpcywgYmVjYXVzZSB0aGVzZSBwZW9wbGUgZG8gbm90IGxpa2VseSBoYXZlIHZlcnkgbWFueSBjby1hdXRob3JzLgpkZiRwb3NpdGlvbiA8LSBpZmVsc2UoIWRmJHBvc2l0aW9uICVpbiUgYygiZnVsbF9wcm9mIiwgImFzc29jaWF0ZV9wcm9mIiwgImFzc2lzdGFudF9wcm9mIiwgInBvc3Rkb2MiLAogICAgInBoZCIpLCAib3RoZXIiLCBkZiRwb3NpdGlvbikKCmZzaG93ZGYoZGYpCgojZ2l2aW5nIHVuaXF1ZSBpZGVudGlmaWVyIHRvIGFsbCBzY2hvbGFycwpzZXQuc2VlZCgyODA2KQoKZGYkaWQgPC0gaWRzOjpyYW5kb21faWQobiA9IG5yb3coZGYpLCBieXRlcyA9IDMsIHVzZV9vcGVuc3NsID0gRkFMU0UpCgpoZWFkKGRmJGlkKQoKP3N0cmluZ2kKCiMgbGlzdCBvZiBub25iaWxpYXJ5IHBhcnRpY2xlcwpjKCJ2YW4gZGVuIiwgInZhbiBkZXIiLCAidmFuIGRlIiwgInZhbmRlbiIsICJ2YW5kZSIsICJ2YW4gJ3QiLCAib3AgZGUiLCAiZGUgbGEiLCAiZGVuIiwgInZhbiIsICJkZSIsCiAgICAidGVuIiwgInRlciIsICJlbCIsICJsYSIsICJkaSIpCgojIFNvbWUgbmFtZXMgaGF2ZSBub2JpbGlhcnkgcGFydGljbGVzIChlLmcuICdEYSBDb3N0YScgb3IgJ0R1IEJvaXMnKS4gRXNwZWNpYWxseSBpbiBEdXRjaCBuYW1lcywKIyB0aGV5IGFyZSB2ZXJ5IGNvbW1vbi4gV2UgZXh0cmFjdCB0aGVzZSBpbiBhIHNlcGFyYXRlIG9iamVjdApucCA8LSBjKCIoVnx2KWFuIChEfGQpZXIiLCAiKFZ8dilhbiAoRHxkKWVuIiwgIihWfHYpYW4gKER8ZCllIiwgIihWfHYpYW5kZShuKT8iLCAiKFZ8dilhbiAnKFR8dCkiLCAiKFZ8dilhbicoVHx0KSIsCiAgICAiKFZ8dilhbiAoSHxoKWV0IiwgIihWfHYpb24gKER8ZCllciIsICIoT3xvKXAgKER8ZCllbj8iLCAiKE98bylwICd0IiwgIihPfG8pZiB0ZW4iLCAiKEF8YSlhbiBkZShuKT8iLAogICAgIihEfGQpZSAoTHxsKWEiLCAiKEl8aSluIChIfGgpZXQiLCAiKEl8aSluICcoVHx0KSIsICIoSXxpKW4nKFR8dCkiLCAiKEl8aSluIChUfHQpIiwgIihJfGkpbiAoRHxkKWVyIiwKICAgICIoQnxiKWlqIChEfGQpZSIpCgpucDIgPC0gYygiXFxzKEx8bClhXFxzIiwgIlxccyhPfG8pcFxccyIsICJcXHMoVnx2KWFuXFxzIiwgIlxccyhWfHYpb25cXHMiLCAiXFxzKER8ZCllblxccyIsICJcXHMoRHxkKWVyXFxzIiwKICAgICJcXHMoRHxkKWVsXFxzIiwgIlxccyhEfGQpKGV8YXx1fGkpXFxzIiwgIlxccyhEfGQpb3M/XFxzIiwgIlxccyhUfHQpZXJcXHMiLCAiXFxzKFR8dCllblxccyIsICJcXHMoVHx0KWVcXHMiLAogICAgIlxccycoVHx0KVxccyIsICJcXHMoTHxsKWVcXHMiLCAiXFxzKEV8QSlsLSIsICJcXHNbKEF8YSkoRXxlKV0oTHxsKSc/XFxzIiwgIlxccyhEfGQpJyIsICJcXHN6dVxccyIsCiAgICAiXFxzKFp8eil1clxccyIsICJcXHMoWXx5KVxccyIsICJcXHMoRXxlKVxccyIpCgoKIyBGaXJzdCB3ZSBleHRyYWN0IHRoZSBub2JpbGlhcnkgcGFydGljbGVzIGNvbnNpc3Rpbmcgb2YgbXVsdGlwbGUgd29yZHMKZGYkbnAgPC0gc3RyX2V4dHJhY3QoZGYkbmFtZSwgcGFzdGUwKG5wLCBjb2xsYXBzZSA9ICJ8IikpCmRmJG5wIDwtIGlmZWxzZShpcy5uYShkZiRucCksIHN0cl9leHRyYWN0KGRmJG5hbWUsIHBhc3RlMChucDIsIGNvbGxhcHNlID0gInwiKSksIGRmJG5wKSAgI29ubHkgZXh0cmFjdCB0aGUgc2luZ2xlLXdvcmQgTlAgaWYgaXQgaXMgbm90IGZpbGxlZCB5ZXQKCiMgbGFzdG5hbWU6IGV2ZXJ5dGhpbmcgYWZ0ZXIgbm9iaWxpYXJ5IHBhcnRpY2xlCmRmJGxhc3RuYW1lIDwtIGlmZWxzZSghaXMubmEoZGYkbnApLCBzdHJfcmVtb3ZlKGRmJG5hbWUsIHBhc3RlMCgiXi4qIiwgZGYkbnApKSwgd29yZChkZiRuYW1lLCAtMSkpCgoKIyBzb21lIGNsZWFuaW5nOiBtYWtlIHRoZSBzdHJpbmcgbG93ZXJjYXNlIGFuZCByZW1vdmUgZXh0cmEgd2hpdGVzcGFjZXMKZGYkbnAgPC0gdG9sb3dlcih0cmltd3MoZGYkbnAsIHdoaWNoID0gImJvdGgiKSkKZGYkbnAgPC0gaWZlbHNlKGlzLm5hKGRmJG5wKSwgIiIsIGRmJG5wKQoKZGYkbGFzdG5hbWUgPC0gdG9sb3dlcih0cmltd3MoZGYkbGFzdG5hbWUsIHdoaWNoID0gImJvdGgiKSkKZGYkbGFzdG5hbWUgPC0gc3RyaV90cmFuc19nZW5lcmFsKGRmJGxhc3RuYW1lLCBpZCA9ICJsYXRpbi1hc2NpaSIpICAjcmVtb3ZlIGRpYWNyaXRpY3MKCmRmJGxhc3RuYW1lIDwtIHN0cl9leHRyYWN0KGRmJGxhc3RuYW1lLCAiWzpsb3dlcjpdKyIpICAjIGlmIG11bHRpcGxlIGxhc3QgbmFtZXMgYWZ0ZXIgdGhlIG5vYmlsaWFyeSBwYXJ0aWNsZSwgd2UgdGFrZSB0aGUgZmlyc3Qgb25lCgpkZiRmaXJzdG5hbWUgPC0gc3RyX3JlbW92ZShkZiRuYW1lLCAiXFxzLiokIikgIyByZW1vdmUgZXZlcnl0aGluZyBmcm9tIHRoZSBuYW1lIG9iamVjdCBhZnRlciB0aGUgZmlyc3Qgd2hpdGVzcGFjZQoKCiMgSSBmaXJzdCBkZXRlY3QgdGhlIGluaXRpYWxzIGJ5IHVzaW5nIGEgZ2VuZXJhbCBwYXR0ZXJuIC0gc29tZSByZWd1bGFyIGV4cHJlc3Npb24gbWFnaWMgaWYgeW91IHdpbGwuIAojIHlvdSBjYW4gdXBkYXRlIHRoaXMgdG8gbWF0Y2ggd2hhdCB5b3UgZmluZCBpbiB5b3VyIG93biBkYXRhCmluaXRpYWxwYXR0ZXJuIDwtIHBhc3RlKGMoIl4oWzp1cHBlcjpdXFwuKStbOnVwcGVyOl0kIiwgICAgICAgIyBMYXN0IGluaXRpYWwgZG9lcyBub3QgaGF2ZSBhIGZ1bGwgc3RvcCBhdCB0aGUgZW5kIChlLmcuIEEuQS5BKQogICAgICAgICAgICAgICAgICAgICAgICAgICIoWzp1cHBlcjpdXFwuKykrIiwgICAgICAgICAgICAgICAgICMgQWxsIGluaXRpYWxzIGhhdmUgZnVsbCBzdG9wcyBhdCB0aGUgZW5kIChlLmcuIEEuQS5BLikKICAgICAgICAgICAgICAgICAgICAgICAgICAiXlxccz9bOnVwcGVyOl0rJCIpLCAgICAgICAgICAgICAgICAjIEVudGlyZSBzdHJpbmcgY29uc2lzdHMgb2YgY2FwaXRhbCBsZXR0ZXJzCiAgICAgICAgICAgICAgICAgICAgICAgIGNvbGxhcHNlID0gInwiKQoKZGYkaW5pIDwtIHN0cl9leHRyYWN0KGRmJGZpcnN0bmFtZSwgcGFzdGUwKGluaXRpYWxwYXR0ZXJuKSkgIyB3ZSBleHRyYWN0IHRoZSBpbml0aWFscyBmcm9tIGZvcm1hdCB3ZSBkZWZpbmVkLCBhbmQgc2F2ZSB0aGVtIGluIGEgZGlmZmVyZW50IG9iamVjdApkZiRmaXJzdG5hbWUgPC0gaWZlbHNlKCFpcy5uYShkZiRpbmkpLCBzdHJfcmVtb3ZlKGRmJGZpcnN0bmFtZSwgZGYkaW5pKSwgZGYkZmlyc3RuYW1lKSAjIGV4dHJhY3QgaW5pdGlhbHMgZnJvbSBmaXJzdCBuYW1lIG9iamVjdCB3aGVuIHByZXNlbnQsIHNvIHRoYXQgdGhlIGZpcnN0IG5hbWUgb2JqZWN0IHJlYWxseSBvbmx5IGNvbnRhaW5zIGZpcnN0IG5hbWVzIApkZiRpbmkgPC0gaWZlbHNlKGlzLm5hKGRmJGluaSksICIiLCBkZiRpbmkpICMgc2V0IGluaXRpYWxzIG9iamVjdCB0byBlbXB0eSBpZiB0aGVyZSBhcmUgbm8gaW5pdGlhbHMKCgojIHNvbWUgY2xlYW5pbmc6IG1ha2UgdGhlIGZpcnN0IG5hbWUgbG93ZXJjYXNlCmRmJGZpcnN0bmFtZSA8LSB0b2xvd2VyKGRmJGZpcnN0bmFtZSkKZGYkZmlyc3RuYW1lIDwtIHN0cmlfdHJhbnNfZ2VuZXJhbChkZiRmaXJzdG5hbWUsIGlkPSJsYXRpbi1hc2NpaSIpICNyZW1vdmUgZGlhY3JpdGljcwoKZGZfbmFtZXMgPC0gZGYKZnNhdmUoZGZfbmFtZXMpCgpgYGAKCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQoKIyBXZWJzY3JhcGluZyBwdWJsaWNhdGlvbnMKCgoKYGBge3J9CgoKI3BsYXlpbmcgYXJvdW5kIHdpdGggb3BlbmFsZXggYW5kIGNyZWF0aW5nIGEgZGF0YXNldCB3aXRoIGRhdGEgYWJvdXQgYWxsIHJlc2VhcmNoIGZyb20gc29jaW9sb2d5IGFuZCBwb2xpdGljYWwgc2NpZW5jZSBpbiB0aGUgbmV0aGVybGFuZHMuCgo/b3BlbmFsZXhSOjpvYV9xdWVyeQoKb3BlbmFsZXhSOjpvYV9xdWVyeShmaWx0ZXI9J0NvdW50cnk9TmV0aGVybGFuZHMnLCAnU3ViZmllbGQ9U29jaW9sb2d5IGFuZCBQb2xpdGljYWwgU2NpZW5jZScgKQoKc29jcG9sX2pzb24gPC0gZnJvbUpTT04oImh0dHBzOi8vYXBpLm9wZW5hbGV4Lm9yZy93b3Jrcz9maWx0ZXI9YXV0aG9yc2hpcHMuY291bnRyaWVzOmNvdW50cmllcy9ubCxwcmltYXJ5X3RvcGljLnN1YmZpZWxkLmlkOnN1YmZpZWxkcy8zMzEyJnBhZ2U9MSIsIHNpbXBsaWZ5VmVjdG9yID0gRkFMU0UpCmdsaW1wc2Uoc29jcG9sX2pzb24sIG1heC5sZXZlbCA9IDEpCgoKCmBgYAoKLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tCgo=</div>
 
 
 </div>

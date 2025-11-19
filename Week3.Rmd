@@ -4,12 +4,7 @@ title: "Week 3"
 author: "Bram Koeweiden"
 ---
 
----
-title: "Webscraping"
-author: "Bram"
-date: "2025-09-19"
-output: html_document
----
+
 
 ------------------------------------------------------------------------
 
@@ -123,10 +118,10 @@ df_jt <- jt_json %>%
 df <- oa_fetch(entity = "author", search = "Jochem Tolsma")
 fshowdf(df)
 
-df_papers <- oa_fetch(entity = "works", author.id = df$id)
+#df_papers <- oa_fetch(entity = "works", author.id = df$id,)
 
 df_names <- fload('/Users/bramkoeweiden/Documents/Social Networks/LJ_BramKoeweiden/Data/Processed/20230620df_gender_jt.rda')
-view (df)
+
 
 
 ```

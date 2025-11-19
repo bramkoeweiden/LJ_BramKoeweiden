@@ -37,7 +37,7 @@ navbar:
       - text: "Introduction research paper"
         href: final_intro.html
       - text: "Theory research paper"
-        href: final_intro.html
+        href: final_theory.html
       - text: "Data & Methods"
         href: data_methods.html
       - text: "Descriptive results"
